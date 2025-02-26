@@ -1,0 +1,46 @@
+.full-width {
+    width: 100%; /* Asegura que ocupe el 100% del ancho de la columna */
+  }
+  
+  ::ng-deep .p-button {
+    color: black !important;
+}
+
+/* Estilos para el diálogo */
+.custom-dialog .p-dialog-content {
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Estilos para las pestañas */
+  .custom-tabs .nav-link {
+    font-weight: 600;
+    color: #495057;
+    border: none;
+    padding: 12px 20px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .custom-tabs .nav-link:hover {
+    background-color: #27445D;
+    color: #c8ced3;
+  }
+  
+  .custom-tabs .nav-link.active {
+    background-color: #27445D;
+    color: white !important;
+    font-weight: 700;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor de las pestañas */
+  .tab-content {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    border-top: 3px solid #27445D;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  

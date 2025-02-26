@@ -1,0 +1,96 @@
+<div class="container-fluid border p-3 shadow-sm">
+   
+        <div class="container-fluid">
+            <div class="table table-bordered table-sm table-hover form-control-sm" style="height: 35vh; overflow-y: auto;">
+                <p-table 
+                [value]="documentacionPedido"
+                styleClass="p-datatable p-datatable-gridlines"
+                [tableStyle]="{ 'width': '100%' }"
+                [scrollable]="true"
+                selectionMode="single"
+                [(selection)]="selectedModulo"
+                dataKey="archivo">
+              
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Observacion</th>
+                    <th>Archivo</th>
+                    <th>Tipo Documento</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Leido Por</th>
+                    <th>Acción</th>  
+                  </tr>
+                </ng-template>
+              
+                <ng-template pTemplate="body" let-modulo>
+                  <tr [pSelectableRow]="modulo">  <!-- CORREGIDO -->
+                    <td>{{ modulo.observacion }}</td>
+                    <td>{{ modulo.archivo }}</td>
+                    <td>{{ modulo.tipoDocumento }}</td>
+                    <td>{{ modulo.usuario }}</td>
+                    <td>{{ modulo.fechaRegistro }}</td>
+                    <td>{{ modulo.leidoPor }}</td>
+                    <td>
+                      <button pButton type="button" icon="pi pi-download" 
+                        class="p-button-rounded p-button-success"
+                        (click)="descargarArchivo(modulo)">
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+              
+              </p-table>
+              
+            
+            
+            </div>
+          </div>
+        
+          
+  </div>
+  <div class="container-fluid mt-3 p-4 border shadow-sm" style="height: 46vh; overflow-y: auto;">
+   
+    <div class="container-fluid">
+        <div class="card">
+            <p-toast></p-toast>
+            <p-fileUpload 
+  #fileUploader
+  name="archivo"
+  mode="advanced"
+  accept=".png,.jpg,.jpeg,.gif,.bmp,.svg,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.dwg"
+  [auto]="false"
+  [customUpload]="true"
+  [maxFileSize]="5000000"
+  (onSelect)="onSelectedFiles($event)"
+  (onRemove)="onRemoveTemplatingFile($event, fileUploader)"
+  (uploadHandler)="onFileUpload($event)">
+  
+  <ng-template pTemplate="empty">
+    <p>Arrastra y suelta archivos aquí o haz clic para seleccionar.</p>
+  </ng-template>
+
+</p-fileUpload>
+
+            
+    </div>
+    
+</div>
+    
+   
+   
+  
+    <!-- Segunda fila -->
+    <div class="row mt-4">
+      <div class="col-11">
+        <p-floatLabel>
+            <input pInputText id="IdObservacion" name="NameObservacion" class="w-100" [(ngModel)]="observacion" />
+            <label for="lblObservacion">Observación</label>
+          </p-floatLabel>
+      </div>
+      <div class="col-1 d-flex align-items-center">
+        <button class="btn btn-danger w-100">Eliminar</button>
+      </div>
+    </div>
+  
+  

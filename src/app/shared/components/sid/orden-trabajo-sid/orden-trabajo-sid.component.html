@@ -1,0 +1,243 @@
+
+
+<div class="container-fluid form-control-sm">
+    <form>
+      <div class="row mb-3">
+        <div class="col-md-2">
+            <p-floatLabel>
+                <input 
+                  pInputText 
+                  id="Id_OT" 
+                  [(ngModel)]="id_OT" 
+                  type="text"
+                  name="OT" 
+                  class="full-width"
+                   />
+                <label for="Id_OTLabel">OT</label>
+              </p-floatLabel>
+        </div>
+        <div class="col-md-2">
+          <p-dropdown 
+          [options]="countries" 
+          [(ngModel)]="selectedCountry" 
+          optionLabel="name" 
+          [filter]="true" 
+          filterBy="name" 
+          name="consecutivo" 
+          placeholder="Pedido"
+         > 
+        </p-dropdown>
+        
+        </div>
+        <div class="col-md-2 d-flex align-items-end justify-content-center">
+            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+                <p-button label="..." severity="secondary" />
+                <p-button icon="pi pi-search" severity="secondary" />
+                <p-button icon="pi pi-user" severity="secondary" />
+            </div>
+        </div>
+        <div class="col-md-2">
+          <p-floatLabel>
+            <input pInputText id="username3" [(ngModel)]="t_ped" name="t_pedName" class="full-width" />
+            <label for="username3">T.Ped</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-3">
+          <p-floatLabel>
+            <input pInputText id="username4" [(ngModel)]="asesor" name="asesor" class="full-width" />
+            <label for="username4">Asesor</label>
+          </p-floatLabel>
+        </div>
+        
+          
+        <div class="col-md-1">
+            <p-button label="TERMINAR" severity="secondary" class="full-width"/>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p-floatLabel>
+            <input pInputText id="campo5" [(ngModel)]="cliente" name="cliente" class="full-width"/>
+            <label for="campo5">Cliente</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-6">
+          <p-floatLabel>
+            <input pInputText id="campo6" [(ngModel)]="obra" name="obra" class="full-width"/>
+            <label for="campo6">Obra</label>
+          </p-floatLabel>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <p-floatLabel>
+            <input pInputText id="username1" [(ngModel)]="direccion" name="Direccion" class="full-width"/>
+            <label for="username1">Direccion</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-3">
+          <p-floatLabel>
+            <input pInputText id="username7" [(ngModel)]="departameto" name="departameto" class="full-width"/>
+            <label for="username7">Departamento</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-2">
+            <p-floatLabel>
+                <input pInputText id="username1" [(ngModel)]="pais" name="pais" class="full-width"/>
+                <label for="username1">Pais</label>
+              </p-floatLabel>
+            </div>
+        <div class="col-md-2">
+          <p-floatLabel>
+            <input pInputText id="username5" [(ngModel)]="ciudad" name="ciudad" class="full-width"/>
+            <label for="username5">Ciudad</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-2">
+          <p-floatLabel>
+            <input pInputText id="username5" [(ngModel)]="telefono" name="telefono" class="full-width"/>
+            <label for="username5">Tel</label>
+          </p-floatLabel>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-5">
+          <p-floatLabel>
+            <input pInputText id="username1" [(ngModel)]="Contacto" name="Contacto" class="full-width"/>
+            <label for="username1">Contacto</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-5">
+          <p-floatLabel>
+            <input pInputText id="username2" [(ngModel)]="Mail" name="Mail" class="full-width"/>
+            <label for="username2">Mail</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-md-2">
+            <p-floatLabel>
+              <input pInputText id="username2" [(ngModel)]="Plano" name="Plano" class="full-width"/>
+              <label for="username2">Plano</label>
+            </p-floatLabel>
+          </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+            <p-floatLabel>
+              <input pInputText id="username2" [(ngModel)]="Dibuja" name="Dibuja" class="full-width"/>
+              <label for="username2">Dibuja</label>
+            </p-floatLabel>
+          </div>
+          <div class="col-md-6">
+           <h4 class="text-center text-danger">POR</h4>
+          </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card p-4">
+              <p-floatLabel>
+                <textarea 
+                  id="float-input"
+                  rows="18"
+                  cols="120"
+                  pInputTextarea
+                  class="form-control border rounded-3">
+                </textarea>
+                <label for="float-input">Informacion General OT</label>
+              </p-floatLabel>              
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                  <p-floatLabel>
+                    <input pInputText id="username1" [(ngModel)]="venta" name="venta" class="full-width"/>
+                    <label for="username1">Venta</label>
+                  </p-floatLabel>      
+                </div>
+                <div class="col-md-3">
+                  <p-floatLabel>
+                    <input pInputText id="username2" [(ngModel)]="okventa" name="okventa" class="full-width"/>
+                    <label for="username2">Ok.Venta</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-md-3">
+                    <p-floatLabel>
+                      <input pInputText id="username2" [(ngModel)]="okdibujo" name="okdibujo" class="full-width"/>
+                      <label for="username2">Ok.Dobujo</label>
+                    </p-floatLabel>
+                  </div>
+                  <div class="col-md-3">
+              <p-floatLabel>
+                <input pInputText id="username2" [(ngModel)]="okdespacho" name="okdespacho" class="full-width"/>
+                <label for="username2">OK Despacho</label>
+              </p-floatLabel>
+              
+                    </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-3">
+                  <p-floatLabel>
+                    <input pInputText id="username1" [(ngModel)]="okempaquevta" name="okempaquevta" class="full-width"/>
+                    <label for="username1">Empaque Vta</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-md-3">
+                  <p-floatLabel>
+                    <input pInputText id="username2" [(ngModel)]="empaqueprod" name="empaqueprod" class="full-width"/>
+                    <label for="username2">Empaque Prod</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-md-3">
+                    <p-floatLabel>
+                      <input pInputText id="username2" [(ngModel)]="obra" name="Pedido" class="full-width"/>
+                      <label for="username2">Ok.Dobujo</label>
+                    </p-floatLabel>
+                  </div>
+                  <div class="col-md-3">
+              <p-floatLabel>
+                <input pInputText id="username2" [(ngModel)]="obra" name="Pedido" class="full-width"/>
+                <label for="username2">OK Instala</label>
+            </p-floatLabel>
+            </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-9 border">
+                  
+                </div>
+                <div class="col-md-3">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <p-floatLabel>
+                                <input pInputText id="username2" [(ngModel)]="obra" name="Pedido" class="full-width" />
+                                <label for="username2">OK. Fact</label>
+                            </p-floatLabel>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <p-floatLabel>
+                                <input pInputText id="username2" [(ngModel)]="obra" name="Pedido" class="full-width" />
+                                <label for="username2">Ver Cot</label>
+                            </p-floatLabel>
+                        </div>
+                    </div>
+             </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="text-center">Programacion Orden de trabajo</h6>
+        <div class="card"></div>
+      </div>
+ </div>
+        </div>
+      </div>
+      
+
+    </form>
+  </div>

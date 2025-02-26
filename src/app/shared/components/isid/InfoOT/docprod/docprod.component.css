@@ -1,0 +1,51 @@
+
+
+p-table {
+  font-size: 0.9rem;
+
+}
+
+p-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+p-table th {
+  text-align: left;
+  background-color: #49556a;
+  color: #fafafa;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-bottom: 2px solid #ddd;
+}
+
+
+p-table td:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+:host ::ng-deep .p-datatable-table td {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+:host ::ng-deep .p-datatable-table {
+  border-collapse: collapse;
+}
+
+:host ::ng-deep .p-datatable-table th, 
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db; /* Color gris */
+  padding: 8px;
+  width: auto;
+  max-width: 350px; /* Puedes ajustar este valor según el ancho máximo deseado */
+  white-space: nowrap; /* Esto asegura que el texto no se rompa en múltiples líneas */
+  overflow: hidden; /* Oculta el contenido que desborda del ancho máximo */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el texto se recorta */
+  height: 1em;
+}
+
+
+

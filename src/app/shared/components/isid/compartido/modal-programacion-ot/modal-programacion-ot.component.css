@@ -1,0 +1,53 @@
+.full-width {
+    width: 100%; /* Asegura que ocupe el 100% del ancho de la columna */
+  }
+  
+  ::ng-deep .p-dropdown {
+    width: 100%; /* Asegura que ocupe el 100% del ancho de la columna */
+  }
+
+  :host ::ng-deep .p-datatable-table {
+    border-collapse: collapse;
+  }
+  
+  :host ::ng-deep .p-datatable-table th, 
+  :host ::ng-deep .p-datatable-table td {
+    border: 1px solid #d1d5db; /* Color gris */
+    padding: 8px;
+  }
+  
+  p-table {
+    font-size: 0.9rem;
+  
+  }
+  
+  p-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  p-table th {
+    text-align: left;
+    background-color: #49556a;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  p-table th:first-child {
+    border-top-left-radius: 0.5rem;
+  }
+  
+  p-table th:last-child {
+    border-top-right-radius: 0.5rem;
+  }
+  
+  p-table td:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  
+  .fila-total {
+    font-weight: bold;
+    background-color: #f0f0f0; /* Color de fondo opcional */
+}

@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="row" style="height: 50rem; width: 100%;">
+      <!-- Columna de 7 columnas -->
+      <div class="col-md-7 d-flex flex-column p-3">
+        <div class="table-responsive table-sm mb-3 shadow-sm border rounded" style="height: 75vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
+            <p-table 
+          
+            styleClass="p-datatable-gridlines" 
+            [tableStyle]="{ 'padding':'0rem', 'width':'100%' }"
+            [scrollable]="true"
+            selectionMode="single"
+            dataKey="descripcionProceso">
+          
+            <ng-template pTemplate="header">
+              <tr>
+                <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Cod</th>
+                <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Descripcion</th>
+                <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Cant</th>
+                <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Und</th>
+              </tr>
+            </ng-template>
+          
+            <ng-template pTemplate="body" let-modulo>
+              <tr [pSelectableRow]="modulo">
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.descripcionProceso }}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.procesar }}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaFinalProceso }}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.terminada ? 'Sí' : 'No' }}</td>
+              </tr>
+            </ng-template>
+          
+          </p-table>
+            </div>
+            <div class="row align-items-center p-2">
+                <div class="col-md-10 d-flex gap-2">
+                    <p-button label="Simular registro" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                    <p-button label="Equivalencia" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+                    <p-button label="Reg.Pedido" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                </div>
+            </div>
+
+      </div>
+  
+      <!-- Columna de 5 columnas -->
+      <div class="col-md-5 d-flex flex-column p-3 text-white">
+        <div class="card shadow-sm">
+            <div class="card-header">
+              <h6 class="text-center m-0">Equivalencias de códigos</h6>
+            </div>
+            <div class="car-body">
+                <div class="table-responsive table-sm mb-3 rounded" style="height: 63vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
+                    <p-table 
+                    styleClass="p-datatable-gridlines" 
+                    [tableStyle]="{ 'padding':'0rem', 'width':'100%' }"
+                    [scrollable]="true"
+                    selectionMode="single"
+                    dataKey="equivalenciaCodigoOrigen"
+                    [value]="equivalencias">
+                  
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Origen</th>
+                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Destino</th>
+                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Responsable</th>
+                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Fecha</th>
+                      </tr>
+                    </ng-template>
+                  
+                    <ng-template pTemplate="body" let-equivalencia>
+                      <tr>
+                        <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaCodigoOrigen }}</td>
+                        <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaCodigoDestino }}</td>
+                        <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaResponsable }}</td>
+                        <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaFecha }}</td>
+                      </tr>
+                    </ng-template>
+                  
+                  </p-table>
+                  
+                    </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <!-- Contenedor para los inputs, alineados uno al lado del otro -->
+            <div class="col-md-6 d-flex justify-content-center gap-3 mt-5">
+                <p-floatLabel class="w-50">
+                    <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                    <label for="CodOrigen">Cod. Origen</label>
+                </p-floatLabel>
+        
+                <p-floatLabel class="w-50">
+                    <input pInputText id="CodDestino" name="t_pedName" class="w-100 form-control-sm"/>
+                    <label for="CodDestino">Cod. Destino</label>
+                </p-floatLabel>
+            </div>
+        </div>
+        
+        <!-- Nueva fila para los botones -->
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-7 d-flex justify-content-center gap-3 flex-wrap">
+                <p-button  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
+                <p-button  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
+                <p-button  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
+                <p-button  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
+            </div>
+        </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+  

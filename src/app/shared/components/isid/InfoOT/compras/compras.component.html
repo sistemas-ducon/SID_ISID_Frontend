@@ -1,0 +1,128 @@
+<div class="container-fluid mt-3">
+    <!-- 🔹 Fila superior (Dividida en 8 partes, una más amplia) -->
+    <div class="row">
+        <div class="col-md-3 col-6">
+            <p-floatLabel class="w-50">
+                <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="CodOrigen">D.Compras</label>
+            </p-floatLabel>
+        </div>
+        <div class="col-md-2 col-6">
+            <p-floatLabel class="w-50">
+                <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="CodOrigen">Valor</label>
+            </p-floatLabel>
+        </div>
+        <div class="col-md-2 col-6">
+            <p-floatLabel class="w-50">
+                <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="CodOrigen">Cod.Inv</label>
+            </p-floatLabel>
+        </div>
+        <div class="col-md-2 col-6">
+            <p-floatLabel class="w-50">
+                <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="CodOrigen">Pulido y Brillado</label>
+            </p-floatLabel>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="gap-1 flex-wrap form-control-sm">
+                <p-button label="C.Item" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                <p-button label="C.Lote" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                <p-button label="Pr.Compra" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                <p-button label="No Comprar" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Sección Central (Bordeada para la tabla futura) -->
+    <div class="row my-3">
+        <div class="col-12 border p-4">
+            <div class="table-responsive table-sm mb-3" style="height: 60vh; overflow-y: auto;">
+                <p-table 
+                
+                  styleClass="p-datatable-gridlines" 
+                  [tableStyle]="{ 'width': '100%' }"
+                  [scrollable]="true"
+                  selectionMode="single"
+               
+                  dataKey="item">
+                  
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Item</th>
+                      <th>Descripción</th>
+                      <th>Cant CD</th>
+                      <th>Cant SD</th>
+                      <th>Und</th>
+                      <th>V/Und</th>
+                      <th>SubTotal</th>
+                      <th>Inv</th>
+                    </tr>
+                  </ng-template>
+          
+                  <ng-template pTemplate="body" let-modulo>
+                    <tr [pSelectableRow]="modulo">
+                      <td>{{ modulo.item }}</td>
+                      <td>{{ modulo.descripcion }}</td>
+                      <td>{{ modulo.cantidadCD }}</td>
+                      <td>{{ modulo.cantidadSD }}</td>
+                      <td>{{ modulo.unidadMedida }}</td>
+                      <td>{{ modulo.valorUnidad }}</td>
+                      <td>{{ modulo.subTotal }}</td>
+                      <td>{{ modulo.idInventario }}</td>
+                    </tr>
+                  </ng-template>
+          
+                </p-table>
+                </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Fila inferior (Dividida en 7 partes, una más amplia) -->
+    <div class="row">
+        <div class="col-md-4 col-6 d-flex flex-wrap gap-2">
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="DCompras">D.Compras</label>
+            </p-floatLabel>
+            
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
+                <label for="OtroCampo">Otro Campo</label>
+            </p-floatLabel>
+            
+            <p-button label="..." class="btn-sm flex-fill" [rounded]="true" [text]="true" [raised]="true"></p-button>
+        </div>
+        <div class="col-md-3 col-6 d-flex flex-wrap gap-2">
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="DCompras">D.Compras</label>
+            </p-floatLabel>
+            
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
+                <label for="OtroCampo">Otro Campo</label>
+            </p-floatLabel>
+        </div>
+        <div class="col-md-3 col-6 d-flex flex-wrap gap-2">
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
+                <label for="DCompras">D.Compras</label>
+            </p-floatLabel>
+            
+            <p-floatLabel class="flex-fill">
+                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
+                <label for="OtroCampo">Otro Campo</label>
+            </p-floatLabel>
+        </div>
+        
+        <div class="col-md-2 col-6">
+            <div class="gap-1 flex-wrap form-control-sm">
+                <p-button label="Reg.OT" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                <p-button label="Generar OC" class="btn-sm btn" [rounded]="true" [text]="true" [raised]="true"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+

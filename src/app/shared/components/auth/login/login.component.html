@@ -1,0 +1,50 @@
+<section class="vh-100 d-flex align-items-center justify-content-center">
+  <div class="card shadow-lg p-4 glass-effect" style="width: 21rem; border-radius: 1rem;">
+    <div class="text-center">
+      <h1 class="ducon-title">DUCON</h1>
+      <p class="ducon-subtitle">DISEÑOS Y ESPACIOS PRODUCTIVOS</p>
+    </div>
+    
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="row gy-3 gy-md-4 mt-5">
+        <!-- Usuario -->
+     <!-- Usuario -->
+<div class="col-12">
+  <p-inputGroup class="w-100">
+    <p-inputGroupAddon>
+      <i class="pi pi-user"></i>
+    </p-inputGroupAddon>
+    <input pInputText placeholder="Username" formControlName="Usuario" required />
+  </p-inputGroup>
+</div>
+
+<!-- Contraseña (usando p-inputGroup para que coincida el ancho) -->
+<div class="col-12 mt-3">
+  <p-inputGroup class="w-100">
+    <p-inputGroupAddon>
+      <i class="pi pi-lock"></i>
+    </p-inputGroupAddon>
+    <p-password placeholder="Password" [toggleMask]="true" formControlName="Contrasenia"
+      promptLabel="Introduzca la contraseña" weakLabel="No Segura" mediumLabel="Segura" strongLabel="Muy Segura">
+    </p-password>
+  </p-inputGroup>
+</div>
+
+
+      </div>
+
+      <!-- Botón de login -->
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn custom-button" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+      </div>
+    </form>
+
+    <!-- Enlace de recuperación -->
+    <div class="text-center mt-2">
+      <a href="#" class="text-decoration-none text-white">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
+</section>
+
+<p-toast></p-toast>

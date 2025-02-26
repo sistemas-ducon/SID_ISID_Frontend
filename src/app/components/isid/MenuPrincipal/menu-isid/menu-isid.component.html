@@ -1,0 +1,31 @@
+<div class="container-fluid mt-2">
+  <p-menubar [model]="items" class="bg-danger justify-content-between">
+
+    <!-- Logo en el lado izquierdo -->
+    <ng-template pTemplate="start">
+      <img 
+        width="40" 
+        height="40" 
+        src="../../assets/ducon.jpg" 
+        alt="Logo" 
+        class="rounded-circle">
+    </ng-template>
+
+    <!-- Sección de usuario y botón de cerrar sesión -->
+    <ng-template pTemplate="end">
+      <div class="d-flex align-items-center user-container">
+        <button 
+          pButton 
+          type="button" 
+          label="Cerrar Sesión" 
+          icon="pi pi-sign-out" 
+          class="p-button-danger p-button-sm logout-button shadow"
+          (click)="cerrarSesion()">
+        </button>
+      </div>
+    </ng-template>
+
+  </p-menubar>
+</div>
+
+

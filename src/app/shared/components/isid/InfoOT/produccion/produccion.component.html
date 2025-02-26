@@ -1,0 +1,95 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+      <div class="card-header">
+        <h6>Módulos Medidas Finales</h6>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid">
+            <div class="table-responsive table-sm" style="height: 50vh; overflow-y: auto;">
+                <p-table 
+                [value]="modulosMedidasFinales"
+                styleClass="p-datatable p-datatable-gridlines"
+                [tableStyle]="{ 'width': '100%' }"
+                [scrollable]="true"
+                selectionMode="single"
+                [(selection)]="selectedModulo"
+                dataKey="item">
+            
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Item</th>
+                        <th>Descripción</th>
+                        <th>A(Cms)</th>
+                        <th>H(Cms)</th>
+                        <th>Cant</th>
+                        <th>Familia</th>
+                    </tr>
+                </ng-template>
+            
+                <ng-template pTemplate="body" let-modulo>
+                    <tr [pSelectableRow]="modulo">
+                        <td>{{ modulo.item }}</td>
+                        <td>{{ modulo.descripcion }}</td>
+                        <td>{{ modulo.ancho }}</td>
+                        <td>{{ modulo.altura }}</td>
+                        <td>{{ modulo.cant }}</td>
+                        <td>{{ modulo.familia }}</td>
+                    </tr>
+                </ng-template>
+            
+            </p-table>
+            
+            </div>
+          </div>
+          
+      
+      </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+          <h6>Medidas de corte Producción</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive table-sm" style="height: 20vh; overflow-y: auto;">
+          <p-table 
+            [value]="medidasCorteProduccion"
+            styleClass="p-datatable p-datatable-gridlines"
+            [tableStyle]="{ 'width': '100%' }"
+            [scrollable]="true"
+            selectionMode="single"
+            [(selection)]="selectedMedidas"
+            dataKey="itemModulo">
+      
+            
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Módulo</th>
+                <th>Descripción</th>
+                <th>A(Cms)</th>
+                <th>H(Cms)</th>
+                <th>Cant</th>
+                <th>Und</th>
+                <th>Producciónt</th>
+                <th>Cod Inv</th>
+              </tr>
+            </ng-template>
+    
+            <ng-template pTemplate="body" let-modulo>
+                <tr [pSelectableRow]="modulo">
+                <td>{{ modulo.itemModulo }}</td>
+                <td>{{ modulo.descripcion }}</td>
+                <td>{{ modulo.ancho }}</td>
+                <td>{{ modulo.altura }}</td>
+                <td>{{ modulo.cantidad }}</td>
+                <td>{{ modulo.unidaddMedida }}</td>
+                <td>{{ modulo.areaProduccion }}</td>
+                <td>{{ modulo.idInventario }}</td>
+              </tr>
+            </ng-template>
+    
+          </p-table>
+          </div>
+        </div>
+      </div>
+  </div>
+  

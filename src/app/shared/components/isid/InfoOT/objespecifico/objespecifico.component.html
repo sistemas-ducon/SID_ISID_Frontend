@@ -1,0 +1,55 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-fluid">
+            <div class="table-responsive table-sm" style="height: 40vh; overflow-y: auto;">
+                <p-table 
+                [value]="modulosMedidasFinales"
+                styleClass="p-datatable p-datatable-gridlines"
+                [tableStyle]="{ 'width': '100%' }"
+                [scrollable]="true"
+                selectionMode="single"
+                [(selection)]="selectedModulo"
+                dataKey="item">
+            
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Corte</th>
+                        <th>Descripción</th>
+                        <th>Cant</th>
+                        <th>Ok</th>
+                        <th>Und</th>
+                        <th>Producción</th>
+                        <th>A(Cms)</th>
+                        <th>H(Cms)</th>
+                        <th>Cod Inv.</th>
+                    </tr>
+                </ng-template>
+            
+                <ng-template pTemplate="body" let-modulo>
+                    <tr [pSelectableRow]="modulo">
+                        <td>{{ modulo.item }}</td>
+                        <td>{{ modulo.descripcion }}</td>
+                        <td>{{ modulo.ancho }}</td>
+                        <td>{{ modulo.altura }}</td>
+                        <td>{{ modulo.cant }}</td>
+                        <td>{{ modulo.familia }}</td>
+                        <td>{{ modulo.familia }}</td>
+                        <td>{{ modulo.familia }}</td>
+                        <td>{{ modulo.familia }}</td>
+                    </tr>
+                </ng-template>
+            
+            </p-table>
+            
+            </div>
+          </div>
+          
+      
+      </div>
+    </div>
+    <div class="card mt-3 border" style="height: 40vh; overflow-y: auto;">
+       
+      </div>
+  </div>
+  

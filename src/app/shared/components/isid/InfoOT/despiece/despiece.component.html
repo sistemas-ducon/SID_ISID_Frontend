@@ -1,0 +1,45 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+   
+      
+        <div class="table-responsive table-sm mb-3" style="height: 81.5vh; overflow-y: auto;">
+        <p-table 
+          [value]="insumosPlano"
+          styleClass="p-datatable-gridlines" 
+          [tableStyle]="{ 'width': '100%' }"
+          [scrollable]="true"
+          selectionMode="single"
+          [(selection)]="selectedInsumo"
+          dataKey="item">
+          
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>Id Objeto</th>
+              <th>Descripcion</th>
+              <th>Ancho</th>
+              <th>Altura</th>
+              <th>Cant</th>
+              <th>Prof</th>
+              <th>Grupo</th>
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-modulo>
+            <tr [pSelectableRow]="modulo">
+              <td>{{ modulo.item }}</td>
+              <td>{{ modulo.descripcion }}</td>
+              <td>{{ modulo.cantidadCD }}</td>
+              <td>{{ modulo.cantidadSD }}</td>
+              <td>{{ modulo.unidadMedida }}</td>
+              <td>{{ modulo.valorUnidad }}</td>
+              <td>{{ modulo.subTotal }}</td>
+              <td>{{ modulo.idInventario }}</td>
+            </tr>
+          </ng-template>
+  
+        </p-table>
+        </div>
+      </div>
+    </div>
+ 

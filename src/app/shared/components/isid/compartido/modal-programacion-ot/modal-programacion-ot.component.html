@@ -1,0 +1,180 @@
+<p-dialog 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [closable]="true" 
+  [dismissableMask]="true" 
+  [style]="{width: '95vw'}" 
+  class="custom-dialog"
+  (onHide)="closeModal()">
+
+  <form>
+    <div class="container-fluid">
+   <!-- Primera Fila -->
+<div class="row mt-4">
+    <!-- Checkboxes -->
+    <div class="col-md-2 col-sm-6 d-flex align-items-center">
+        <p-checkbox 
+            [(ngModel)]="pizza"
+            label="Ver Pendientes por Terminar" 
+            name="pizza" 
+            value="Cheese">
+        </p-checkbox>
+    </div>
+
+    <div class="col-md-2 col-sm-6 d-flex align-items-center">
+        <p-checkbox 
+            [(ngModel)]="pizza"
+            label="Todas las Programadas"
+            name="pizza" 
+            value="Mushroom">
+        </p-checkbox>
+    </div>
+
+    <!-- Input 1 -->
+    <div class="col-md-4 col-sm-6">
+        <div class="flex justify-content-center">
+            <p-floatLabel>
+                <input id="username1" type="text" class="full-width" pInputText />
+                <label for="username1">Buscardor 1</label>
+            </p-floatLabel>
+        </div>
+    </div>
+
+    <!-- Input 2 -->
+    <div class="col-md-4 col-sm-6">
+        <div class="flex justify-content-center">
+            <p-floatLabel>
+                <input id="username2" type="text" class="full-width" pInputText />
+                <label for="username2">Buscador 2</label>
+            </p-floatLabel>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-10 col-sm-6 d-flex align-items-center">
+        <div class="col-12 d-flex align-items-center gap-2">
+            <label for="obra" class="fw-semibold">Proceso</label>
+            <p-dropdown 
+                [options]="countries" 
+                [(ngModel)]="selectedCountry" 
+                optionLabel="name" 
+                [ngModelOptions]="{standalone: true}"
+                [filter]="true" filterBy="name" [showClear]="true"
+                placeholder="Señor usuario por favor seleccione el Proceso a consultar"
+                class="w-100">
+                
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="d-flex align-items-center">
+                        <div>{{ selectedOption.name }}</div>
+                    </div>
+                </ng-template>
+            
+                <ng-template let-country pTemplate="item">
+                    <div class="d-flex align-items-center">
+                        <span>{{ country.name }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            
+        </div>
+     
+    </div>
+
+    <div class="col-md-1 col-sm-6 d-flex align-items-center">
+        <p-button label="Consultar" [rounded]="true" [text]="true" [raised]="true" (click)="consultar()"></p-button>
+                          
+    </div>
+    <div class="col-md-1 col-sm-6 d-flex align-items-center">
+       
+                            <p-button [rounded]="true" [text]="true" [raised]="true">
+                                <i class="bi bi-printer-fill text-dark"></i>
+                            </p-button>
+    </div>
+</div>
+
+      <!-- Segunda Fila -->
+      <div class="row mt-3">
+        <div class="col-12">
+       <div class="card">
+            <div class="card-header">
+              <h5 class="text-center m-0">PROGRAMACIÓN</h5>
+            </div>
+            <div class="car-body">
+                <div class="table-responsive table-sm mb-3 border rounded" style="height: 50vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
+                    <p-table 
+                    [value]="procesos"
+                    styleClass="p-datatable-gridlines" 
+                    [tableStyle]="{ 'min-width': '50rem','height':'15rem', 'padding':'0rem', 'width':'100%' }"
+                    [scrollable]="true"
+                    selectionMode="single"
+                    [(selection)]="selectedItem"
+                    dataKey="ot">
+                    
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th pResizableColumn>Tur</th>
+                        <th pResizableColumn>OT</th>
+                        <th pResizableColumn>P</th>
+                        <th pResizableColumn>Destino - OBRA</th>
+                        <th pResizableColumn>F. Inicio</th>
+                        <th pResizableColumn>F. Final</th>
+                        <th pResizableColumn>Ok</th>
+                        <th pResizableColumn>Operario</th>
+                        <th pResizableColumn>T. Pedido</th>
+                        <th pResizableColumn>Días</th>
+                        <th pResizableColumn>Procesar</th>
+                        <th pResizableColumn>Cant</th>
+                        <th pResizableColumn>Responsable</th>
+                        <th pResizableColumn>Imp</th>
+                        <th pResizableColumn>Impresa Por</th>
+                        <th pResizableColumn>Fecha Imp.</th>
+                        <th pResizableColumn>Terminada por</th>
+                        <th pResizableColumn>Fecha Ok</th>
+                        <th pResizableColumn>Ini</th>
+                        <th pResizableColumn>F.R.Ini.</th>
+                      </tr>
+                    </ng-template>
+                  
+                    <ng-template pTemplate="body" let-modulo>
+                        <tr [pSelectableRow]="modulo" [ngClass]="{'fila-total': modulo.procesar?.startsWith('TOTAL')}" (dblclick)="seleccionarOTyPedido(modulo)">
+                          <td>{{ modulo.turno }}</td>
+                          <td [ngStyle]="{'background-color': modulo.prioritario ? 'yellow' : 'transparent'}">{{ modulo.ot }}</td>
+                          <td>{{ modulo.pedido }}</td>
+                          <td>{{ modulo.nombreObra }}</td>
+                          <td [ngStyle]="{ 'background-color': getBackgroundColor(modulo, 'inicio') }">
+                            {{ modulo.fechaInicioProceso }}
+                          </td>
+                          
+                          <td [ngStyle]="{ 'background-color': getBackgroundColor(modulo, 'final') }">
+                            {{ modulo.fechaFinalProceso }}
+                          </td>                          
+                          <td>{{ modulo.procesar?.startsWith('TOTAL') ? '' : (modulo.terminada ? 'Sí' : 'No') }}</td>
+                          <td>{{ modulo.operario }}</td>
+                          <td>{{ modulo.descripcionTipoPedido }}</td>
+                          <td>{{ modulo.dias }}</td>
+                          <td>{{ modulo.procesar }}</td>
+                          <td>{{ modulo.cantidad }}</td>
+                          <td>{{ modulo.responsable }}</td>
+                          <td>{{ modulo.procesar?.startsWith('TOTAL') ? '' : (modulo.impresa ? 'Sí' : 'No') }}</td>
+                          <td>{{ modulo.impresaPor }}</td>
+                          <td>{{ modulo.fechaImpresionReporte }}</td>
+                          <td>{{ modulo.terminadaPor }}</td>
+                          <td>{{ modulo.fechaRealFinalProceso }}</td>
+                          <td>{{ modulo.procesar?.startsWith('TOTAL') ? '' : (modulo.iniciado ? 'Sí' : 'No') }}</td>
+                          <td>{{ modulo.fechaRealInicio }}</td>
+                        </tr>
+                      </ng-template>
+                      
+                  
+                  </p-table>
+                  
+                    </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</p-dialog>

@@ -20,13 +20,15 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+          "assets": [
+  "src/favicon.ico",
+  "src/assets"
+]
+,
             "styles": [
+  "node_modules/primeng/resources/themes/saga-blue/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -83,12 +85,11 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+           "assets": [
+  "src/favicon.ico",
+  "src/assets"
+]
+,
             "styles": [
               "src/styles.css"
             ],
@@ -97,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
