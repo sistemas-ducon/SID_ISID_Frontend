@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MENU_SID_ROUTES } from '../components/sid/MenuPrincipal/menuSid.routes';
-import { DASHBOARD_ROUTES } from '../shared/components/isid/InfoOT/dashboard.routes';
+import { DASHBOARD_ROUTES } from '../components/isid/InfoOT/dashboard.routes';
 
 export const SID_ROUTES: Routes = [
   { path: '', redirectTo: 'menu-sid', pathMatch: 'full' },

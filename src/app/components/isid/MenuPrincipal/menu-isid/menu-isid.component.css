@@ -8,7 +8,7 @@
     display: flex;  /* Asegura que el navbar use flexbox */
     justify-content: space-between; /* Espacia los elementos */
     align-items: center; /* Alinea verticalmente */
-    background: linear-gradient(135deg, #ffffff, #183953);
+    background: radial-gradient(circle, #9ca4aa 5%, #bdc5cb 50%, #ffffff 100%);
     color: white !important;
     
 }

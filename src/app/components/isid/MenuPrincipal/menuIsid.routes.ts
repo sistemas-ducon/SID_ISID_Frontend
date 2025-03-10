@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from '../../../shared/components/isid/InfoOT/dashboard/dashboard.component';
-import { InfoOTComponent } from '../../../shared/components/isid/InfoOT/info-ot/info-ot.component';
+import { DashboardComponent } from '../InfoOT/dashboard/dashboard.component';
+import { InfoOTComponent } from '../InfoOT/info-ot/info-ot.component';
+import { DashboardFrmPrincipalComponent } from '../frmPrincipal/dashboard-frm-principal/dashboard-frm-principal.component';
+import { OrdenDeTrabajoComponent } from '../frmPrincipal/orden-de-trabajo/orden-de-trabajo.component';
 
 export const MENU_ISID_ROUTES: Routes = [
   {
@@ -10,6 +12,16 @@ export const MENU_ISID_ROUTES: Routes = [
       {
         path: '',
         component: InfoOTComponent, // Se carga dentro del Dashboard
+      }
+    ]
+  },
+  {
+    path: 'dashboard-frm-principal',
+    component: DashboardFrmPrincipalComponent, // Dashboard es el contenedor principal
+    children: [
+      {
+        path: '',
+        component: OrdenDeTrabajoComponent, // Se carga dentro del Dashboard
       }
     ]
   }

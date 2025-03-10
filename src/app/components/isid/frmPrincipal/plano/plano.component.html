@@ -1,0 +1,168 @@
+<div class="container-fluid">
+
+    <nav class="container-fluid p-2 d-flex flex-wrap justify-content-center gap-2">
+        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
+            <i class="bi bi-file-earmark-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" enabled>
+            <i class="bi bi-wrench-adjustable disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-x-circle-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
+            <i class="bi bi-trash3-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-binoculars-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" (click)="abrirDashboard()">
+            <i class="bi bi-signal disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-printer disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
+            <i class="bi bi-x-circle-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
+            <i class="bi bi-sunglasses disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-square-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
+            <i class="bi bi-person-fill disabled"></i>
+        </p-button>
+    
+        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-heptagon-fill disabled"></i>
+        </p-button>
+    
+    </nav>
+
+    <div class="container-fluid form-control-sm">
+        <fieldset class="border rounded p-2" style="overflow: hidden;">
+            <legend class="float-none w-auto px-2 fw-bold" style="font-size: 15px;">Información Plano</legend>
+    
+           
+       
+                <div class="row gx-3 gy-3">
+                    <!-- Primera columna (mitad izquierda) -->
+                    <div class="col-12 col-md-6">
+                        <!-- Primera fila dentro de la primera mitad -->
+                        <div class="row gx-2">
+                            <div class="col-6 mt-3">
+                                <p-floatLabel>
+                                    <input pInputText id="input1" class="form-control w-100" [(ngModel)]="formData.plano" name="plano" [disabled]="isDisabled"/>
+                                    <label for="input1">Plano</label>
+                                </p-floatLabel>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <p-floatLabel>
+                                    <input pInputText id="input2" class="form-control w-100" [(ngModel)]="formData.dibuja" name="dibuja" [disabled]="isDisabled"/>
+                                    <label for="input2">Dibuja</label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+            
+                        <!-- Segunda fila dentro de la primera mitad -->
+                        <div class="row gx-2 mt-4">
+                            <div class="col-6">
+                                <p-floatLabel>
+                                    <input pInputText id="input3" class="form-control w-100" [disabled]="isDisabled"/>
+                                    <label for="input3">Cliente</label>
+                                </p-floatLabel>
+                            </div>
+                            <div class="col-6">
+                                <p-floatLabel>
+                                    <input pInputText id="input4" class="form-control w-100" [disabled]="isDisabled"/>
+                                    <label for="input4">Contacto</label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+            
+                        <!-- Tercera fila dentro de la primera mitad -->
+                        <div class="row gx-2 mt-4">
+                            <div class="col-6">
+                                <p-floatLabel>
+                                    <input pInputText id="input5" class="form-control w-100" [disabled]="isDisabled"/>
+                                    <label for="input5">Área</label>
+                                </p-floatLabel>
+                            </div>
+                            <div class="col-6">
+                                <p-floatLabel>
+                                    <input pInputText id="input6" class="form-control w-100" [disabled]="isDisabled"/>
+                                    <label for="input6">Asesor</label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Segunda columna (mitad derecha) -->
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex flex-column h-100">
+                            <label for="infoOT" class="form-label fw-bold">Resumen del Plano</label>
+                            <textarea id="infoOT" rows="6" pInputTextarea class="form-control" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+           
+            
+            
+        </fieldset>
+    </div>
+
+    <div class="container-fluid form-control-sm">
+        <fieldset class="border rounded p-2" style="overflow: hidden;">
+            <legend class="float-none w-auto px-2 fw-bold" style="font-size: 15px;">Despiece Plano</legend>
+    
+            <div class="row gx-0 gy-0">
+                <div class="table-responsive table-sm rounded" style="height: 10vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
+                    <p-table 
+                  
+                    styleClass="p-datatable-gridlines" 
+                    [tableStyle]="{ 'min-width': '50rem','height':'4.5rem', 'padding':'0rem', 'width':'100%' }"
+                    [scrollable]="true"
+                    selectionMode="single"
+                    dataKey="descripcionProceso">
+                    
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">descripcion</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Ancho</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Valor</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Altura</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Cant</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">V.Unitario</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">SubTotal</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Prof</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Grupo</th>
+                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Línea</th>
+                        </tr>
+                      </ng-template>
+                    
+                      <ng-template pTemplate="body" let-modulo>
+                        <tr [pSelectableRow]="modulo">
+                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.despachoCoordinado ? 'Sí' : 'No' }}</td>
+                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.receptor }}</td>
+                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.celularReceptor }}</td>
+                        </tr>
+                      </ng-template>
+                    
+                    </p-table>
+                      </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card glass-container p-5 text-center w-100">
+      <h1 class="welcome-message">👋 Bienvenido, <span id="username">Carlos Pineda</span></h1>
+      <p class="welcome-subtext">
+        Selecciona una de las siguientes opciones para acceder a la plataforma correspondiente.
+      </p>
+  
+      <div class="row justify-content-center g-4 w-100">
+        <ng-container *ngIf="opcionesDeAcceso.length > 0; else sinAcceso">
+          <div *ngFor="let acceso of opcionesDeAcceso" class="col-12 col-md-4 d-flex">
+            <div class="access-card flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+              <div class="icon-container">
+                <i class="pi pi-cog"></i>
+              </div>
+              <h3 class="access-title">{{ acceso | uppercase }}</h3>
+              <p class="access-description">Sistema de integración de procesos DUCON</p>
+              <a [routerLink]="['/menu-' + acceso]" class="access-button">Acceder</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+  
+      <ng-template #sinAcceso>
+        <div class="alert alert-warning mt-4">
+          No tienes opciones de acceso disponibles.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  

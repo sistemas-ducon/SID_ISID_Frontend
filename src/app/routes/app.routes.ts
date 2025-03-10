@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { MenuIsidComponent } from '../components/isid/MenuPrincipal/menu-isid/menu-isid.component';
-import { MenuSidComponent } from '../components/sid/MenuPrincipal/menu-sid/menu-sid.component';
-import { DASHBOARD_ROUTES } from '../shared/components/isid/InfoOT/dashboard.routes';
 
 export const routes: Routes = [
   // Redirección inicial al login
@@ -11,7 +8,7 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('../shared/components/auth/login/login.component').then(
+      import('../components/general/login/login.component').then(
         (m) => m.LoginComponent
       ),
   },
@@ -30,7 +27,7 @@ export const routes: Routes = [
   {
     path: 'menu-principal',
     loadComponent: () =>
-      import('../shared/components/auth/menu-principal/menu-principal.component').then(
+      import('../components/general/menu-principal/menu-principal.component').then(
         (m) => m.MenuPrincipalComponent
       ),
   },

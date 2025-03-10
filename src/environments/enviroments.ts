@@ -1,16 +1,15 @@
 // export const environment = {
 //     production: false,
-//     apiUrl: 'http://localhost:3000/api',
-//     debugMode: true,
-//     featureFlag: true
+//     apiUrl: 'http://localhost:5248/api' // URL del backend en desarrollo
+    
 //   };
   
-//   export const environment = {
-//     production: true,
-//     apiUrl: 'https://api.miproyecto.com/api',
-//     debugMode: false,
-//     featureFlag: false
-//   };
+  
+  export const environment = {
+    production: true,
+    apiUrl: 'http://181.143.1.10:9085/api' // URL de producción
+  };
+  
   
 
 // CONFIGURACION DE URL DE PRUEBA Y PRODUCCION

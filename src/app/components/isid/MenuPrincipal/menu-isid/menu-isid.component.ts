@@ -48,20 +48,22 @@ export class MenuIsidComponent implements OnInit {
             label: 'Compras',
             icon: 'pi pi-box',
             items: [
-              { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' },
+              { label: 'Programar Recogida', icon: 'pi pi-check' }
             ]
           },
           {
             label: 'Empaque y Despacho',
             icon: 'pi pi-box',
             items: [
-              { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Control de mantenimiento', icon: 'pi pi-check' },
+              { label: 'Despacho de Obra', icon: 'pi pi-check' },
+              { label: 'Empaque', icon: 'pi pi-check' },
+              { label: 'Empaque x Modulo', icon: 'pi pi-check' },
             ]
           },
           {
-            label: 'Diseño',
+            label: 'Diseño', disabled: true,
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
@@ -69,7 +71,7 @@ export class MenuIsidComponent implements OnInit {
             ]
           },
           {
-            label: 'Diseño en el exterior',
+            label: 'Diseño en el exterior', disabled: true,
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
@@ -81,23 +83,24 @@ export class MenuIsidComponent implements OnInit {
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Chequeo Financiero', icon: 'pi pi-check' },
+              { label: 'Despacho de Obras', icon: 'pi pi-check' },
+              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard-frm-principal' },
+              { label: 'Programacion Ordenes TS del SID', icon: 'pi pi-check' },
             ]
           },
           {
             label: 'Gestion calidad Admon',
             icon: 'pi pi-box',
             items: [
-              { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Gestion calidad Admon', icon: 'pi pi-check' }
             ]
           },
           {
             label: 'Gestion calidad Usr',
             icon: 'pi pi-box',
             items: [
-              { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Gestion calidad Usr', icon: 'pi pi-check' },
             ]
           },
           {
@@ -105,15 +108,18 @@ export class MenuIsidComponent implements OnInit {
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Control de Mantenimiento', icon: 'pi pi-check' },
+              { label: 'Empaque de Pedido', icon: 'pi pi-check' },
+              { label: 'Proyeccion y Programacion', icon: 'pi pi-check' },
+              { label: 'Ordenes de Trabajo', icon: 'pi pi-check' },
             ]
           },
           {
             label: 'Proceso productivo',
             icon: 'pi pi-box',
             items: [
-              { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Programacion de proceso', icon: 'pi pi-check' },
+              { label: 'Reporte de Obra', icon: 'pi pi-check' },
             ]
           },
           {
@@ -121,11 +127,16 @@ export class MenuIsidComponent implements OnInit {
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard' }
+              { label: 'Control de mantenimiento', icon: 'pi pi-check' },
+              { label: 'Emapque de Obras', icon: 'pi pi-check' },
+              { label: 'Estadistica Produccion', icon: 'pi pi-check' },
+              { label: 'Generar Programacion Ots de SID', icon: 'pi pi-check' },
+              { label: 'Mano de Obra', icon: 'pi pi-check' },
+              { label: 'Ordenes de Trabajo', icon: 'pi pi-check' },
             ]
           },
           {
-            label: 'Recepcion',
+            label: 'Recepcion', disabled: true,
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
@@ -141,7 +152,7 @@ export class MenuIsidComponent implements OnInit {
             ]
           },
           {
-            label: 'Sistemas',
+            label: 'Ventas', disabled: true,
             icon: 'pi pi-box',
             items: [
               { label: 'Cierre de Obra', icon: 'pi pi-check' },

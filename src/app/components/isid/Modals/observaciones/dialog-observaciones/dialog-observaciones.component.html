@@ -1,0 +1,48 @@
+<p-dialog 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [closable]="true" 
+  [dismissableMask]="true" 
+  header="Observaciones OT"
+  [style]="{ width: '95vw'}"
+  class="custom-dialog"
+  (onHide)="closeModal()">
+
+  <div class="container-fluid">
+    
+    <!-- Pestañas -->
+    <ul class="nav nav-tabs nav-fill custom-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': activeTab === 'ot'}" (click)="setActiveTab('ot')">
+          Observaciones a la OT
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
+          Observaciones Personales
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': activeTab === 'todas'}" (click)="setActiveTab('todas')">
+          Todas las Observaciones
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': activeTab === 'pendientes'}" (click)="setActiveTab('pendientes')">
+          Actividades Pendientes
+        </button>
+      </li>
+    </ul>
+
+    <!-- Contenido dinámico según la pestaña seleccionada -->
+    <div class="tab-content p-3 bg-white border rounded-bottom shadow-sm">
+      <app-tab-observaciones-ot *ngIf="activeTab === 'ot'"></app-tab-observaciones-ot>
+      <app-tab-observaciones-personales *ngIf="activeTab === 'personal'"></app-tab-observaciones-personales>
+      <app-tab-todas-observaciones *ngIf="activeTab === 'todas'"></app-tab-todas-observaciones>
+      <app-tab-observaciones-pendientes *ngIf="activeTab === 'pendientes'"></app-tab-observaciones-pendientes>
+    </div>
+
+  </div>
+
+</p-dialog>
+

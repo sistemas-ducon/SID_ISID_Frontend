@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { OrdenTrabajoSidComponent } from '../../../shared/components/sid/orden-trabajo-sid/orden-trabajo-sid.component';
+import { OrdenTrabajoSidComponent } from '../OrdenTrabajo/orden-trabajo-sid/orden-trabajo-sid.component';
 
 export const MENU_SID_ROUTES: Routes = [
   {
