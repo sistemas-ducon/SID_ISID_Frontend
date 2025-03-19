@@ -1,12 +1,12 @@
 <div class="container-fluid mt-2">
-  <p-menubar [model]="items" class="bg-danger justify-content-between">
+  <p-menubar [model]="items" [autoDisplay]="false" class="bg-danger justify-content-between">
 
     <!-- Logo en el lado izquierdo -->
     <ng-template pTemplate="start">
       <img 
         width="40" 
         height="40" 
-        src="../../assets/ducon.jpg" 
+        [src]="logoUrl" 
         alt="Logo" 
         class="rounded-circle">
     </ng-template>

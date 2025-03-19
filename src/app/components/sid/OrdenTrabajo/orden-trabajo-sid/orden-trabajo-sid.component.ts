@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
 interface Consecutivo {
   name: string | null;
@@ -17,7 +17,7 @@ interface Consecutivo {
 @Component({
   selector: 'app-orden-trabajo-sid',
   standalone: true,
-  imports: [CommonModule, RouterModule, TabMenuModule, DropdownModule, FormsModule, InputTextModule, FloatLabelModule, ButtonModule],
+  imports: [CommonModule, RouterModule, TabMenuModule, DropdownModule, FormsModule, InputTextModule, FloatLabelModule, PRIME_NG_IMPORTS],
   templateUrl: './orden-trabajo-sid.component.html',
   styleUrl: './orden-trabajo-sid.component.css'
 })

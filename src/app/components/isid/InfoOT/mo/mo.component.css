@@ -1,9 +1,85 @@
+/* 🔹 Estilos generales */
+:host ::ng-deep .p-datatable {
+  font-size: 14px; /* Texto más legible */
+}
+
 :host ::ng-deep .p-datatable-table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db; /* Gris claro */
+  padding: 8px 10px; /* Espaciado cómodo */
+  white-space: nowrap; /* Evita cortes de texto */
+  text-align: center;
+}
+
+:host ::ng-deep .p-datatable-table th {
+  background: linear-gradient(180deg, #b1b3b4 30%, #a3a6a8 70%);
+  font-weight: bold;
+  color: dark;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+:host ::ng-deep .p-datatable-table td {
+  font-size: 13px;
+}
+
+/* 🔹 Efecto Hover */
+:host ::ng-deep .p-datatable-table tr:hover {
+  background: #f5f5f5;
+}
+
+/* 📌 Estilos para subtotales */
+:host ::ng-deep .subtotal-row {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  font-weight: bold;
+  color: #333;
+}
+
+:host ::ng-deep .subtotal-row td {
+  border-top: 2px solid #666;
+}
+
+/* 📌 Estilos para Total General */
+:host ::ng-deep .total-label {
+  font-weight: bold;
+  background: linear-gradient(to right, #6c757d, #495057);
+  color: white;
+  padding: 10px;
+}
+
+:host ::ng-deep .total-value {
+  font-weight: bold;
+  background: linear-gradient(to right, #6c757d, #495057);
+  color: white;
+  padding: 10px;
+}
+
+/* 🎯 Ajuste para el scroll interno */
+:host ::ng-deep .p-datatable-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  :host ::ng-deep .p-datatable {
+    font-size: 12px;
   }
-  
-  :host ::ng-deep .p-datatable-table th, 
+
+  :host ::ng-deep .p-datatable-table th,
   :host ::ng-deep .p-datatable-table td {
-    border: 1px solid #d1d5db; /* Color gris */
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  :host ::ng-deep .p-datatable thead tr th {
     padding: 8px;
   }
+}

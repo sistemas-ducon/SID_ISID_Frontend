@@ -1,10 +1,63 @@
+:host ::ng-deep .p-datatable {
+  font-size: 12px; /* Reduce el tamaño del texto */
+}
+
 :host ::ng-deep .p-datatable-table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db; /* Color gris */
+  padding: 4px 6px; /* Reduce el padding */
+  white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+:host ::ng-deep .p-datatable-table th {
+  background-color: #f3f4f6; /* Fondo gris claro */
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px; /* Un poco más de padding en la cabecera */
+}
+
+:host ::ng-deep .p-datatable-table td {
+  font-size: 12px; /* Reduce el tamaño del texto en las filas */
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+  overflow-y: auto;
+}
+
+/* 📱 Estilos responsive */
+@media (max-width: 768px) {
+  :host ::ng-deep .p-datatable {
+    font-size: 11px;
   }
-  
-  :host ::ng-deep .p-datatable-table th, 
+
+  :host ::ng-deep .p-datatable-table th,
   :host ::ng-deep .p-datatable-table td {
-    border: 1px solid #d1d5db; /* Color gris */
-    padding: 8px;
+    padding: 3px 4px;
+    font-size: 10px;
   }
-  
+}
+
+:host ::ng-deep .p-datatable thead tr th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: radial-gradient(circle, #b1b3b4 30%, #a3a6a8 70%);
+  color: dark;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #d1d5db;
+}
+
+/* 🎯 Ajuste para el scroll interno */
+:host ::ng-deep .p-datatable-wrapper {
+  max-height: 400px; /* Ajustable según necesidad */
+  overflow-y: auto;
+}
+
+
+

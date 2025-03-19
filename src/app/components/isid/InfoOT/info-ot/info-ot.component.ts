@@ -46,25 +46,36 @@ export class InfoOTComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Recuperar los datos guardados al navegar
     this.infoOtStateService.id_OT$.subscribe(id => this.id_OT = id);
     this.infoOtStateService.pedidos$.subscribe(pedidos => this.pedidos = pedidos);
-    this.infoOtStateService.selectedPedido$.subscribe(pedido => this.selectedPedido = pedido);
+    
+    this.infoOtStateService.selectedPedido$.subscribe(pedido => {
+      if (!pedido || (this.selectedPedido && this.selectedPedido.consecutivoPedido === pedido.consecutivoPedido)) {
+        return; // 🔹 Evita re-cargar datos si no hay cambio real
+      }
+      this.selectedPedido = pedido;
+      this.actualizarCampos();
+    });
+  
     this.infoOtStateService.formData$.subscribe(data => this.formData = { ...data });
     this.infoOtStateService.programacionObra$.subscribe(data => this.programacionObra = [...data]);
     this.infoOtStateService.fechaDespacho$.subscribe(data => this.fechaDespacho = [...data]);
   }
-
+  
   buscarPedidos() {
     if (this.id_OT.trim()) {
       this.ordenTrabajoService.obtenerPedidos(this.id_OT).subscribe({
         next: (data) => {
-          this.pedidos = data.sort((a, b) => b.consecutivoPedido - a.consecutivoPedido);
+          this.pedidos = data.map(p => ({
+            ...p,
+            idOT: this.id_OT  // 🔹 Agregar idOT aquí
+          })).sort((a, b) => b.consecutivoPedido - a.consecutivoPedido);
+  
           if (this.pedidos.length > 0) {
             this.selectedPedido = this.pedidos[0];
             this.actualizarCampos();
           }
-
+  
           // Guardar en el servicio
           this.infoOtStateService.setIdOT(this.id_OT);
           this.infoOtStateService.setPedidos(this.pedidos);
@@ -74,14 +85,15 @@ export class InfoOTComponent implements OnInit {
       });
     }
   }
+  
 
   actualizarCampos() {
     if (!this.selectedPedido) return;
-
+  
     this.ordenTrabajoService.obtenerInfoPedido(this.id_OT, this.selectedPedido.consecutivoPedido.toString())
       .subscribe({
-        next: (infoPedido) => {
-          this.formData = {
+        next: (infoPedido: InfoPedido) => { // 👈 Ahora InfoPedido usa las interfaces correctas
+          this.formData = { 
             t_ped: infoPedido.ot.descripcionTipoPedido,
             asesor: infoPedido.ot.asesor,
             cliente: infoPedido.ot.cliente,
@@ -93,34 +105,42 @@ export class InfoOTComponent implements OnInit {
             telefono: infoPedido.ot.telDomicilio,
             Contacto: infoPedido.ot.personaReceptora,
             Mail: infoPedido.ot.mailContacto,
-            Plano: infoPedido.infoPlano.plano,
+            Plano: infoPedido.infoPlano.plano,  // ✅ Ahora existe infoPlano
             Dibuja: infoPedido.infoPlano.dibujante,
             venta: infoPedido.ot.fechaConfirmacionVenta,
             okventa: infoPedido.ot.fechaEntregaDibujoDespiece,
             okdibujo: infoPedido.ot.fechaEntregaProduccion,
-
             Observacion: infoPedido.ot.observacionPedido,
-            
           };
-
+  
+          // Guardar datos en el servicio para persistencia
           this.infoOtStateService.setFormData(this.formData);
-
-         this.programacionObra = infoPedido.programacionObra || [];
-         this.infoOtStateService.setProgramacionObra(this.programacionObra);
-
-         this.fechaDespacho = infoPedido.fechaDespacho || [];
-         this.infoOtStateService.setFechaDespacho(this.fechaDespacho);
-       },
-       error: (err) => {
-         console.error('Error al obtener la información del pedido', err);
-         this.formData = {}; 
-         this.programacionObra = [];
-         this.infoOtStateService.setFormData({});
-         this.infoOtStateService.setProgramacionObra([]);
-         this.infoOtStateService.setFechaDespacho([]);
-       }
-     });
+          
+        // 🔹 Guardar el plano en el servicio para que otros componentes lo usen
+          this.infoOtStateService.setPlano(infoPedido.infoPlano.plano); 
+  
+          // 🔹 Asegurar que el pedido se mantiene en el servicio
+          this.infoOtStateService.setSelectedPedido(this.selectedPedido);
+  
+          this.programacionObra = infoPedido.programacionObra || [];  // ✅ Ahora existe programacionObra
+          this.infoOtStateService.setProgramacionObra(this.programacionObra);
+  
+          this.fechaDespacho = infoPedido.fechaDespacho || [];  // ✅ Ahora existe fechaDespacho
+          this.infoOtStateService.setFechaDespacho(this.fechaDespacho);
+        },
+        error: (err) => {
+          console.error('Error al obtener la información del pedido', err);
+          this.formData = {}; 
+          this.programacionObra = [];
+          this.fechaDespacho = [];
+          this.infoOtStateService.setFormData({});
+          this.infoOtStateService.setProgramacionObra([]);
+          this.infoOtStateService.setFechaDespacho([]);
+        }
+      });
   }
+  
+  
 
   cargarOTyPedido(event: { ot: string, pedido: string }) {
     this.id_OT = event.ot;
@@ -129,12 +149,7 @@ export class InfoOTComponent implements OnInit {
       next: (data) => {
         this.pedidos = data.sort((a, b) => b.consecutivoPedido - a.consecutivoPedido);
   
-
-  
-        const pedidoSeleccionado = this.pedidos.find(p => {
-          return String(p.consecutivoPedido) === String(event.pedido);
-        });
-  
+        const pedidoSeleccionado = this.pedidos.find(p => String(p.consecutivoPedido) === String(event.pedido));
   
         this.selectedPedido = pedidoSeleccionado;
   
@@ -145,7 +160,7 @@ export class InfoOTComponent implements OnInit {
         // Guardar en el servicio
         this.infoOtStateService.setIdOT(this.id_OT);
         this.infoOtStateService.setPedidos(this.pedidos);
-        this.infoOtStateService.setSelectedPedido(this.selectedPedido);
+        this.infoOtStateService.setSelectedPedido(this.selectedPedido); // 🔹 Guardar selección
   
         // Cerrar el modal de programación
         this.modalVisibleProgramacion = false;

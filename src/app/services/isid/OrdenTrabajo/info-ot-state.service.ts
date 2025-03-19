@@ -11,13 +11,19 @@ export class InfoOtStateService {
   private formData = new BehaviorSubject<any>({}); // Guarda todos los datos
   private programacionObra = new BehaviorSubject<any[]>([]); 
   private fechaDespacho = new BehaviorSubject<any[]>([]); 
+  private plano = new BehaviorSubject<string>(''); 
 
   id_OT$ = this.id_OT.asObservable();
   selectedPedido$ = this.selectedPedido.asObservable();
   pedidos$ = this.pedidos.asObservable();
   formData$ = this.formData.asObservable();
   programacionObra$ = this.programacionObra.asObservable(); 
-  fechaDespacho$ = this.programacionObra.asObservable(); 
+  fechaDespacho$ = this.fechaDespacho.asObservable();
+  plano$ = this.plano.asObservable(); 
+
+  setPlano(plano: string) {
+    this.plano.next(plano);
+  }
 
   setIdOT(id: string) {
     this.id_OT.next(id);

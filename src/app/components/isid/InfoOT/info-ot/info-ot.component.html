@@ -12,7 +12,7 @@
             type="text"
             name="OT"
             class="w-100"
-            (keyup.enter)="buscarPedidos()"
+            (keyup.enter)="buscarPedidos()" 
           />
           <label for="Id_OT">OT</label>
         </p-floatLabel>
@@ -20,27 +20,51 @@
 
       <div class="col-md-2">
         <p-dropdown
-          [options]="pedidos"
-          [(ngModel)]="selectedPedido"
-          [ngModelOptions]="{standalone: true}"
-          optionLabel="consecutivoPedido"
-          placeholder="Buscar Pedido"
-          class="w-100"
-          (onChange)="actualizarCampos()"
-        ></p-dropdown>
+        [options]="pedidos"
+        [(ngModel)]="selectedPedido"
+        [ngModelOptions]="{standalone: true}"
+        optionLabel="consecutivoPedido"
+        [filter]="true"
+        filterBy="consecutivoPedido"
+        [showClear]="true"
+        placeholder="Buscar Pedido"
+        class="w-100"
+        (onChange)="actualizarCampos()">
+        
+        <!-- ✅ Personalizar cómo se ve el elemento seleccionado -->
+        <ng-template pTemplate="selectedItem" let-selectedOption>
+            <div class="flex align-items-center gap-2">
+                <span>{{ selectedOption.consecutivoPedido }}</span>
+            </div>
+        </ng-template>
+    
+        <!-- ✅ Personalizar cómo se ven las opciones en el desplegable -->
+        <ng-template let-pedido pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <span>{{ pedido.consecutivoPedido }}</span>
+            </div>
+        </ng-template>
+    </p-dropdown>
+    
       </div>
 
       <div class="col-md-2 d-flex align-items-end">
-        <div class="d-flex gap-2">
-          <p-button class="custom-btn btn-enabled" label="..." [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialogProgramacionOT()"/>
-          <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialog()"><i class="bi bi-binoculars-fill"></i></p-button>
-          <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
+        <div class="d-flex justify-content-between gap-2 w-100">
+          <p-button class="custom-btn flex-grow-1" label="..." [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialogProgramacionOT()"></p-button>
+          <p-button class="custom-btn flex-grow-1" [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialog()">
+            <i class="bi bi-binoculars-fill"></i>
+          </p-button>
+          <p-button class="custom-btn flex-grow-1" [rounded]="true" [text]="true" [raised]="true">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </p-button>
         </div>
       </div>
+      
+      
 
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="t_ped" [(ngModel)]="formData.t_ped" name="t_pedName" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="t_ped" [(ngModel)]="formData.t_ped" name="t_pedName" class="w-100" [disabled]="isDisabled">
           <label for="t_ped">T.Ped</label>
         </p-floatLabel>
       </div>
@@ -51,11 +75,14 @@
           <label for="asesor">Asesor</label>
         </p-floatLabel>
       </div>
-
-      <div class="col-md-1">
-        <button class="btn btn-outline-light shadow-sm ms-auto text-white bg-danger">
-          <i class="pi pi-external-link"></i> TERMINAR
-        </button>
+    
+      <div class="col-md-1 d-flex justify-content-center">
+        <p-button 
+          class="custom-btn btn-danger w-100 text-center"
+          label="TERMINAR"
+          [rounded]="true"
+          [raised]="true"
+        ></p-button>
       </div>
     </div>
 
@@ -135,10 +162,13 @@
     <div class="row mt-4">
       <div class="col-md-5">
         <div class="card p-3">
-          <p-floatLabel>
-            <textarea id="infoOT" rows="20" [(ngModel)]="formData.Observacion" name="observacion" pInputTextarea class="form-control" readonly></textarea>
+          <p-floatLabel class="exclude-resize">
+            <textarea id="infoOT" rows="22" [(ngModel)]="formData.Observacion" 
+                      name="observacion" pInputTextarea class="form-control form-control-sm" readonly>
+            </textarea>
             <label for="infoOT">Información General OT</label>
           </p-floatLabel>
+          
         </div>
       </div>
       <div class="col-md-7">
@@ -205,8 +235,8 @@
                     <div class="table-responsive table-sm mb-3 rounded" style="height: 10vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
                       <p-table 
                       [value]="fechaDespacho"
-                      styleClass="p-datatable-gridlines" 
-                      [tableStyle]="{ 'min-width': '50rem','height':'15rem', 'padding':'0rem', 'width':'100%' }"
+                      styleClass="p-datatable p-datatable-gridlines" 
+                      [tableStyle]="{ 'width': '100%' }"
                       [scrollable]="true"
                       selectionMode="single"
                       dataKey="descripcionProceso">
@@ -273,8 +303,8 @@
         <div class="table-responsive table-sm mb-3 rounded" style="height: 17vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
             <p-table 
             [value]="programacionObra"
-            styleClass="p-datatable-gridlines" 
-            [tableStyle]="{ 'min-width': '50rem','height':'15rem', 'padding':'0rem', 'width':'100%' }"
+            styleClass="p-datatable p-datatable-gridlines" 
+            [tableStyle]="{ 'width': '100%' }"
             [scrollable]="true"
             selectionMode="single"
             dataKey="descripcionProceso">

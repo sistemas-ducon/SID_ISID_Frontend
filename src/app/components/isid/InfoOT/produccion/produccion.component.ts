@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orden-trabajo.service';
 import { InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-ot-state.service';
+import { ModulosMedidasFinales, MedidasCorteProduccion } from '../../../../models/isid/OrdenTrabajo/produccion.dto';
+
 
 @Component({
   selector: 'app-produccion',
@@ -12,30 +14,35 @@ import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-
   templateUrl: './produccion.component.html',
   styleUrl: './produccion.component.css',
 })
-export class ProduccionComponent implements OnInit{
-  modulosMedidasFinales: any[] = [];
-  medidasCorteProduccion: any[] = [];
+export class ProduccionComponent implements OnInit {
+  modulosMedidasFinales: ModulosMedidasFinales[] = [];  
+  medidasCorteProduccion: MedidasCorteProduccion[] = [];  
   idOT: string = '';
   consecutivoPedido: string = '';
+
   selectedModulo: any;
   selectedMedidas: any;
 
   constructor(
     private ordenTrabajoService: OrdenTrabajoService,
-    private infoOtStateService: InfoOtStateService,
+    private infoOtStateService: InfoOtStateService
   ) {}
 
   ngOnInit() {
-    // Suscribirse al ID de la OT y al pedido seleccionado
-    this.infoOtStateService.id_OT$.subscribe(id => {
-      this.idOT = id;
-      this.cargarDatos();
-    });
-
     this.infoOtStateService.selectedPedido$.subscribe(pedido => {
       if (pedido) {
-        this.consecutivoPedido = pedido.consecutivoPedido.toString();
-        this.cargarDatos();
+        const nuevoIdOT = pedido.idOT;
+        const nuevoConsecutivo = pedido.consecutivoPedido?.toString();
+
+        if (!nuevoIdOT) return;
+
+        if (this.idOT !== nuevoIdOT || this.consecutivoPedido !== nuevoConsecutivo) {
+          this.idOT = nuevoIdOT;
+          this.consecutivoPedido = nuevoConsecutivo;
+          this.cargarDatos();
+        }
+      } else {
+        this.limpiarDatos();
       }
     });
   }
@@ -44,13 +51,17 @@ export class ProduccionComponent implements OnInit{
     if (this.idOT && this.consecutivoPedido) {
       this.ordenTrabajoService.obtenerInfoPedido(this.idOT, this.consecutivoPedido).subscribe({
         next: (data: InfoPedido) => {
-          this.modulosMedidasFinales = data.modulosMedidasFinales;
-          this.medidasCorteProduccion = data.medidasCorteProduccion;
+
+          this.medidasCorteProduccion = (data as any)?.medidasCorteProduccion || [];
+          this.modulosMedidasFinales = (data as any)?.modulosMedidasFinales || []; 
         },
-        error: (err) => {
-          console.error('Error al obtener los módulos', err);
-        }
+        error: () => this.limpiarDatos(),
       });
     }
+  }
+
+  limpiarDatos() {
+    this.consecutivoPedido = '';
+    this.medidasCorteProduccion = [];
   }
 }

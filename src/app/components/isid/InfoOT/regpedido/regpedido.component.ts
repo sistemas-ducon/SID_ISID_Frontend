@@ -5,13 +5,13 @@ import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orde
 import { InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { ButtonModule } from 'primeng/button';
 import { equivalenciaDeCodigos } from '../../../../models/isid/OrdenTrabajo/equivalenciaDeCodigos.dto';
+import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
 @Component({
   selector: 'app-regpedido',
   standalone: true,
-  imports: [TableModule, ButtonModule, FloatLabelModule, InputTextModule],
+  imports: [TableModule, FloatLabelModule, InputTextModule, PRIME_NG_IMPORTS],
   templateUrl: './regpedido.component.html',
   styleUrl: './regpedido.component.css'
 })

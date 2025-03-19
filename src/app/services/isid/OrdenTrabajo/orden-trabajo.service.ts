@@ -7,6 +7,7 @@ import { Proceso } from '../../../models/isid/OrdenTrabajo/proceso.dto';
 import { InfoPedido } from '../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { documentacionPedido } from '../../../models/isid/OrdenTrabajo/documentacionpedido';
 import { equivalenciaDeCodigos } from '../../../models/isid/OrdenTrabajo/equivalenciaDeCodigos.dto';
+import { InsumosPlano } from '../../../models/isid/OrdenTrabajo/insumosPlano.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,8 @@ export class OrdenTrabajoService {
     return this.http.get<equivalenciaDeCodigos>(`${this.apiUrl}/ObtenerEquivalenciaCodigos`);
   }
   
+  obtenerReporteInsumosPlano(plano: string): Observable<InsumosPlano> {
+    return this.http.get<InsumosPlano>(`${this.apiUrl}/obtenerReporteInsumosPlano/${plano}`);
+  }
   
 }

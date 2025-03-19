@@ -4,18 +4,23 @@ import { MenubarModule } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { environment } from '../../../../../environments/enviroments';
+import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
 @Component({
   selector: 'app-menu-isid',
   standalone: true,
-  imports: [MenubarModule, CommonModule, RouterModule, ButtonModule],
+  imports: [PRIME_NG_IMPORTS, MenubarModule, CommonModule, RouterModule],
   templateUrl: './menu-isid.component.html',
   styleUrl: './menu-isid.component.css'
 })
 export class MenuIsidComponent implements OnInit {
+  logoUrl = `${environment.assetUrl}ducon.jpg`;
+
   items: MenuItem[] = [];
-  usuario: string | null = "Usuario";
+  //Variable para nombre de usuario 
+  usuario: string | null = null;
+
 
   constructor(private router: Router) {}
 
@@ -161,23 +166,110 @@ export class MenuIsidComponent implements OnInit {
           },
         ]
       },
+      //Personas
       {
         label: 'Persona',
-        icon: 'pi pi-link'
-      },
+        icon: 'pi pi-user',
+        items: [
+
+            //Cliente 
+            {
+                label: 'Cliente',
+                icon: 'pi pi-user',
+
+            },
+
+            //Empleado
+            {
+                label: 'Empleado',
+                icon: 'pi pi-user',
+
+            }
+        ]
+
+    },
+      //Consultas
       {
         label: 'Consultas',
-        icon: 'pi pi-external-link',
+        icon: 'bi bi-search',
         items: [
-          { label: 'Angular', icon: 'pi pi-globe', url: 'https://angular.io/' },
-          { label: 'Vite.js', icon: 'pi pi-globe', url: 'https://vitejs.dev/' }
+
+            //Despacho de Obra
+            {
+                label: 'Despacho Obra',
+                icon: 'pi pi-truck'
+            },
+
+            //Insumo
+            {
+                label: 'Insumo',
+                icon: 'pi pi-server'
+            },
+
+            //Módulo
+            {
+                label: 'Módulo',
+                icon: 'pi pi-pencil'
+            },
+
+            //Todas las OT (Manuales/SID)
+            {
+                label: 'Todas las OT (Manuales/SID)',
+                icon: 'pi pi-palette',
+
+            },
+
+            //Estadísticas Sucesos de Obra
+            {
+                label: 'Estadísticas Sucesos de Obra',
+                icon: 'pi pi-palette',
+
+            },
+
+            //Actas de Entrega
+            {
+                label: 'Actas de Entrega',
+                icon: 'pi pi-palette',
+
+            },
+
+            //Reprocesos
+            {
+                label: 'Reprocesos',
+                icon: 'pi pi-palette',
+
+            },
+
+            //PQRSF
+            {
+                label: 'PQRSF',
+                icon: 'pi pi-palette',
+
+            },
+
+            //Producto no Conforme
+            {
+                label: 'Producto no Conforme',
+                icon: 'pi pi-palette',
+
+            }
         ]
-      },
+    },
     ];
+
+    
   }
 
   cerrarSesion() {
     console.log('Cerrar sesión');
+  
+    // 🔹 Limpiar localStorage
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
+    localStorage.removeItem('opcionesDeAcceso');
+  
+    // 🔹 Redirigir al login
     this.router.navigate(['/login']);
   }
+  
 }

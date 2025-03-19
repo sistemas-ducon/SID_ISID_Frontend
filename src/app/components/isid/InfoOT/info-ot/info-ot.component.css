@@ -1,74 +1,50 @@
-.full-width {
-    width: 100%; /* Asegura que ocupe el 100% del ancho de la columna */
-  }
-  
-  ::ng-deep .p-button {
-    color: black !important;
+/* =========================
+   📌 Estilos Generales
+   ========================= */
+   .full-width {
+    width: 100%;
 }
 
-.p-inputtext:disabled {
-  background-color: #e0e0e0 !important; /* Un gris más notorio */
-  color: #0d0d0d !important; 
-  border-top: 2px solid #a0a0a0 !important; /* Borde grueso arriba */
-  border-left: 2px solid #a0a0a0 !important; /* Borde grueso izquierda */
-  border-right: 1px solid #ccc !important; /* Borde derecho tenue */
-  border-bottom: 1px solid #ccc !important; /* Borde inferior tenue */
-  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra tenue arriba e izquierda */
-  opacity: 0.6; /* Mayor opacidad para destacar el estado deshabilitado */
+/* =========================
+   📌 Botones Generales
+   ========================= */
+::ng-deep .p-button {
+    color: black;
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 32px;
 }
 
-:host ::ng-deep .p-datatable-table th, 
-:host ::ng-deep .p-datatable-table td {
-  border: 1px solid #d1d5db; /* Color gris */
-  padding: 8px;
-}
-
-p-table {
-  font-size: 0.9rem;
-
-}
-
-p-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-p-table th {
-  text-align: left;
-  background-color: #49556a;
-  color: #fafafa;
-  font-weight: 600;
-  padding: 0.5rem;
-  border-bottom: 2px solid #ddd;
-}
-
-
-p-table td:nth-child(even) {
-  background-color: #f9fafb;
-}
-
-:host ::ng-deep .p-datatable-table td {
-  white-space: nowrap !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-:host ::ng-deep .p-datatable-table img {
-  max-height: 30px;
-}
-
+/* 🔵 Botones Pequeños */
 p-button.custom-btn {
-  border-radius: 20% !important; /* Hace el botón completamente circular */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 16px !important;
-  padding: 0px !important; /* Reduce el espacio interno */
-  line-height: 0 !important; /* Reduce el espacio interno */
+    border-radius: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 5px;
+    width: 36px;
+    height: 36px;
+    transition: all 0.3s ease-in-out;
 }
 
-p-button.custom-btn:hover {
-  background-color: #dae7f6 !important;
-  box-shadow: -3px -3px 6px rgba(0, 0, 0, 0.3) !important;
+
+/* 🔴 Botón Peligro */
+::ng-deep p-button.btn-danger .p-button {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 100px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+
+::ng-deep p-button.btn-danger .p-button:hover {
+    background-color: #b02a37;
+    box-shadow: 0px 4px 8px rgba(255, 0, 0, 0.3);
+    transform: scale(1.05);
 }
 
 /* Botón deshabilitado */
@@ -96,3 +72,90 @@ p-button.custom-btn:hover {
 }
 
 
+/* =========================
+   📌 Input y Float Label
+   ========================= */
+:host ::ng-deep p-floatLabel input {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: 30px;
+}
+
+.p-inputtext:disabled {
+  background-color: #e0e0e0 !important; /* Un gris más notorio */
+  color: #0d0d0d !important; 
+  border-top: 2px solid #a0a0a0 !important; /* Borde grueso arriba */
+  border-left: 2px solid #a0a0a0 !important; /* Borde grueso izquierda */
+  border-right: 1px solid #ccc !important; /* Borde derecho tenue */
+  border-bottom: 1px solid #ccc !important; /* Borde inferior tenue */
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra tenue arriba e izquierda */
+  opacity: 0.6; /* Mayor opacidad para destacar el estado deshabilitado */
+}
+
+
+/* =========================
+   📌 Dropdown
+   ========================= */
+:host ::ng-deep p-dropdown {
+    font-size: 12px;
+    width: 150px;
+    height: 30px;
+}
+
+:host ::ng-deep p-dropdown .p-dropdown-label {
+    height: 28px;
+    display: flex;
+    align-items: center;
+}
+
+:host ::ng-deep .p-dropdown-item {
+  padding-left: 2px !important; /* Reduce el espacio de las opciones */
+}
+
+
+/* =========================
+   📌 DataTable
+   ========================= */
+:host ::ng-deep .p-datatable {
+    font-size: 12px;
+}
+
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+    border: 1px solid #d1d5db;
+    padding: 4px 6px;
+    white-space: nowrap;
+}
+
+:host ::ng-deep .p-datatable-table th {
+    background-color: #f3f4f6;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 6px;
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+/* =========================
+   📌 Responsive
+   ========================= */
+@media (max-width: 768px) {
+    :host ::ng-deep p-floatLabel input {
+        font-size: 10px;
+        height: 25px;
+    }
+
+    :host ::ng-deep p-dropdown {
+        width: 120px;
+        height: 25px;
+    }
+
+    :host ::ng-deep .p-datatable-table th,
+    :host ::ng-deep .p-datatable-table td {
+        padding: 3px 4px;
+        font-size: 10px;
+    }
+}

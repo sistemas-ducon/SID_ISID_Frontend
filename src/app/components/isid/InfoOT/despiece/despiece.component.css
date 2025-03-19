@@ -1,10 +1,48 @@
-:host ::ng-deep .p-datatable-table {
-    border-collapse: collapse;
-  }
-  
-  :host ::ng-deep .p-datatable-table th, 
-  :host ::ng-deep .p-datatable-table td {
-    border: 1px solid #d1d5db; /* Color gris */
-    padding: 8px;
-  }
-  
+.table-responsive {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+h6 {
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: radial-gradient(circle, #4a90e2, #1c355e); /* Se puede poner color diferente */
+  color: white;
+  padding: 0.5rem 0;
+}
+
+p-table {
+  font-size: 0.9rem;
+  font-family: 'robot', sans-serif;
+}
+
+p-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+p-table th {
+  text-align: left;
+  background-color: #cedbf4;
+  color: #181818;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-bottom: 2px solid #ddd;
+}
+
+p-table th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+p-table th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+p-table td:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+

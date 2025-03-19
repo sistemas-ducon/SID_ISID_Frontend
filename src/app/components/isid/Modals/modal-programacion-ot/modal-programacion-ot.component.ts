@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; 
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule} from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -14,11 +13,13 @@ import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orde
 import { AuthService } from '../../../../services/login/auth.services.ts.service';
 import { Proceso } from '../../../../models/isid/OrdenTrabajo/proceso.dto';
 import { TableModule } from 'primeng/table';
+import { SessionServiceService } from '../../../../services/login/guardarsesion/session-service.service';
+import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
 @Component({
   selector: 'app-modal-programacion-ot',
   standalone: true,
-  imports: [DialogModule, CommonModule, FloatLabelModule, FormsModule, ButtonModule, DropdownModule, InputTextModule, TabMenuModule, RouterModule, ReactiveFormsModule, CheckboxModule, TableModule],
+  imports: [PRIME_NG_IMPORTS, DialogModule, CommonModule, FloatLabelModule, FormsModule, DropdownModule, InputTextModule, TabMenuModule, RouterModule, ReactiveFormsModule, CheckboxModule, TableModule],
   templateUrl: './modal-programacion-ot.component.html',
   styleUrl: './modal-programacion-ot.component.css'
 })
@@ -38,13 +39,13 @@ export class ModalProgramacionOTComponent {
 
   procesos: any[] = [];
 
-  constructor(private ordenTrabajoService: OrdenTrabajoService, private authService: AuthService) {}
+  constructor(private ordenTrabajoService: OrdenTrabajoService, private authService: AuthService, private SessionServiceService: SessionServiceService) {}
 
   ngOnInit(): void {
-    const usuario = this.authService.usuarioActual;
+    const usuario = this.SessionServiceService.obtenerSesion();
     if (usuario && usuario.cedula) {
       this.obtenerProcesos(usuario.cedula);
-    }
+    }    
    
   }
 

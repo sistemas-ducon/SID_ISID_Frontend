@@ -1,46 +1,42 @@
 <div class="container-fluid mt-3">
-    <div class="card">
-   
-      
-        <div class="table-responsive table-sm mb-3" style="height: 81.5vh; overflow-y: auto;">
-        <p-table 
-          [value]="insumosPlano"
-          styleClass="p-datatable-gridlines" 
-          [tableStyle]="{ 'width': '100%' }"
-          [scrollable]="true"
-          selectionMode="single"
-          [(selection)]="selectedInsumo"
-          dataKey="item">
-          
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Item</th>
-              <th>Descripción</th>
-              <th>Cant CD</th>
-              <th>Cant SD</th>
-              <th>Und</th>
-              <th>V/Und</th>
-              <th>SubTotal</th>
-              <th>Inv</th>
-            </tr>
-          </ng-template>
-  
-          <ng-template pTemplate="body" let-modulo>
-            <tr [pSelectableRow]="modulo">
-              <td>{{ modulo.item }}</td>
-              <td>{{ modulo.descripcion }}</td>
-              <td>{{ modulo.cantidadCD }}</td>
-              <td>{{ modulo.cantidadSD }}</td>
-              <td>{{ modulo.unidadMedida }}</td>
-              <td>{{ modulo.valorUnidad }}</td>
-              <td>{{ modulo.subTotal }}</td>
-              <td>{{ modulo.idInventario }}</td>
-            </tr>
-          </ng-template>
-  
-        </p-table>
-        </div>
-      </div>
+  <div class="card shadow-sm border-0 p-3">
+
+    <div class="table-responsive" style="height: 75vh; overflow-y: auto;">
+      <p-table 
+        [value]="insumosPlano"
+        styleClass="p-datatable-gridlines"
+        [scrollable]="true"
+        selectionMode="single"
+        [(selection)]="selectedInsumo"
+        dataKey="item">
+        
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Item</th>
+            <th>Descripción</th>
+            <th>Cant CD</th>
+            <th>Cant SD</th>
+            <th>Und</th>
+            <th>V/Und</th>
+            <th>SubTotal</th>
+            <th>Inv</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-insumo>
+          <tr [pSelectableRow]="insumo">
+            <td>{{ insumo.item }}</td>
+            <td>{{ insumo.descripcion }}</td>
+            <td>{{ insumo.cantidadCD | number:'1.0-0' }}</td>
+            <td>{{ insumo.cantidadSD }}</td>
+            <td>{{ insumo.unidadMedida }}</td>
+            <td>{{ insumo.valorUnidad }}</td>
+            <td>{{ insumo.subTotal | number:'1.0-2' }}</td>
+            <td>{{ insumo.idInventario }}</td>
+          </tr>
+        </ng-template>
+
+      </p-table>
     </div>
- 
-  
+  </div>
+</div>

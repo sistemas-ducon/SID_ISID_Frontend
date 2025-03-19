@@ -1,4 +1,3 @@
-// src/app/shared/primeng-imports.ts
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +26,7 @@ export const PRIME_NG_IMPORTS = [
     BadgeModule,
     ProgressBarModule,
     ToastModule,
-    CheckboxModule
+    CheckboxModule,
 
   ];
   

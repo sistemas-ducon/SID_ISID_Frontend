@@ -1,36 +1,34 @@
 <div class="container-fluid border p-3 shadow-sm">
    
         <div class="container-fluid">
-            <div class="table table-bordered table-sm table-hover form-control-sm" style="height: 35vh; overflow-y: auto;">
-                <p-table 
-                [value]="documentacionPedido"
-                styleClass="p-datatable p-datatable-gridlines"
-                [tableStyle]="{ 'width': '100%' }"
-                [scrollable]="true"
-                selectionMode="single"
-                [(selection)]="selectedModulo"
-                dataKey="archivo">
+            <div class="border table-bordered rounded mt-2" style="height: 35vh;">
+              <p-table [value]="documentacionPedido" showGridlines stripedRows [scrollHeight]="'20rem'"
+              [tableStyle]="{ 'min-width': '50rem','padding': '0rem','width':'100%' }"
+              class="table table-sm table-bordered table-hover " [resizableColumns]="true" scrollable="true"
+              frozenWidth="true"   selectionMode="single"
+              [(selection)]="selectedModulo"
+              dataKey="archivo">
               
                 <ng-template pTemplate="header">
                   <tr>
-                    <th>Observacion</th>
-                    <th>Archivo</th>
-                    <th>Tipo Documento</th>
-                    <th>Usuario</th>
-                    <th>Fecha</th>
-                    <th>Leido Por</th>
-                    <th>Acción</th>  
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Observacion</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Archivo</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Tipo Documento</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Usuario</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Fecha</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Leido Por</th>
+                    <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Acción</th>  
                   </tr>
                 </ng-template>
               
                 <ng-template pTemplate="body" let-modulo>
                   <tr [pSelectableRow]="modulo">  <!-- CORREGIDO -->
-                    <td>{{ modulo.observacion }}</td>
-                    <td>{{ modulo.archivo }}</td>
-                    <td>{{ modulo.tipoDocumento }}</td>
-                    <td>{{ modulo.usuario }}</td>
-                    <td>{{ modulo.fechaRegistro }}</td>
-                    <td>{{ modulo.leidoPor }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.observacion }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem; max-width: 10rem;">{{ modulo.archivo }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.tipoDocumento }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.usuario }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaRegistro }}</td>
+                    <td style="white-space: nowrap; padding: 0.2rem; max-width: 10rem;">{{ modulo.leidoPor }}</td>
                     <td>
                       <button pButton type="button" icon="pi pi-download" 
                         class="p-button-rounded p-button-success"
@@ -41,7 +39,7 @@
                 </ng-template>
               
               </p-table>
-              
+           
             
             
             </div>

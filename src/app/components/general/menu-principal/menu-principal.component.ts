@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/login/auth.services.ts.service';
 import { RouterModule } from '@angular/router';
+import { SessionServiceService } from '../../../services/login/guardarsesion/session-service.service';
 
 @Component({
   selector: 'app-menu-principal',
@@ -15,12 +16,12 @@ import { RouterModule } from '@angular/router';
 export class MenuPrincipalComponent implements OnInit {
   opcionesDeAcceso: string[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private SessionServiceService: SessionServiceService) {}
 
   ngOnInit() {
-    this.authService.opcionesDeAcceso$.subscribe((opciones) => {
-      this.opcionesDeAcceso = opciones;
-      console.log('Opciones de acceso cargadas:', this.opcionesDeAcceso);
+    this.SessionServiceService.usuario$.subscribe((usuario) => {
+      this.opcionesDeAcceso = usuario?.opcionesDeAcceso || [];
     });
   }
+  
 }

@@ -3,6 +3,7 @@ import { PRIME_NG_IMPORTS } from '../../../../../shared/NgPrime/prime-imports';
 import { ObservacionesService } from '../../../../../services/isid/Observaciones/observaciones.service';
 import { AuthService } from '../../../../../services/login/auth.services.ts.service';
 import { CommonModule } from '@angular/common';
+import { SessionServiceService } from '../../../../../services/login/guardarsesion/session-service.service';
 
 @Component({
   selector: 'app-tab-observaciones-personales',
@@ -20,11 +21,11 @@ export class TabObservacionesPersonalesComponent {
 
   constructor(
     private observacionesService: ObservacionesService,
-    private authService: AuthService
+    private authService: AuthService, private SessionServiceService: SessionServiceService, 
   ) {}
 
   ngOnInit(): void {
-    const usuario = this.authService.usuarioActual;
+    const usuario = this.SessionServiceService.obtenerSesion();
     if (usuario && usuario.cedula) {
       this.cargarObservaciones(usuario.cedula);
       this.cargarObservacionesGrabadasNoLeidas(usuario.cedula);

@@ -1,10 +1,55 @@
+:host ::ng-deep .p-datatable {
+  font-size: 14px; /* Tamaño de fuente más legible */
+  width: 100%;
+}
+
 :host ::ng-deep .p-datatable-table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db;
+  padding: 8px 12px; /* Espaciado más cómodo */
+  white-space: nowrap;
+  text-align: center;
+}
+
+:host ::ng-deep .p-datatable-table th {
+  background: radial-gradient(circle, #b1b3b4 30%, #a3a6a8 70%);
+  color: dark;
+  font-weight: bold;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+:host ::ng-deep .p-datatable-table td {
+  font-size: 13px;
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+  max-height: 75vh; /* Mejor aprovechamiento de la pantalla */
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌍 Responsividad */
+@media (max-width: 768px) {
+  :host ::ng-deep .p-datatable {
+    font-size: 12px;
   }
-  
-  :host ::ng-deep .p-datatable-table th, 
+
+  :host ::ng-deep .p-datatable-table th,
   :host ::ng-deep .p-datatable-table td {
-    border: 1px solid #d1d5db; /* Color gris */
-    padding: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
   }
-  
+
+  :host ::ng-deep .p-datatable-wrapper {
+    max-height: 50vh; /* Reduce la altura en pantallas pequeñas */
+  }
+}

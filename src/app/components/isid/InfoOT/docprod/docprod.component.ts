@@ -9,6 +9,8 @@ import { FileRemoveEvent } from 'primeng/fileupload';
 import { MessageService, PrimeNGConfig} from 'primeng/api';
 import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 import { documentacionPedido } from '../../../../models/isid/OrdenTrabajo/documentacionpedido';
+import { TooltipModule } from 'primeng/tooltip';
+import { SessionServiceService } from '../../../../services/login/guardarsesion/session-service.service';
 
 @Component({
   selector: 'app-docprod',
@@ -36,6 +38,7 @@ export class DocprodComponent  implements OnInit{
   constructor(
     private ordenTrabajoService: OrdenTrabajoService,
     private authService: AuthService,
+    private SessionServiceService: SessionServiceService,
     private infoOtStateService: InfoOtStateService,
     private config: PrimeNGConfig, private messageService: MessageService
   ) {}
@@ -77,7 +80,7 @@ export class DocprodComponent  implements OnInit{
       return;
     }
   
-    const usuarioActual = this.authService.usuarioActual;
+    const usuarioActual = this.SessionServiceService.usuario;
     if (!usuarioActual) {
       console.error("No hay usuario autenticado.");
       return;
@@ -148,7 +151,7 @@ export class DocprodComponent  implements OnInit{
   }
 
   const archivo = event.files[0]; // Obtiene el primer archivo seleccionado
-  const usuario = this.authService.usuarioActual?.nombreUsuario || 'Usuario desconocido';
+  const usuario = this.SessionServiceService.usuario?.nombreUsuario || 'Usuario desconocido';
 
   this.ordenTrabajoService
     .subirArchivo(this.idOT, this.consecutivoPedido, archivo, this.observacion, usuario)

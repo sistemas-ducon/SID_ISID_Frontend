@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel"
-import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
 interface City {
   name: string;
@@ -17,7 +16,7 @@ interface City {
 @Component({
   selector: 'app-consultas',
   standalone: true,
-  imports: [FormsModule, DropdownModule, FloatLabelModule, ButtonModule, InputTextModule, CommonModule, TriStateCheckboxModule, InputTextareaModule],
+  imports: [FormsModule, DropdownModule, FloatLabelModule, ...PRIME_NG_IMPORTS, InputTextModule, CommonModule, TriStateCheckboxModule, InputTextareaModule],
   templateUrl: './consultas.component.html',
   styleUrl: './consultas.component.css'
 })
