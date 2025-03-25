@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 import { SidebarModule } from 'primeng/sidebar';
-
+// Comentario de prueba subir cambios 
 @Component({
   selector: 'app-dashboard-frm-principal',
   standalone: true,
