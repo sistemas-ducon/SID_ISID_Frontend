@@ -1,15 +1,13 @@
 <div class="container-fluid mt-3">
     <div class="card">
-      <div class="card-header">
-        <h6>Módulos Medidas Finales</h6>
-      </div>
       <div class="card-body">
-        <div class="container-fluid">
-            <div class="table-responsive table-sm" style="height: 41vh; overflow-y: auto;">
+          <div class="border rounded mt-2 mb-2" style="height: 20rem;">
+            <h6 class="text-center p-1 m-0" style="height: 1.5rem;">Módulos Medidas Finales</h6>
                 <p-table 
                 [value]="modulosMedidasFinales"
-                styleClass="p-datatable p-datatable-gridlines"
-                [tableStyle]="{ 'width': '100%' }"
+                [scrollHeight]="'17.5rem'" 
+                [tableStyle]="{ 'min-width': '20rem', 'padding': '0rem','width':'100%' }" 
+                class="table table-sm table-bordered table-hover m-0 p-0 "
                 [scrollable]="true"
                 selectionMode="single"
                 [(selection)]="selectedModulo"
@@ -40,21 +38,19 @@
             </p-table>
             
             </div>
-          </div>
+      
           
       
       </div>
     </div>
     <div class="card mt-3">
-        <div class="card-header">
-          <h6>Medidas de corte Producción</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive table-sm" style="height: 20vh; overflow-y: auto;">
+        <div class="rounded mt-2 mb-2" style="height: 15rem;">
+          <h6 class="text-center p-1 m-0" style="height: 1.5rem;">Medidas de corte Producción</h6>
           <p-table 
             [value]="medidasCorteProduccion"
-            styleClass="p-datatable p-datatable-gridlines"
-            [tableStyle]="{ 'width': '100%' }"
+            [scrollHeight]="'13.5rem'" 
+            [tableStyle]="{ 'min-width': '20rem', 'padding': '0rem','width':'100%' }" 
+            class="table table-sm table-bordered table-hover m-0 p-0 "
             [scrollable]="true"
             selectionMode="single"
             [(selection)]="selectedMedidas"
@@ -88,7 +84,7 @@
             </ng-template>
     
           </p-table>
-          </div>
+         
         </div>
       </div>
   </div>
