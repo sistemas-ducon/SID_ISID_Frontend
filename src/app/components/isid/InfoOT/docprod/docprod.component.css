@@ -1,70 +1,124 @@
-/**/
-
-.table-responsive {
-  border: 1px solid #151515;
-  border-radius: 0.5rem;
-  background-color: #ffffff;
-  overflow-y: auto;
-}
-
+/* 🎨 Estilos Generales */
 h6 {
   font-weight: bold;
   font-size: 0.85rem;
   text-transform: uppercase;
-  background: radial-gradient(circle, #4a90e2, #1c355e); /* Se puede poner color diferente */
+  background: radial-gradient(circle, #4a90e2, #1c355e);
   color: white;
   padding: 0.5rem 0;
 }
 
-p-table {
-  font-size: 0.9rem;
+/* 🗂️ Estilos para DataTable */
+:host ::ng-deep .p-datatable {
+  font-size: 12px;
 }
 
-p-table table {
-  width: 100%;
+/* 📋 Tabla */
+:host ::ng-deep .p-datatable-table {
   border-collapse: collapse;
-}
-
-p-table th {
-  text-align: left;
-  background: radial-gradient(circle, #2d6387 30%, #1b4e74 70%);
-  color: #fffdfd;
-  font-weight: 600;
-  padding: 0.5rem;
-  border-bottom: 2px solid #ddd;
-}
-
-
-.custom-tooltip {
-  max-width: 300px; /* Ancho máximo */
-  white-space: pre-wrap; /* Permitir saltos de línea */
-  overflow: hidden; /* Ocultar el desbordamiento si es necesario */
-  text-overflow: ellipsis; /* Mostrar puntos suspensivos para texto largo */
-  word-wrap: break-word; /* Romper las palabras largas */
-}
-
-
-p-table {
-  border-radius: 0.5rem; /* Bordes redondeados */
-  overflow: hidden; /* Evita que los bordes redondeados se vean cortados */
-  background-color: #ffffff; /* Fondo blanco */
-}
-
-p-table table {
-  border-collapse: separate;
-  border-spacing: 0; /* Elimina espacios entre celdas */
   width: 100%;
 }
 
-p-table th,
-p-table td {
-  border: 1px solid #ddd; /* Bordes de las celdas */
-  padding: 0.5rem;
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db;
+  padding: 4px 6px;
+  white-space: nowrap;
 }
 
-p-table th {
-  background: radial-gradient(circle, #2d6387 30%, #1b4e74 70%);
-  color: #fffdfd;
-  font-weight: 600;
+/* 🏗️ Cabecera */
+:host ::ng-deep .p-datatable-table th {
+  background-color: #f3f4f6;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px;
+  text-align: center;
 }
 
+/* 📌 Sticky Header */
+:host ::ng-deep .p-datatable thead tr th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: radial-gradient(circle, #b1b3b4 30%, #a3a6a8 70%);
+  color: #333;
+  border-bottom: 2px solid #d1d5db;
+}
+
+/* 📜 Scroll Interno */
+:host ::ng-deep .p-datatable-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  :host ::ng-deep .p-datatable {
+    font-size: 11px;
+  }
+
+  :host ::ng-deep .p-datatable-table th,
+  :host ::ng-deep .p-datatable-table td {
+    padding: 3px 4px;
+    font-size: 10px;
+  }
+}
+
+/* 🎯 Botones Pequeños */
+.p-button.custom-btn {
+  border-radius: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔥 Botón de Eliminar */
+::ng-deep p-button.custom-btn.btn-danger .p-button {
+  background: linear-gradient(135deg, #dc3545, #b22234);
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  padding: 10px 14px;
+  min-width: 120px;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+::ng-deep p-button.custom-btn.btn-danger .p-button:hover {
+  background: linear-gradient(135deg, #b02a37, #7a141e);
+  box-shadow: 0px 6px 15px rgba(255, 0, 0, 0.4);
+  transform: scale(1.08);
+}
+
+/* 🚫 Botón deshabilitado */
+::ng-deep p-button.custom-btn.btn-disabled .p-button {
+  background: #d6d6d6 !important;
+  color: #222222 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* ✨ Efecto de clic */
+::ng-deep p-button.custom-btn.btn-danger .p-button:active {
+  transform: scale(0.95);
+}
+
+/* 📱 Responsive para botones */
+@media (max-width: 768px) {
+  ::ng-deep p-button.custom-btn.btn-danger .p-button {
+    font-size: 12px;
+    padding: 8px 10px;
+    min-width: 100px;
+  }
+}

@@ -1,7 +1,7 @@
 <div class="container-fluid form-control-sm bg-light p-4">
   <form>
     <!-- Fila 1: Búsqueda y selección de pedido -->
-    <div class="row mt-4">
+    <div class="row">
       <div class="col-md-2">
         <p-floatLabel>
           <input
@@ -50,13 +50,31 @@
 
       <div class="col-md-2 d-flex align-items-end">
         <div class="d-flex justify-content-between gap-2 w-100">
-          <p-button class="custom-btn flex-grow-1" label="..." [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialogProgramacionOT()"></p-button>
-          <p-button class="custom-btn flex-grow-1" [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialog()">
-            <i class="bi bi-binoculars-fill"></i>
-          </p-button>
-          <p-button class="custom-btn flex-grow-1" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-          </p-button>
+          <p-button class="btn-icono" 
+          label="..." 
+          [rounded]="true" 
+          [text]="true" 
+          [raised]="true" 
+          (onClick)="showDialogProgramacionOT()">
+</p-button>
+
+<p-button class="btn-icono" 
+          [rounded]="true" 
+          [text]="true" 
+          [raised]="true" 
+          (onClick)="showDialog()">
+  <i class="bi bi-binoculars-fill"></i>
+</p-button>
+
+<p-button class="btn-alerta" 
+          [rounded]="true" 
+          [text]="true" 
+          [raised]="true">
+  <i class="bi bi-exclamation-triangle-fill"></i>
+</p-button>
+
+
+
         </div>
       </div>
       
@@ -214,13 +232,13 @@
             </div>
             <div class="col-md-3">
                 <p-floatLabel>
-                  <input pInputText id="username2" [(ngModel)]="formData.prueba" name="Pedido" class="full-width" [disabled]="isDisabled"/>
-                  <label for="username2">Ok.Dobujo</label>
+                  <input pInputText id="username2" [(ngModel)]="formData.prueba" name="okempaque" class="full-width" [disabled]="isDisabled"/>
+                  <label for="username2">Ok.Empaque</label>
                 </p-floatLabel>
               </div>
               <div class="col-md-3">
           <p-floatLabel>
-            <input pInputText id="username2" [(ngModel)]="formData.prueba1" name="Pedido" class="full-width" [disabled]="isDisabled"/>
+            <input pInputText id="username2" [(ngModel)]="formData.prueba1" name="okinstala" class="full-width" [disabled]="isDisabled"/>
             <label for="username2">OK Instala</label>
         </p-floatLabel>
         </div>

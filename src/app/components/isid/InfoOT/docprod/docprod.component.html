@@ -31,7 +31,7 @@
                     <td style="white-space: nowrap; padding: 0.2rem; max-width: 10rem;">{{ modulo.leidoPor }}</td>
                     <td>
                       <button pButton type="button" icon="pi pi-download" 
-                        class="p-button-rounded p-button-success"
+                        class="custom-btn p-button-primary"
                         (click)="descargarArchivo(modulo)">
                       </button>
                     </td>
@@ -87,7 +87,18 @@
           </p-floatLabel>
       </div>
       <div class="col-1 d-flex align-items-center">
-        <button class="btn btn-danger w-100">Eliminar</button>
+        <p-button 
+        class="custom-btn btn-danger w-100 text-center"
+        [ngClass]="{ 'btn-enabled': selectedModulo, 'btn-disabled': !selectedModulo }"
+        [disabled]="!selectedModulo"
+        icon="pi pi-trash"
+        label="Eliminar"
+        (click)="eliminarArchivo()">
+      </p-button>
+      
+      
+      
+      
       </div>
     </div>
   

@@ -27,6 +27,7 @@ export class DocprodComponent  implements OnInit{
   selectedModulo: any;
   selectedMedidas: any;
   observacion: string = '';
+ 
 
   files = [];
 
@@ -183,5 +184,62 @@ export class DocprodComponent  implements OnInit{
       },
     });
 }
+
+eliminarArchivo() {
+  console.log("Archivo seleccionado:", this.selectedModulo); // Debugging
+
+  if (!this.selectedModulo) {
+    this.messageService.add({ severity: 'warn', summary: 'Atención', detail: 'Seleccione un archivo' });
+    return;
+  }
+
+  // Obtener datos del usuario logueado
+  const usuarioLogueado = this.SessionServiceService.obtenerSesion();
+
+  if (!usuarioLogueado) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No hay usuario logueado' });
+    return;
+  }
+
+  // Obtener OT y pedido desde InfoOtStateService
+  let ot = '';
+  let pedido = 0;
+
+  this.infoOtStateService.id_OT$.subscribe(idOT => {
+    if (idOT) ot = idOT;
+  });
+
+  this.infoOtStateService.selectedPedido$.subscribe(pedidoSeleccionado => {
+    if (pedidoSeleccionado && pedidoSeleccionado.consecutivoPedido) {
+      pedido = pedidoSeleccionado.consecutivoPedido;
+    }
+  });
+
+  // Construcción del payload
+  const payload = {
+    idDocumento: this.selectedModulo.idDocumento,
+    usuario: usuarioLogueado.nombreUsuario,
+    ot: ot ,
+    pedido: pedido ,
+    iD_Empleado: usuarioLogueado.cedula
+  };
+
+  console.log("Payload enviado para eliminación:", payload);
+
+  // 🔹 Llamada al servicio para eliminar el archivo
+  this.ordenTrabajoService.eliminarArchivo(payload).subscribe({
+    next: (response) => {
+      console.log("Respuesta del servidor:", response);
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Archivo eliminado correctamente' });
+      this.selectedModulo = null; 
+      this.cargarDatos();
+    },
+    error: (error) => {
+      console.error('Error al eliminar archivo:', error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el archivo' });
+    }
+  });
+}
+
 
 }

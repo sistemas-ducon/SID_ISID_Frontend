@@ -49,16 +49,41 @@ export class ProduccionComponent implements OnInit {
 
   cargarDatos() {
     if (this.idOT && this.consecutivoPedido) {
-      this.ordenTrabajoService.obtenerInfoPedido(this.idOT, this.consecutivoPedido).subscribe({
-        next: (data: InfoPedido) => {
+  
+      this.ordenTrabajoService.obtenerReporteModulosMedidas(this.idOT, this.consecutivoPedido).subscribe({
+        next: (response) => {
 
-          this.medidasCorteProduccion = (data as any)?.medidasCorteProduccion || [];
-          this.modulosMedidasFinales = (data as any)?.modulosMedidasFinales || []; 
+  
+          if (response.isExitoso) {
+            let data = response.resultado;
+
+  
+            // Ajuste de las propiedades para que coincidan con el tipo esperado
+            data = {
+              medidasCorteProduccion: data.medidasCorteProduccion,
+              modulosMedidasFinales: data.modulosMedidasFinales,
+            };
+            // Asignando los datos correctamente
+            this.medidasCorteProduccion = data?.medidasCorteProduccion || [];
+            this.modulosMedidasFinales = data?.modulosMedidasFinales || [];
+
+          } else {
+            this.limpiarDatos();
+          }
         },
-        error: () => this.limpiarDatos(),
+        error: (err) => {
+          console.error('Error al cargar los datos desde el servicio:', err);
+          this.limpiarDatos();
+        },
       });
+    } else {
+      console.warn('ID OT o consecutivo no proporcionado.');
     }
   }
+  
+  
+  
+  
 
   limpiarDatos() {
     this.consecutivoPedido = '';

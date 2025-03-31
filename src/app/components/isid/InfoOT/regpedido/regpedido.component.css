@@ -38,6 +38,39 @@
     max-height: 30px;
   }
   
-  ::ng-deep .p-button {
-    color: black !important;
-}
+  :host ::ng-deep p-button.custom-btn .p-button {
+    color: black;
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 32px;
+  
+    border-top: 1px solid #ccc !important;
+  border-left: 1px solid #ccc !important;
+  border-right: 2px solid #a0a0a0 !important;
+  border-bottom: 2px solid #a0a0a0 !important;
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  :host ::ng-deep p-button.btn-comun .p-button {
+    background: linear-gradient(135deg, #eaebec, #e4e8ea);
+    color: #535353;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  :host ::ng-deep p-button.btn-comun .p-button:hover {
+    background: linear-gradient(135deg, #6c7885, #afb1b2);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+  }
+  
+  /* 🟢 Responsividad */
+  @media (max-width: 768px) {
+    :host ::ng-deep p-button.custom-btn .p-button {
+      flex: 1 1 100%;
+      max-width: none;
+    }
+  }
+  

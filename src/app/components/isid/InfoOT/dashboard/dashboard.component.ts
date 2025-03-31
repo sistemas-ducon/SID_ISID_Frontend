@@ -36,6 +36,10 @@ export class DashboardComponent {
     });
   }
 
+  toggleSidebar(): void {
+    this.sidebarVisible1 = !this.sidebarVisible1;
+  }
+
   selectOption(option: string): void {
     this.selectedOption = option;
     this.sidebarVisible1 = false;  
@@ -58,6 +62,7 @@ export class DashboardComponent {
       this.router.navigate([`/isid/dashboard/${route}`]);  
     }
   }
+  
 
   goToMenuIsid(): void {
     this.router.navigate(['/menu-isid']);

@@ -1,3 +1,10 @@
+export interface ApiResponse<T> {
+  statusCode: number;
+  isExitoso: boolean;
+  mensaje: string;
+  resultado: T;
+}
+
 export interface MedidasCorteProduccion {
     medidasCorteProduccion: {
         itemModulo: string;

@@ -39,12 +39,17 @@
 /* Navbar Moderno */
 .modern-navbar {
   background: radial-gradient(circle, #195c88 30%, #083557 70%);
-  padding: 8px 16px; /* Espaciado más compacto */
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  height: 3rem; /* Reducir altura */
-  border-radius: 8px;
+  height: 3rem;
+  border-radius: 0;
   font-size: 14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Mayor prioridad */
 }
 
 /* Contenedor del contenido dinámico */
@@ -52,3 +57,50 @@
   padding: 16px; /* Reducir padding para un diseño más limpio */
   font-size: 14px;
 }
+
+/* 🔹 Contenedor Principal */
+.main-container {
+  height: calc(100vh - 3rem); /* Restar la altura del navbar */
+  overflow: hidden;
+}
+
+/* 🔹 Sidebar */
+.modern-sidebar {
+  width: 220px;
+  background: #f8f9fa;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  height: calc(100vh - 3rem); /* Restar la altura del navbar */
+  position: fixed;
+  top: 3rem; /* Ajustar para que salga debajo del navbar */
+  left: 0;
+  transform: translateX(-300px); /* Inicialmente oculto */
+  transition: transform 0.3s ease-in-out;
+  z-index: 999; /* Asegura que esté por encima del contenido */
+}
+
+/* 🔹 Cuando el sidebar está abierto */
+.sidebar-visible .modern-sidebar {
+  transform: translateX(0); /* Mostrar el sidebar */
+}
+
+/* 🔹 Contenedor del contenido dinámico */
+.content-container {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  margin-top: 3rem; /* Ajustar para no sobreponerse al navbar */
+  transition: transform 0.3s ease-in-out;
+}
+
+.content-collapsed {
+  margin-left: 300px; /* Ajustar el contenido al ancho del sidebar */
+}
+
+.content-expanded {
+  margin-left: 0;
+}
+/* Ajuste para el p-sidebar */
+.p-sidebar-content {
+  pointer-events: auto; /* Permite la interacción */
+}
+

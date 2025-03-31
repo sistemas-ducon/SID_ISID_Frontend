@@ -41,31 +41,43 @@ export class MoComponent implements OnInit {
       }
     });
   }
-
   cargarDatos() {
     if (this.idOT && this.consecutivoPedido) {
-      this.ordenTrabajoService.obtenerInfoPedido(this.idOT, this.consecutivoPedido).subscribe({
-        next: (data) => {
-          const moData: Mo[] = (data as any)?.mo || []; 
+      this.ordenTrabajoService.obtenerManoObra(this.idOT, this.consecutivoPedido).subscribe({
+        next: (response) => {
 
-          // Aplanar procesos y asignar área de producción
-          const procesos: ProcesoMo[] = moData.flatMap(mo =>
-            mo.procesos.map(proceso => ({
-              ...proceso,
-              areaProduccion: mo.areaProduccion
-            }))
-          );
-
-          // Calcular total general
-          this.granTotal = procesos.reduce((total, proceso) => total + (proceso.subTotal ?? 0), 0);
-
-          // Agrupar datos por área de producción con subtotales
-          this.crearManoObraConSubtotales(procesos);
+  
+          // Verificar si la respuesta es exitosa y tiene el formato esperado
+          if (response && response.isExitoso && response.resultado?.manoObra) {
+            const moData: Mo[] = response.resultado.manoObra;
+  
+            // Aplanar procesos y asignar área de producción
+            const procesos: ProcesoMo[] = moData.flatMap(mo =>
+              mo.procesos.map(proceso => ({
+                ...proceso,
+                areaProduccion: mo.areaProduccion
+              }))
+            );
+  
+            // Calcular total general
+            this.granTotal = procesos.reduce((total, proceso) => total + (proceso.subTotal ?? 0), 0);
+  
+            // Agrupar datos por área de producción con subtotales
+            this.crearManoObraConSubtotales(procesos);
+          } else {
+            console.error('Error al obtener la mano de obra:', response?.mensaje || 'Estructura no esperada');
+            this.limpiarDatos();
+          }
         },
-        error: () => this.limpiarDatos(),
+        error: (err) => {
+          console.error('Error en la solicitud:', err);
+          this.limpiarDatos();
+        },
       });
     }
   }
+  
+  
 
   crearManoObraConSubtotales(procesos: ProcesoMo[]) {
     let procesosAgrupados: any = {};

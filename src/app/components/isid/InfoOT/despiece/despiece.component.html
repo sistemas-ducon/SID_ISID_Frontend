@@ -4,9 +4,8 @@
     <div class="col-12">
 
       <div class="border rounded mt-2" style="height: 30rem;">
-        <h6 class="text-center p-1 m-0" style="height: 1.5rem;">Despiece</h6>
         <p-table
-        [value]="DespiecePlano"
+        [value]="despiecePlano"
         showGridlines
         stripedRows 
         [scrollHeight]="'30rem'" 
@@ -15,35 +14,35 @@
         [resizableColumns]="true"
         scrollable="true"     
         frozenWidth="true">                      
-          <ng-template #header>                        
-            <tr>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">ID</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Id Objeto</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Descripción</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Ancho</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Altura</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Cantidad</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Prof</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Grupo</th>
-              <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Linea</th>
-
-            </tr>
-          </ng-template>
-          
-          <ng-template #body let-Despiece>
-            <tr>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.idNumerico }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.idPanel }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;"> {{Despiece.descripcionPanel }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.anchoPanel | number:'1.1-1' }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.altura | number:'1.1-1' }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.cantidad }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.profundidad | number:'1.1-1' }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.descripcionGrupo }}</td>
-              <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.descripcionLinea }}</td>
-            </tr>
-          </ng-template>
-        </p-table>
+        <ng-template pTemplate="header">                        
+          <tr>
+            <th pResizableColumn>ID</th>
+            <th pResizableColumn>Id Objeto</th>
+            <th pResizableColumn>Descripción</th>
+            <th pResizableColumn>Ancho</th>
+            <th pResizableColumn>Altura</th>
+            <th pResizableColumn>Cantidad</th>
+            <th pResizableColumn>Prof</th>
+            <th pResizableColumn>Grupo</th>
+            <th pResizableColumn>Linea</th>
+          </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-despiece>
+          <tr>
+            <td>{{ despiece.idNumerico }}</td>
+            <td>{{ despiece.idPanel }}</td>
+            <td>{{ despiece.descripcionPanel }}</td>
+            <td>{{ despiece.anchoPanel | number:'1.1-1' }}</td>
+            <td>{{ despiece.altura | number:'1.1-1' }}</td>
+            <td>{{ despiece.cantidad }}</td>
+            <td>{{ despiece.profundidad | number:'1.1-1' }}</td>
+            <td>{{ despiece.descripcionGrupo }}</td>
+            <td>{{ despiece.descripcionLinea }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      
 
       </div>
 

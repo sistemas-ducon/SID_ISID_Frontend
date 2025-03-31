@@ -8,44 +8,89 @@
 /* =========================
    📌 Botones Generales
    ========================= */
-::ng-deep .p-button {
+/* 🎨 Estilos generales para los botones */
+:host ::ng-deep .p-button {
     color: black;
     font-size: 12px;
     padding: 6px 10px;
     min-width: 32px;
+
+    border-top: 1px solid #ccc !important;
+  border-left: 1px solid #ccc !important;
+  border-right: 2px solid #a0a0a0 !important;
+  border-bottom: 2px solid #a0a0a0 !important;
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* 🔵 Botones Pequeños */
-p-button.custom-btn {
-    border-radius: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    padding: 5px;
-    width: 36px;
-    height: 36px;
-    transition: all 0.3s ease-in-out;
-}
-
-
-/* 🔴 Botón Peligro */
-::ng-deep p-button.btn-danger .p-button {
-    background-color: #dc3545;
+/* 🔵 Botones pequeños con iconos */
+:host ::ng-deep p-button.btn-icono .p-button {
+    background: linear-gradient(135deg, #e4e8ea, #e4e8ea);
     color: white;
-    border-radius: 10px;
-    font-size: 14px;
-    padding: 8px 12px;
-    min-width: 100px;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.3s ease-in-out;
     border: none;
 }
 
-::ng-deep p-button.btn-danger .p-button:hover {
-    background-color: #b02a37;
+:host ::ng-deep p-button.btn-icono .p-button:hover {
+    background: linear-gradient(135deg, #e2e5e8, #3c3c3c);
+    box-shadow: 0px 4px 8px rgba(3, 3, 3, 0.3);
+    transform: scale(1.05);
+}
+
+/* ⚠️ Botón con icono amarillo */
+:host ::ng-deep p-button.btn-alerta .p-button {
+    background: linear-gradient(135deg, #e4e8ea, #e4e8ea);
+    color: white;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+
+:host ::ng-deep p-button.btn-alerta .p-button i {
+    color: yellow; /* Asegura que el icono sea amarillo */
+
+}
+
+:host ::ng-deep p-button.btn-icono .p-button i {
+    color: rgb(18, 29, 87); 
+}
+
+:host ::ng-deep p-button.btn-alerta .p-button:hover {
+    background: linear-gradient(135deg, #49515d, #45536e);
+    box-shadow: 0px 4px 8px rgba(10, 44, 111, 0.3);
+    transform: scale(1.05);
+}
+
+
+/* 🔴 Botón Peligro - TERMINAR */
+:host ::ng-deep p-button.btn-danger .p-button {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 120px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+:host ::ng-deep p-button.btn-danger .p-button:hover {
+    background: linear-gradient(135deg, #b02a37, #7a1f29);
     box-shadow: 0px 4px 8px rgba(255, 0, 0, 0.3);
     transform: scale(1.05);
 }
+
 
 /* Botón deshabilitado */
 .custom-btn.btn-disabled {
@@ -78,16 +123,16 @@ p-button.custom-btn {
 :host ::ng-deep p-floatLabel input {
     font-size: 12px;
     padding: 4px 8px;
-    height: 30px;
+    height: 35px;
 }
 
 .p-inputtext:disabled {
   background-color: #e0e0e0 !important; /* Un gris más notorio */
   color: #0d0d0d !important; 
-  border-top: 2px solid #a0a0a0 !important; /* Borde grueso arriba */
-  border-left: 2px solid #a0a0a0 !important; /* Borde grueso izquierda */
-  border-right: 1px solid #ccc !important; /* Borde derecho tenue */
-  border-bottom: 1px solid #ccc !important; /* Borde inferior tenue */
+  border-top: 1px solid #ccc !important; /* Borde grueso arriba */
+  border-left: 1px solid #ccc !important; /* Borde grueso izquierda */
+  border-right: 2px solid #a0a0a0 !important; /* Borde derecho tenue */
+  border-bottom: 2px solid #a0a0a0 !important; /* Borde inferior tenue */
   box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra tenue arriba e izquierda */
   opacity: 0.6; /* Mayor opacidad para destacar el estado deshabilitado */
 }
@@ -99,11 +144,11 @@ p-button.custom-btn {
 :host ::ng-deep p-dropdown {
     font-size: 12px;
     width: 150px;
-    height: 30px;
+    height: 35px;
 }
 
 :host ::ng-deep p-dropdown .p-dropdown-label {
-    height: 28px;
+    height: 35px;
     display: flex;
     align-items: center;
 }

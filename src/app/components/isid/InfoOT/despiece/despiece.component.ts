@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orden-trabajo.service';
 import { InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-ot-state.service';
 import { DespiecePlano } from '../../../../models/isid/OrdenTrabajo/despiece.dto';
-import { ChangeDetectorRef } from '@angular/core'; // 🔹 Importar ChangeDetectorRef
 
 @Component({
   selector: 'app-despiece',
@@ -19,12 +18,12 @@ export class DespieceComponent implements OnInit {
   idOT: string = '';
   consecutivoPedido: string = '';
   selectedInsumo: any;
-  DespiecePlano: DespiecePlano[] = [];
+  despiecePlano: DespiecePlano[] = []; // 🔹 Nombre de variable en minúscula para mantener buenas prácticas
 
   constructor(
     private ordenTrabajoService: OrdenTrabajoService,
     private infoOtStateService: InfoOtStateService,
-    private cdr: ChangeDetectorRef // 🔹 Inyectar ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -48,27 +47,34 @@ export class DespieceComponent implements OnInit {
 
   cargarDatos() {
     if (this.idOT && this.consecutivoPedido) {
-      this.ordenTrabajoService.obtenerInfoPedido(this.idOT, this.consecutivoPedido).subscribe({
-        next: (data: InfoPedido) => {
-          console.log('Datos recibidos:', data); // 👀 Verifica los datos recibidos
+      this.ordenTrabajoService.ObtenerDespiecePlano(this.idOT, this.consecutivoPedido).subscribe({
+        next: (response) => {
+          console.log('Respuesta obtenida del despiece:', response); // Para verificar la estructura de la respuesta
   
-          if (data && 'despiecePlano' in data) {
-            this.DespiecePlano = Array.isArray(data.despiecePlano) ? [...data.despiecePlano] : [];
-            console.log('Despiece cargado:', this.DespiecePlano);
+          // Verificar si la respuesta es exitosa y tiene el formato esperado
+          if (response?.isExitoso && response.resultado?.despiecePlano) {
+            this.despiecePlano = response.resultado.despiecePlano;
           } else {
-            console.warn('despiecePlano no está presente en la respuesta:', data);
-            this.DespiecePlano = [];
+            console.error('Error al obtener el despiece plano:', response?.mensaje || 'Estructura no esperada');
+            this.despiecePlano = [];
           }
   
           this.cdr.detectChanges(); // 🔥 Forzar actualización de la vista
         },
-        error: () => this.limpiarDatos(),
+        error: (error) => {
+          console.error('Error al obtener el despiece:', error);
+          this.despiecePlano = [];
+          this.limpiarDatos();
+        },
       });
     }
   }
+  
+  
 
   limpiarDatos() {
     this.consecutivoPedido = '';
-    this.DespiecePlano = [];
+    this.despiecePlano = [];
+    this.cdr.detectChanges(); // 🔥 Asegurar actualización de vista
   }
 }

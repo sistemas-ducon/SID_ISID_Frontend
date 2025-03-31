@@ -8,6 +8,13 @@ import { InfoPedido } from '../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { documentacionPedido } from '../../../models/isid/OrdenTrabajo/documentacionpedido';
 import { equivalenciaDeCodigos } from '../../../models/isid/OrdenTrabajo/equivalenciaDeCodigos.dto';
 import { InsumosPlano } from '../../../models/isid/OrdenTrabajo/insumosPlano.dto';
+import { DespiecePlano } from '../../../models/isid/OrdenTrabajo/despiece.dto';
+import { map } from 'rxjs';
+import { Compra } from '../../../models/isid/OrdenTrabajo/compras.dto';
+import { ModulosMedidasFinales, MedidasCorteProduccion } from '../../../models/isid/OrdenTrabajo/produccion.dto';
+import { ApiResponse } from '../../../models/isid/OrdenTrabajo/produccion.dto';
+import { Mo } from '../../../models/isid/OrdenTrabajo/mo.dto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -84,9 +91,38 @@ export class OrdenTrabajoService {
   obtenerEquivalenciaCodigos(): Observable<equivalenciaDeCodigos> {
     return this.http.get<equivalenciaDeCodigos>(`${this.apiUrl}/ObtenerEquivalenciaCodigos`);
   }
+
+  ObtenerDespiecePlano(idOT: string, consecutivoPedido: string): Observable<ApiResponse<{ despiecePlano: DespiecePlano[] }>> {
+    return this.http.get<ApiResponse<{ despiecePlano: DespiecePlano[] }>>(`${this.apiUrl}/ObtenerDespiecePlano/${idOT}/${consecutivoPedido}`);
+  }
+  
+  
   
   obtenerReporteInsumosPlano(plano: string): Observable<InsumosPlano> {
     return this.http.get<InsumosPlano>(`${this.apiUrl}/obtenerReporteInsumosPlano/${plano}`);
   }
   
+  eliminarArchivo(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/EliminarArchivo`, payload);
+  }
+
+  obtenerCompras(idOT: string, consecutivoPedido: string) {
+    const url = `${this.apiUrl}/ObtenerCompras/${idOT}/${consecutivoPedido}`;
+    return this.http.get<{ compras: Compra[] }>(url);
+  }
+  
+
+obtenerReporteModulosMedidas(idOT: string, consecutivoPedido: string): Observable<ApiResponse<{ modulosMedidasFinales: ModulosMedidasFinales[], medidasCorteProduccion: MedidasCorteProduccion[] }>> {
+  return this.http.get<ApiResponse<{ modulosMedidasFinales: ModulosMedidasFinales[], medidasCorteProduccion: MedidasCorteProduccion[] }>>(
+    `${this.apiUrl}/ObtenerReporteModulosMedidas/${idOT}/${consecutivoPedido}`
+  );
+}
+
+obtenerManoObra(idOT: string, consecutivoPedido: string): Observable<ApiResponse<{ manoObra: Mo[] }>> {
+  return this.http.get<ApiResponse<{ manoObra: Mo[] }>>(
+    `${this.apiUrl}/ObtenerManoObra/${idOT}/${consecutivoPedido}`
+  );
+}
+
+
 }

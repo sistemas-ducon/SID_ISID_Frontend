@@ -111,6 +111,11 @@ export class InfoOTComponent implements OnInit {
             okventa: infoPedido.ot.fechaEntregaDibujoDespiece,
             okdibujo: infoPedido.ot.fechaEntregaProduccion,
             Observacion: infoPedido.ot.observacionPedido,
+            okempaquevta: infoPedido.ot.fechaEmpaqueVenta,
+            okdespacho: infoPedido.ot.fechaTerminadaDespacho,
+            empaqueprod: infoPedido.ot.fechaEmpaque,
+            okinstala: infoPedido.ot.fechaFinalInstalacion,
+            okempaque: infoPedido.ot.fechaTerminadaEmpaque,
           };
   
           // Guardar datos en el servicio para persistencia
