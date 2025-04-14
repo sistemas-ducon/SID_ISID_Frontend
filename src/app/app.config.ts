@@ -4,6 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { routes } from './routes/app.routes';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,7 @@ export const appConfig: ApplicationConfig = {
     
     // Hydration for server-side rendering (SSR)
     provideClientHydration(),
+
+    MessageService 
   ],
 };

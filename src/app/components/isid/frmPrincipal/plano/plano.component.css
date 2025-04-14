@@ -1,135 +1,139 @@
-.custom-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 20px;
-    transition: all 0.2s ease-in-out;
-  }
+  /* Anderson */
 
-  /* Botón habilitado al pasar el mouse */
-  .custom-btn.btn-primary:hover {
-    background-color: #0056b3;
-    box-shadow: -3px -3px 6px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Botón deshabilitado */
-  .custom-btn.btn-disabled {
-    background-color: #e0e0e0 !important;
-    color: #0d0d0d !important;
-    border-top: 1px solid #ccc !important;
-    border-left: 1px solid #ccc !important;
-    border-right: 3px solid #a0a0a0 !important;
-    border-bottom: 3px solid #a0a0a0 !important;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .custom-btn.btn-enabled {
-    background-color: #f8f8f8 !important;
-    color: #0d0d0d !important;
-    border-top: 1px solid #ccc !important;
-    border-left: 1px solid #ccc !important;
-    border-right: 3px solid #a0a0a0 !important;
-    border-bottom: 3px solid #a0a0a0 !important;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
-  }
-
-  
-
-  :host ::ng-deep .p-datatable-table th, 
-:host ::ng-deep .p-datatable-table td {
-  border: 1px solid #d1d5db; /* Color gris */
-  padding: 8px;
-}
-
-p-table {
-  font-size: 0.9rem;
+  :host ::ng-deep .p-toolbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center !important;
+    background-color: #fff;
+    border: none;
+    border-bottom: solid 1px #0d0d0d1c;
 
 }
 
-p-table table {
-  width: 100%;
-  border-collapse: collapse;
+  /* Botones habilitados del toolbar  */
+.buttonNav {
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1);
+  padding: 0.2rem;
+  color: #2da6e7;
+  border-radius: 0.2rem;
+  height: 2rem;
+  width: 2rem;
+  border: 1px solid #b2d6ff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  transform: scale(1);
 }
 
-p-table th {
-  text-align: left;
-  background-color: #49556a;
-  color: #fafafa;
-  font-weight: 600;
-  padding: 0.5rem;
-  border-bottom: 2px solid #ddd;
+/* Botones habilitados del toolbar hover  */
+.buttonNav:hover {
+  background: linear-gradient(to bottom, #9ed7f6, #0288D1);
+  color: #ffffff;
+  border: 1px solid #2da6e7;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
+}
+
+/* Botones Deshabilitados */
+.buttonNav:disabled {
+  background: #d3d3d3 !important;
+  color: #8a8a8a !important;
+  border: 1px solid #bdbdbd !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: scale(1) !important;
 }
 
 
-p-table td:nth-child(even) {
-  background-color: #f9fafb;
+/* Botón rojo */
+.btn-rojo {
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1);
+  color: #c16464;
+  border: 1px solid #f0afaf;
 }
 
-:host ::ng-deep .p-datatable-table td {
-  white-space: nowrap !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-:host ::ng-deep .p-datatable-table img {
-  max-height: 30px;
+.btn-rojo:hover {
+  background: linear-gradient(to bottom, #c84444, #c84444);
+  color: #fff;
+  border: 1px solid #c84444;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
 }
 
+/* Botón Verde */
+.btn-verde {
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1);
+  color: #41a446;
+  border: 1px solid #79dba7;
+}
+
+.btn-verde:hover {
+  background: linear-gradient(to bottom, #41a446, #41a446);
+  color: #fff;
+  border: 1px solid #41a446;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
+}
+
+.tituloTabla {
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  background: radial-gradient(circle, #4a90e2, #1c355e);
+  /* Se puede poner color diferente */
+  color: white;
+  padding: 0.5rem 0;
+}
+
+
+/* Altura inicial de todos los inputs */
+.p-inputtext {
+  height: 1.9rem;
+}
+
+
+/* Input y Float Label deshabilitados  */
 
 .p-inputtext:disabled {
-    background-color: #e0e0e0 !important; /* Un gris más notorio */
-    color: #0d0d0d !important; 
-    border-top: 2px solid #a0a0a0 !important; /* Borde grueso arriba */
-    border-left: 2px solid #a0a0a0 !important; /* Borde grueso izquierda */
-    border-right: 1px solid #ccc !important; /* Borde derecho tenue */
-    border-bottom: 1px solid #ccc !important; /* Borde inferior tenue */
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra tenue arriba e izquierda */
-    opacity: 0.6; /* Mayor opacidad para destacar el estado deshabilitado */
-  }
-
-  p-button.custom-btn {
-    border-radius: 20% !important; /* Hace el botón completamente circular */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 16px !important;
-    padding: 0px !important; /* Reduce el espacio interno */
-    line-height: 0 !important; /* Reduce el espacio interno */
+  background-color: #e0e0e0 !important;
+  /* Un gris más notorio */
+  color: #0d0d0d !important;
+  border-top: 2px solid #a0a0a0 !important;
+  /* Borde grueso arriba */
+  border-left: 2px solid #a0a0a0 !important;
+  /* Borde grueso izquierda */
+  border-right: 1px solid #ccc !important;
+  /* Borde derecho tenue */
+  border-bottom: 1px solid #ccc !important;
+  /* Borde inferior tenue */
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+  /* Sombra tenue arriba e izquierda */
+  opacity: 0.6;
+  /* Mayor opacidad para destacar el estado deshabilitado */
 }
 
-p-button.custom-btn:hover {
-    background-color: #dae7f6 !important;
-    box-shadow: -3px -3px 6px rgba(0, 0, 0, 0.3) !important;
-}
 
-  /* Botón deshabilitado */
-  .custom-btn.btn-disabled {
-    background-color: #e0e0e0 !important;
-    color: #0d0d0d !important;
-    border-top: 2px solid #ccc !important;
-    border-left: 2px solid #ccc !important;
-    border-right: 4px solid #a0a0a0 !important;
-    border-bottom: 4px solid #a0a0a0 !important;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
-    cursor: not-allowed;
+/* =========================
+    📌 DataTable
+    ========================= */
+    :host ::ng-deep .p-datatable {
+      font-size: 12px;
   }
-
-  .custom-btn.btn-enabled {
-    background-color: #f8f8f8 !important;
-    color: #0d0d0d !important;
-    border-top: 1px solid #ccc !important;
-    border-left: 1px solid #ccc !important;
-    border-right: 4px solid #a0a0a0 !important;
-    border-bottom: 4px solid #a0a0a0 !important;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
+  
+  :host ::ng-deep .p-datatable-table th,
+  :host ::ng-deep .p-datatable-table td {
+      border: 1px solid #d1d5db;
+      padding: 4px 6px;
+      white-space: nowrap;
   }
-
-  .disabled { 
-    color: #0d0d0d !important;
+  
+  :host ::ng-deep .p-datatable-table th {
+      background-color: #f3f4f6;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 6px;
   }
-
+  
+  :host ::ng-deep .p-datatable-wrapper {
+      overflow-y: auto;
+      max-height: 400px;
+  }

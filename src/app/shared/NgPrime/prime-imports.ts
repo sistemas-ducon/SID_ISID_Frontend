@@ -1,5 +1,5 @@
 import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabel, FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,14 @@ import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CalendarModule } from 'primeng/calendar';
+import { RippleModule } from 'primeng/ripple';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+
 
 
 export const PRIME_NG_IMPORTS = [
@@ -27,6 +35,16 @@ export const PRIME_NG_IMPORTS = [
     ProgressBarModule,
     ToastModule,
     CheckboxModule,
+    ToolbarModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputTextModule,
+    FloatLabelModule,
+    CalendarModule,
+    RippleModule,
+    InputNumberModule 
+    
+     
 
   ];
   
