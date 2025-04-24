@@ -1,740 +1,894 @@
-<div class="container-fluid">
+<p-toast></p-toast>
+<div class="container-fluid form-control-sm bg-light mb-3" [attr.translate]="'no'">
 
-    <nav class="container-fluid p-2 d-flex flex-wrap justify-content-center gap-2">
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-file-earmark-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-floppy-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-wrench-adjustable"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-trash3-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialog()">
-            <i class="bi bi-binoculars-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-printer-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-printer"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-x-circle-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-sunglasses"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-square-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-person-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-heptagon-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-fire"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-key-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-tools"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-gear-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-ban text-danger"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-check-circle-fill"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-journal-minus"></i>
-        </p-button>
-    </nav>
-    
-<div>
-  <!-- FILAS PRINCIPALES -->
-  <div class="container-fluid form-control-sm">
-    <div class="row mt-2 gx-2 gy-2 align-items-center">
-  
-      <!-- OT -->
-      <div class="col-6 col-sm-4 col-md-2">
-        <p-floatLabel class="d-flex flex-column h-100">
-          <input
-          pInputText
-          id="Id_OT"
-          [(ngModel)]="id_OT"
-          [ngModelOptions]="{standalone: true}"
-          type="text"
-          name="OT"
-          class="w-100"
-          (keyup.enter)="buscarPedidos()"
-          />
-          <label for="Id_OT">OT</label>
-        </p-floatLabel>
-      </div>
-  
-      <!-- Pedido (Dropdown) - Ocupa solo 1 columna -->
-      <div class="col-4 col-sm-2 col-md-1">
-        <p-dropdown
-        [options]="pedidosOrdTra"
-        [(ngModel)]="selectedPedido"
-        [ngModelOptions]="{standalone: true}"
-        optionLabel="consecutivoPedido"
-        placeholder="Buscar Pedido"
-        class="w-100"
-        (onChange)="actualizarCampos()"
-      ></p-dropdown>
-      </div>
-  
-      <!-- T.Ped y Dir (Dir aprovecha espacio extra) -->
-      <div class="col-12 col-md-5 d-flex align-items-center">
-        <div class="col-4 me-2">
-          <p-floatLabel class="d-flex flex-column h-100">
-            <input pInputText id="t_ped" [(ngModel)]="formData.t_pedOrdTra" name="t_pedOrdTra" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped">T.Ped</label>
-          </p-floatLabel>
-        </div>
-        <div class="flex-grow-1">
-          <p-floatLabel class="d-flex flex-column h-100">
-            <input pInputText id="direccion" [(ngModel)]="formData.direccion" name="Direccion" class="w-100" [disabled]="isDisabled"/>
-            <label for="dir">Dir</label>
-          </p-floatLabel>
-        </div>
-      </div>
-  
-      <!-- Ciudad -->
-      <div class="col-6 col-sm-4 col-md-2">
-        <p-floatLabel class="d-flex flex-column h-100">
-            <input pInputText id="ciudad" [(ngModel)]="formData.ciudad" name="ciudad" class="w-100" [disabled]="isDisabled"/>
-          <label for="ciudad">Ciudad</label>
-        </p-floatLabel>
-      </div>
-  
-      <!-- Dpto, País combinados -->
-      <div class="col-6 col-sm-4 col-md-2 d-flex align-items-center">
-        <div class="flex-grow-1 me-3">
-          <p-floatLabel class="d-flex flex-column h-100">
-            <input pInputText id="departamento" [(ngModel)]="formData.departamento"  name="departamento" class="w-100" [disabled]="isDisabled"/>
-            <label for="dpto">Dpto</label>
-          </p-floatLabel>
-        </div>
-        <div class="flex-grow-1">
-          <p-floatLabel class="d-flex flex-column h-100">
-            <input pInputText id="pais" [(ngModel)]="formData.pais" name="pais" class="w-100" [disabled]="isDisabled"/>
-            <label for="pais">País</label>
-          </p-floatLabel>
-        </div>
-      </div>
-  
-    </div>
-  </div>
-  
-  
-  
-  <div class="container-fluid form-control-sm">
-    <div class="row mt-1 gx-2 gy-2">
-      
-      <!-- Primera columna (Obra) -->
-      <div class="col-12 col-sm-6">
-        <p-floatLabel>
-            <input pInputText id="obra" [(ngModel)]="formData.obra" name="obra" class="w-100" [disabled]="isDisabled"/>
-          <label for="Id_OT">Obra</label>
-        </p-floatLabel>
-      </div>
-  
-      <!-- Segunda columna (Contact y Mail combinados con label y checkbox) -->
-      <div class="col-12 col-sm-6 d-flex align-items-center gap-2">
-        
-        <!-- Primer FloatLabel -->
-        <div class="flex-grow-1 d-flex flex-column">
-          <p-floatLabel class="w-100">
-            <input pInputText id="contacto" [(ngModel)]="formData.Contacto" name="contacto" class="w-100" [disabled]="isDisabled"/>
-            <label for="contact_mail1">Contact</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Segundo FloatLabel -->
-        <div class="flex-grow-1 d-flex flex-column">
-          <p-floatLabel class="w-100">
-            <input pInputText id="mail" [(ngModel)]="formData.Mail" name="mail" class="w-100" [disabled]="isDisabled"/>
-            <label for="contact_mail2">Mail</label>
-          </p-floatLabel>
-        </div>
-  
-      </div>
-  
-    </div>
-  </div>
-  
-  
+    <p-toolbar [style]="{'background':'#F8F9FA'}">
+        <div class="flex gap-2  container-fluid p-2 d-flex flex-wrap justify-content-center gap-2 bg-light ">
 
-  <div class="container-fluid form-control-sm">
-    <div class="row mt-1 gx-2 gy-2">
-      
-      <!-- Primera columna (OT y Acta de Entrega) -->
-      <div class="col-md-3 d-flex align-items-center justify-content-between mb-2">
-        
-        <!-- Input OT con etiqueta flotante -->
-        <div class="flex-grow-1 me-3">
-          <p-floatLabel>
-            <input pInputText id="Base" [(ngModel)]="formData.obra" name="Base" class="w-100" [disabled]="isDisabled"/>
-            <label for="Id_OT">Base</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Checkbox Acta de Entrega -->
-        <div class="d-flex align-items-center gap-2">
-          <label for="ny" class="mb-0">Acta de Entrega</label>
-          <p-checkbox inputId="ny"></p-checkbox>
-        </div>
-  
-      </div>
-  
-      <!-- Grupo de columnas para alineación -->
-      <div class="col-md-9">
-        <div class="row gx-2">
-          
-          <!-- Primera columna de 2 -->
-          <div class="col-md-4">
-            <p-floatLabel>
-                <input pInputText id="telefono" [(ngModel)]="formData.telefono" name="telefono" class="w-100" [disabled]="isDisabled"/>
-              <label for="tel">Tel</label>
-            </p-floatLabel>
-          </div>
-  
-          <!-- Segunda columna de 2 -->
-          <div class="col-md-4">
-            <p-floatLabel>
-              <input pInputText id="cel" [(ngModel)]="asesor" name="cel" class="w-100" [disabled]="isDisabled"/>
-              <label for="cel">Cel</label>
-            </p-floatLabel>
-          </div>
-  
-          <!-- Tercera columna de 2 -->
-          <div class="col-md-4">
-            <p-floatLabel>
-              <input pInputText id="recibe" [(ngModel)]="asesor" name="recibe" class="w-100" [disabled]="isDisabled"/>
-              <label for="recibe">Recibe</label>
-            </p-floatLabel>
-          </div>
-  
-        </div>
-      </div>
-  
-    </div>
-  </div>
-  
-  
-  <div class="container-fluid form-control-sm">
-    <div class="row">
-      <!-- Sección de 4 columnas -->
-      <div class="col-md-4 mt-1">
-        <p-floatLabel>
-            <textarea id="infoOT" rows="11" [(ngModel)]="formData.Observacion" name="observacion" pInputTextarea class="form-control" readonly></textarea>
-            <label for="infoOT">Información General OT</label>
-          </p-floatLabel>
-      </div>
-  
-<!-- Sección de 8 columnas -->
-<div class="col-md-8 mt-1">
-    <div class="container-fluid form-control-sm">
-      
-        <div class="row gx-2 gy-2">
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-file-earmark-fill"
+                severity="info" size="small" title="Nueva OT" [disabled]="botones.nuevaOT"
+                [ngClass]="{'btn-disabled': !botones.nuevaOT}">
+            </button>
 
-            <div class="col-6 col-sm-4 col-md-2">
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-floppy-fill" size="small"
+                title="Guardar" [disabled]="botones.guardar" [ngClass]="{'btn-disabled': !botones.guardar}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-wrench-adjustable" size="small"
+                title="Modificar OT" [disabled]="botones.modificarOT" [ngClass]="{'btn-disabled': !botones.modificarOT}"
+                (click)="ModificarOT()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav btn-rojo " icon="bi bi-trash3-fill"
+                size="small" title="Eliminar OT" [disabled]="botones.eliminarOT"
+                [ngClass]="{'btn-disabled': !botones.eliminarOT}"  (click)="EliminarOT()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-binoculars-fill" size="small"
+                title="Observaciones" [disabled]="botones.observaciones" [ngClass]="{'btn-disabled': !botones.observaciones}"
+                (click)="VerObservaciones()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-printer-fill" size="small"
+                title="Imprimir información OT" [disabled]="botones.imprimirOT"
+                [ngClass]="{'btn-disabled': !botones.importarOT}" (click)="ImprimirInfoOT()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-printer" size="small"
+                title="Imprimir Información Contable" [disabled]="botones.imprimirContable"
+                [ngClass]="{'btn-disabled': !botones.imprimirContable}" (click)="ImprimirInfoOTContable()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav btn-rojo" icon="bi bi-x-circle-fill"
+                size="small" title="Cancelar" [disabled]="botones.cancelar"
+                [ngClass]="{'btn-disabled': !botones.cancelar}" (click)="Cancelar()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-eye-fill" size="small"
+                title="Visualizar OT Pendientes" [disabled]="botones.visualizarOT"
+                [ngClass]="{'btn-disabled': !botones.visualizarOT}" (click)="VisualizarOts()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-arrow-down-circle-fill"
+                size="small" title="Importar OT" [disabled]="botones.importarOT"
+                [ngClass]="{'btn-disabled': !botones.importarOT}" (click)="ImportarOTs()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav buttonNav btn-verde"
+                icon="bi bi-person-fill" size="small" title="Click para Detener Producción"
+                [disabled]="botones.detenerProduccion" [ngClass]="{'btn-disabled': !botones.detenerProduccion}" (click)="DetenerProduccion()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav btn-rojo" icon="bi bi-sign-stop-fill"
+                size="small" title="Click para Detener Despacho" [disabled]="botones.detenerDespacho"
+                [ngClass]="{'btn-disabled': !botones.detenerDespacho}" (click)="DetenerDespacho()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-bank" size="small"
+                title="Registrar Pedido en el Sistema Adminstrativo" [disabled]="botones.registrarPedido"
+                [ngClass]="{'btn-disabled': !botones.registrarPedido}" (click)="RegistrarPedido()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-key-fill" size="small"
+                title="Abrir o Cerrar una Obra" [disabled]="botones.abrirCerrarObra"
+                [ngClass]="{'btn-disabled': !botones.abrirCerrarObra}" (click)="AbrirCerrarOt()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-tools" size="small"
+                title="Obra No Reactivada" [disabled]="botones.obraReactivada"
+                [ngClass]="{'btn-disabled': !botones.obraReactivada}" (click)="ObraNoReactivada()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-gear-fill" size="small"
+                title="Programar Obras" [disabled]="botones.programarObras"
+                [ngClass]="{'btn-disabled': !botones.programarObras}" (click)="ProgramarObra()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav btn-rojo" icon="bi bi-ban" size="small"
+                title="Anular Obra" [disabled]="botones.anularObra" [ngClass]="{'btn-disabled': !botones.anularObra}"
+                (click)="AnularObra()">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-check-circle-fill" size="small"
+                title="Troja en Proceso" [disabled]="botones.trojaProceso"
+                [ngClass]="{'btn-disabled': !botones.trojaProceso}"  (click)="TrojaProceso()">
+            </button>
+
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-journal-minus" size="small"
+                title="Acta Entrega" [disabled]="botones.actaEntrega" [ngClass]="{'btn-disabled': !botones.actaEntrega}"  (click)="ActaEntrega()">
+            </button>
+
+
+        </div>
+    </p-toolbar>
+
+    <form [formGroup]="formOT">
+
+        <div class="row pb-2 g-4 g-md-2 mt-4">
+
+            <div class="col-md-2 ">
                 <p-floatLabel>
-                    <input pInputText id="username1" [(ngModel)]="formData.venta" name="venta" class="full-width" [disabled]="isDisabled"/>
-                    <label for="t_ped1">Venta</label>
+                    <input id="OT" type="text" class="w-100" pInputText formControlName="OT"
+                        (keydown.enter)="CargarPedidos()" />
+                    <label for="OT">OT</label>
                 </p-floatLabel>
+
             </div>
-        
-            <div class="col-6 col-sm-4 col-md-2">
+
+            <div class="col-md-2">
+                <p-dropdown [options]="pedidos" formControlName="Pedido" optionLabel="consecutivoPedido" [filter]="true"
+                    filterBy="consecutivoPedido" [showClear]="true" placeholder="Buscar Pedido"
+                    [style]="{'width':'100%'}" emptyMessage="No hay pedidos disponibles"
+                    emptyFilterMessage="No se encontraron pedidos" (onChange)="cambioPedido($event.value)">
+
+                    <!--  Personalizar cómo se ve el elemento seleccionado -->
+                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                        <div class="flex align-items-center gap-2">
+                            <span>{{ selectedOption.consecutivoPedido }}</span>
+                        </div>
+                    </ng-template>
+
+                    <!--  Personalizar cómo se ven las opciones en el desplegable -->
+                    <ng-template let-pedido pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <span>{{ pedido.consecutivoPedido }}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+
+
+            </div>
+
+            <div class="col-md-2 ">
                 <p-floatLabel>
-                    <input pInputText id="username2" [(ngModel)]="formData.okventa" name="okventa" class="full-width" [disabled]="isDisabled"/>
-                    <label for="t_ped2">OK.Venta</label>
+                    <input id="TipoPed" type="text" class="w-100" pInputText formControlName="TipoPed" />
+                    <label for="TipoPed">Tipo Pedido</label>
                 </p-floatLabel>
+
             </div>
-        
-            <div class="col-6 col-sm-4 col-md-2">
+
+            <div class="col-md-3 ">
                 <p-floatLabel>
-                    <input pInputText id="username2" [(ngModel)]="formData.okdibujo" name="okdibujo" class="full-width" [disabled]="isDisabled"/>
-                    <label for="t_ped3">OK.Dibujo</label>
+                    <input id="Direccion" type="text" class="w-100" pInputText formControlName="Direccion" />
+                    <label for="Direccion">Direccion</label>
                 </p-floatLabel>
-            </div>
-        
-
-            <div class="col-12 col-sm-8 col-md-4 d-flex align-items-center">
-
-                <label class="me-1 mb-0">Dif x Fact</label>
-
-                <p-checkbox inputId="difFactCheck" class="me-2"></p-checkbox>
-
-                <div class="flex-grow-1">
-                    <p-floatLabel>
-                        <input pInputText id="t_ped_combined" [(ngModel)]="asesor" name="t_pedCombined" class="w-100" [disabled]="isDisabled"/>
-                    </p-floatLabel>
-                </div>
-                
-            </div>
-        
-            <!-- Último elemento -->
-            <div class="col-6 col-sm-4 col-md-2">
-                <button class="custom-btn btn-disabled form-control">
-                    Terminar Pedido
-                </button>
-            </div>
-        
-        </div>
-        
-          
-          
-
-
-      <div class="row mt-3 gx-2 gy-2">
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="Empt_Vta" [(ngModel)]="asesor" name="Empt_Vta" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped1">Empt.Vta</label>
-          </p-floatLabel>
-        </div>
-  
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="Empaque_Prod" [(ngModel)]="asesor" name="Empaque_Prod" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped2">Empaque Prod</label>
-          </p-floatLabel>
-        </div>
-  
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="t_ped3" [(ngModel)]="asesor" name="t_pedName" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped3">F.Hab.PDN</label>
-          </p-floatLabel>
-        </div>
-  
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="t_ped4" [(ngModel)]="asesor" name="t_pedName" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped4">OK.Emp</label>
-          </p-floatLabel>
-        </div>
-  
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="t_ped5" [(ngModel)]="asesor" name="t_pedName" class="w-100" [disabled]="isDisabled"/>
-            <label for="t_ped5">OK.Desp</label>
-          </p-floatLabel>
-        </div>
-  
-        <div class="col-6 col-sm-4 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="asesor" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor">Instalación</label>
-          </p-floatLabel>
-        </div>
-      </div>
-  
-      <!-- Segunda fila con área de 10 columnas y columna de 2 -->
-      <div class="row mt-3 gx-2 gy-2">
-        <div class="col-12 col-sm-9 col-md-10 border rounded">
-            <div class="table-responsive table-sm rounded" style="height: 10vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
-                <p-table 
-              
-                styleClass="p-datatable-gridlines" 
-                [tableStyle]="{ 'min-width': '50rem', 'padding':'0rem', 'width':'100%' }"
-                [scrollable]="true"
-                selectionMode="single"
-                dataKey="descripcionProceso">
-                
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">DI</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Coor</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Coordinado el</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">F.Despacho</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Despachado</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">F.Real Despacho</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Entregado</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">F. Ok Entrega</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Receptor</th>
-                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Celular</th>
-                    </tr>
-                  </ng-template>
-                
-                  <ng-template pTemplate="body" let-modulo>
-                    <tr [pSelectableRow]="modulo">
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.despachoCoordinado ? 'Sí' : 'No' }}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaDespachoCoordinado | date:'yyyy-MM-dd HH:mm' }}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.terminadodespacho ? 'Sí' : 'No'}}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaRealDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.entregadoTransporte ? 'Sí' : 'No'}}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaEntregado | date:'yyyy-MM-dd HH:mm' }}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.receptor }}</td>
-                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.celularReceptor }}</td>
-                    </tr>
-                  </ng-template>
-                
-                </p-table>
-                  </div>
-        </div>
-  
-        <div class="col-12 col-sm-3 col-md-2 d-flex flex-column gap-2">
-          <p-floatLabel>
-            <input pInputText id="input1" class="w-100" [disabled]="isDisabled"/>
-            <label for="input1">OK Instala</label>
-          </p-floatLabel>
-  
-          <p-floatLabel class="mt-3">
-            <input pInputText id="input2" class="w-100" [disabled]="isDisabled"/>
-            <label for="input2">OK.Fact</label>
-          </p-floatLabel>
-        </div>
-      </div>
-  
-      <!-- Tercera fila (división en 6 partes) -->
-      <div class="row mt-3 gx-2 gy-2">
-        
-        <!-- Parte 1 -->
-        <div class="col-12 col-sm-6 col-md border p-2">
-          <div class="d-flex align-items-center gap-2">
-            <label for="asesor">Plano:</label>
-            <label for="asesor">NumeroDelplano</label>
-          </div>
-        </div>
-  
-        <!-- Parte 2 (Debe ocupar 2 columnas) -->
-        <div class="col-12 col-sm-6 col-md-2">
-          <p-floatLabel>
-            <input pInputText id="asesor2" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor2">Resp. Fact</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Parte 3 -->
-        <div class="col-12 col-sm-6 col-md">
-          <p-floatLabel>
-            <input pInputText id="asesor3" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor3">Supervisor</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Parte 4 -->
-        <div class="col-12 col-sm-6 col-md">
-          <p-floatLabel>
-            <input pInputText id="asesor4" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor4">Fab. Por</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Parte 5 -->
-        <div class="col-12 col-sm-6 col-md">
-          <p-floatLabel>
-            <input pInputText id="asesor5" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor5">Instala</label>
-          </p-floatLabel>
-        </div>
-  
-        <!-- Parte 6 (1 sola columna) -->
-        <div class="col-12 col-sm-6 col-md-1">
-          <p-floatLabel>
-            <input pInputText id="asesor6" [(ngModel)]="asesor" name="asesor" class="w-100" [disabled]="isDisabled"/>
-            <label for="asesor6">Días Inst</label>
-          </p-floatLabel>
-        </div>
-        
-      </div>
-      
-    </div>
-</div>
-
-  
-    </div>
-  </div>
-  
-  <div class="container-fluid form-control-sm">
-    <fieldset class="border rounded p-2" style="overflow: hidden;">
-        <legend class="float-none w-auto px-2 fw-bold" style="font-size: 15px;">Información Contable</legend>
-
-        <div class="row gx-0 gy-0">
-            
-            <!-- Primera columna -->
-            <div class="col-12 col-md-4 p-2">
-               <!-- Fila 1 -->
-               <div class="row">
-                <!-- Campo NIT con ícono de búsqueda -->
-                <div class="col-6">
-                    <p-inputGroup>
-                        <p-inputGroupAddon>
-                            <span class="text-dark text-muted" style="cursor: pointer;">NIT</span>
-                        </p-inputGroupAddon>
-                        <input pInputText placeholder=""  class="form-control-sm" [(ngModel)]="formData.Nit" name="Nit" [disabled]="isDisabled"/>
-                    </p-inputGroup>
-                </div>
-
-                <div class="col-6">
-                    <input pInputText placeholder="" class="w-100" [(ngModel)]="formData.recibepedido" name="recibepedido"  [disabled]="isDisabled"/>
-                </div>
-            </div>
-
-                <!-- Fila 2 -->
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Contacto</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [(ngModel)]="formData.cocnombre" name="cocnombre" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Dirección</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [(ngModel)]="formData.cocdireccion" name="cocdireccion" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                </div>
-
-                <!-- Fila 3 -->
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Municipio</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [(ngModel)]="formData.cocciudad" name="cocciudad"  [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Tel</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [(ngModel)]="formData.coctelefono" name="coctelefono" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Obs. Contable</span>
-                            </p-inputGroupAddon>
-                            <textarea id="infoOT" rows="2" pInputTextarea class="form-control" readonly></textarea>
-                        </p-inputGroup>
-                    </div>
-                    <div class="col-6">
-                        <p-floatLabel class="d-flex flex-column h-100 mt-4">
-                            <input pInputText id="t_ped" [(ngModel)]="asesor" name="t_pedName" class="w-100" [disabled]="isDisabled"/>
-                            <label for="t_ped">Zona</label>
-                          </p-floatLabel>
-                    </div>
-                </div>
 
             </div>
 
-            <div class="col-12 col-md-4 p-2">
-                <div class="row">
-                    <div class="col-12">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Forma de Pago</span>
-                            </p-inputGroupAddon>
-                            <textarea id="infoOT" rows="1" pInputTextarea class="form-control" readonly></textarea>
-                        </p-inputGroup>
+            <div class="col-md-3 d-flex align-items-center gap-2  ">
+                <p-floatLabel>
+                    <input id="Ciudad" type="text" class="w-100" pInputText formControlName="Ciudad" />
+                    <label for="Ciudad">Ciudad</label>
+                </p-floatLabel>
+
+                <p-floatLabel>
+                    <input id="Dpto" type="text" class="w-100" pInputText formControlName="Dpto" />
+                    <label for="Dpto">Dpto</label>
+                </p-floatLabel>
+
+                <p-floatLabel>
+                    <input id="Pais" type="text" class="w-100" pInputText formControlName="Pais" />
+                    <label for="Pais">País</label>
+                </p-floatLabel>
+
+            </div>
+
+        </div>
+
+        <div class="row pb-2 g-4 g-md-2 g-md-2 mt-2">
+
+            <div class="col-md-6 ">
+                <p-floatLabel>
+                    <input id="Obra" type="text" class="w-100" pInputText formControlName="Obra" />
+                    <label for="Obra">Obra</label>
+                </p-floatLabel>
+
+            </div>
+
+            <div class="col-md-3 ">
+                <p-floatLabel>
+                    <input id="Contacto" type="text" class="w-100" pInputText formControlName="Contacto" />
+                    <label for="Contacto">Contacto</label>
+                </p-floatLabel>
+
+            </div>
+
+            <div class="col-md-3 ">
+                <p-floatLabel>
+                    <input id="Mail" type="text" class="w-100" pInputText formControlName="Mail" />
+                    <label for="Mail">Mail</label>
+                </p-floatLabel>
+
+            </div>
+
+        </div>
+
+
+        <div class="row pb-2 g-4 g-md-2 mt-2">
+
+            <div class="col-md-2 ">
+                <p-floatLabel>
+                    <input id="Base" type="text" class="w-100" pInputText formControlName="Base" />
+                    <label for="Base">Base</label>
+                </p-floatLabel>
+
+            </div>
+
+            <div class="col-md-1"></div>
+
+            <div class="col-md-2 flex align-items-center gap-2">
+                <p-checkbox formControlName="chkActaEntrega" binary="true" inputId="chkActaEntrega">
+                </p-checkbox>
+                <label for="chkActaEntrega" class="cursor-pointer">Acta Entrega</label>
+            </div>
+
+            <div class="col-md-2 ">
+                <p-floatLabel>
+                    <input id="Telefono" type="text" class="w-100" pInputText formControlName="Telefono" />
+                    <label for="Telefono">Teléfono</label>
+                </p-floatLabel>
+
+            </div>
+
+            <div class="col-md-2 ">
+                <p-floatLabel>
+                    <input id="Celular" type="text" class="w-100" pInputText formControlName="Celular" />
+                    <label for="Celular">Celular</label>
+                </p-floatLabel>
+
+            </div>
+
+            <div class="col-md-3 ">
+                <p-floatLabel>
+                    <input id="Recibe" type="text" class="w-100" pInputText formControlName="Recibe" />
+                    <label for="Recibe">Recibe</label>
+                </p-floatLabel>
+
+            </div>
+
+        </div>
+
+        <div class="row pb-2 g-4 g-md-2 mt-2">
+
+            <div [ngClass]="{'col-md-4':!obserControl, 'col-12': obserControl}">
+                <div class="card p-2">
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <label for="ObsOT" style="opacity: 0.7;">Información General OT</label>
+                        <button pButton [icon]="obserControl ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"
+                            class="p-button-text p-button-sm" style="opacity: 0.7;" (click)="onExpandirObsOT()"
+                            type="button" [title]="!obserControl ? 'Ampliar vista': 'Restaurar vista'"></button>
+
                     </div>
+
+                    <textarea id="ObsOT" rows="12" cols="15" formControlName="ObsOT" pInputTextarea
+                        class="form-control form-control-sm" style="white-space: pre-wrap;">
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="col-md-8" *ngIf="!obserControl">
+
+                <div class="row pb-2 g-4 g-md-2 mt-2">
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaVenta" formControlName="fechaVenta" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaVenta">Venta</label>
+                        </p-floatLabel>
+                    </div>
+
+                    <div class="col-md-2 flex align-items-center gap-2">
+
+                        <p-checkbox formControlName="chkProblemaFact" binary="true" inputId="chkProblemaFact">
+                        </p-checkbox>
+                        <label for="chkProblemaFact" class="cursor-pointer">Dif x FAc</label>
+
+                    </div>
+
+                    <div class="col-md-3 ">
+                        <p-floatLabel>
+                            <input id="RazonFactura" type="text" [style]="{'width':'100%'}" pInputText
+                                formControlName="RazonFactura" />
+                            <label for="RazonFactura">Razon Factura</label>
+                        </p-floatLabel>
+
+                    </div>
+
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-3">
+                        <button pButton class="botonOK" [style]="{ 'height': '2rem', 'width': '8rem' }" title="Terminar"
+                            [disabled]="botonOkControl" icon="pi pi-check">
+                            Terminar
+                        </button>
+                    </div>
+
                 </div>
 
-                <div class="row mt-2">
-                    <!-- Campo NIT con ícono de búsqueda -->
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Asesor</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
+                <div class="row pb-2 g-4 g-md-2 mt-2">
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaOkVenta" formControlName="fechaOkVenta" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaOkVenta">Ok Venta</label>
+                        </p-floatLabel>
                     </div>
-    
-                    <div class="col-6">
-                        <input pInputText placeholder="" class="w-100" [disabled]="isDisabled"/>
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaOkDibujo" formControlName="fechaOkDibujo" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaOkDibujo">Ok Dibujo</label>
+                        </p-floatLabel>
                     </div>
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaEmpVenta" formControlName="fechaEmpVenta" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaEmpVenta">Emp. Vta</label>
+                        </p-floatLabel>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaOkEmp" formControlName="fechaOkEmp" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaOkEmp">OK Emp</label>
+                        </p-floatLabel>
+                    </div>
+
+
+
                 </div>
 
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p-inputGroup class="border rounded">
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Venta Neta</span>
-                            </p-inputGroupAddon>
-                            <div class="table-responsive table-sm rounded" style="height: 10vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
-                                <p-table 
-                              
-                                styleClass="p-datatable-gridlines" 
-                                [tableStyle]="{ 'min-width': '50rem','height':'4.5rem', 'padding':'0rem', 'width':'100%' }"
-                                [scrollable]="true"
-                                selectionMode="single"
-                                dataKey="descripcionProceso">
-                                
-                                  <ng-template pTemplate="header">
+
+                <div class="row pb-2 g-4 g-md-2 mt-2">
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaEmpProd" formControlName="fechaEmpProd" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaEmpProd">Empaque Prod</label>
+                        </p-floatLabel>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaOkDesp" formControlName="fechaOkDesp" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaOkDesp">Ok Desp</label>
+                        </p-floatLabel>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaHabProducir" formControlName="fechaHabProducir" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaHabProducir">Fecha Habilitada Producir</label>
+                        </p-floatLabel>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p-floatLabel>
+                            <p-calendar id="fechaInstalacion" formControlName="fechaInstalacion" showIcon="false"
+                                [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                            </p-calendar>
+                            <label for="fechaInstalacion">Instalación</label>
+                        </p-floatLabel>
+                    </div>
+
+                </div>
+
+
+                <div class="row pb-2 g-4 g-md-2 mt-2">
+
+                    <!-- ---- -->
+                    <div class="col-md-9">
+                        <div class="table-responsive border rounded mt-2"
+                            style="max-height:11rem; height: 7.9rem; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
+                            <h6 class="text-center p-1 m-0 tituloTabla">Despachado</h6>
+
+                            <p-table [value]="fechasDespacho" styleClass="p-datatable p-datatable-gridlines"
+                                [tableStyle]="{ 'min-width': '50rem', 'padding': '0rem' }" [scrollable]="true"
+                                selectionMode="single" dataKey="descripcionProceso">
+
+                                <ng-template pTemplate="header">
                                     <tr>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Ped</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Tipo de Pedido</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Valor</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">%</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Sub Total</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">OK</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">F. Factura</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Valor Bolsa</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">V.Pedido</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Ref</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Total Ref</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Saldo</th>
-                                      <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Tte.Cotizado</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Coor
+                                        </th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                            Coordinado el</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">F.
+                                            Despacho</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                            Despachado</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">F.
+                                            Real despacho</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                            Entregado</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">F.
+                                            Ok. Entrega</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                            Receptor</th>
+                                        <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                            Celular</th>
                                     </tr>
-                                  </ng-template>
-                                
-                                  <ng-template pTemplate="body" let-modulo>
-                                    <tr [pSelectableRow]="modulo">
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.despachoCoordinado ? 'Sí' : 'No' }}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaDespachoCoordinado | date:'yyyy-MM-dd HH:mm' }}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.terminadodespacho ? 'Sí' : 'No'}}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaRealDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.entregadoTransporte ? 'Sí' : 'No'}}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaEntregado | date:'yyyy-MM-dd HH:mm' }}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.receptor }}</td>
-                                      <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.celularReceptor }}</td>
+                                </ng-template>
+
+                                <ng-template pTemplate="body" let-DatosDespacho>
+                                    <tr [pSelectableRow]="DatosDespacho">
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.despachoCoordinado ? 'Sí' : 'No' }}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.fechaDespachoCoordinado | date:'yyyy-MM-dd HH:mm' }}
+                                        </td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.fechaDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.terminadodespacho ? 'Sí' : 'No'}}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.fechaRealDespacho | date:'yyyy-MM-dd HH:mm'}}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.entregadoTransporte ? 'Sí' : 'No'}}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.fechaEntregado | date:'yyyy-MM-dd HH:mm' }}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.receptor }}</td>
+                                        <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                            DatosDespacho.celularReceptor }}</td>
                                     </tr>
-                                  </ng-template>
-                                
-                                </p-table>
-                                  </div>
-                        </p-inputGroup>
-                    </div>
-                </div>
+                                </ng-template>
+
+                            </p-table>
+                        </div>
 
 
-              </div>
-        
-              <!-- Tercera columna -->
-              <div class="col-12 col-md-4 p-2">
-                 <!-- Fila 2 -->
-                 <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Ver Cotización</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
+
+
                     </div>
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">%Com</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
+
+                    <div class="col-md-3">
+
+                        <div class="row pb-2 g-2 pt-3 ">
+
+                            <div class="col-md-12 ">
+                                <p-floatLabel>
+                                    <p-calendar id="fechaOkInsta" formControlName="fechaOkInsta" showIcon="false"
+                                        [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                                    </p-calendar>
+                                    <label for="fechaOkInsta">Ok Instala</label>
+                                </p-floatLabel>
+                            </div>
+
+                        </div>
+
+                        <div class="row pb-2 g-2 pt-4">
+
+                            <div class="col-md-12">
+                                <p-floatLabel>
+                                    <p-calendar id="fechaOkFactura" formControlName="fechaOkFactura" showIcon="false"
+                                        [style]="{'width':'100%'}" dateFormat="yy-mm-dd">
+                                    </p-calendar>
+                                    <label for="fechaOkFactura">Ok Factura</label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
 
-                <div class="row mt-2">
-                    <!-- Campo NIT con ícono de búsqueda -->
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Dto</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-    
-                    <div class="col-6">
-                        <input pInputText placeholder="" class="w-100" [disabled]="isDisabled"/>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">Venta</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">V.Tte</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">V.Viat</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                    <div class="col-6">
-                        <p-inputGroup>
-                            <p-inputGroupAddon>
-                                <span class="text-dark text-muted">G.Total</span>
-                            </p-inputGroupAddon>
-                            <input pInputText placeholder="" [disabled]="isDisabled"/>
-                        </p-inputGroup>
-                    </div>
-                </div>
-              </div>
+            </div>
 
         </div>
-    </fieldset>
+
+        <div class="row pb-2 g-4 g-md-2 mt-2">
+
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <input id="Plano" type="text" class="w-100 fw-bold" pInputText formControlName="Plano" />
+                    <label for="Plano">Plano</label>
+                </p-floatLabel>
+            </div>
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <input id="RespFact" type="text" class="w-100" pInputText formControlName="RespFact" />
+                    <label for="RespFact">Resp. Fact.</label>
+                </p-floatLabel>
+            </div>
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <input id="Supervisor" type="text" class="w-100" pInputText formControlName="Supervisor" />
+                    <label for="Supervisor">Supervisor</label>
+                </p-floatLabel>
+            </div>
+
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <p-dropdown formControlName="DiasInsta" [options]="diasInstalacion" optionLabel="name"
+                        optionValue="value" [style]="{'width': '100%'}" placeholder="DiasInsta " />
+                    <label for="DiasInsta">Dias Instalación</label>
+                </p-floatLabel>
+            </div>
+
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <p-dropdown formControlName="FabPor" [options]="sedes" optionLabel="descripcionSede"
+                        optionValue="codigoSede" [style]="{'width': '100%'}" placeholder="DiFabPorsInsta " />
+                    <label for="FabPor">Fab. Por</label>
+                </p-floatLabel>
+            </div>
+
+            <div class="col-md-2">
+                <p-floatLabel>
+                    <p-dropdown formControlName="Instala" [options]="sedes" optionLabel="descripcionSede"
+                        optionValue="codigoSede" [style]="{'width': '100%'}" placeholder="Instala " />
+                    <label for="Instala">Instala</label>
+                </p-floatLabel>
+            </div>
+
+
+        </div>
+
+
+        <div class="container-fluid border rounded p-1">
+
+            <div class="row g-4 g-md-2">
+
+                <!-- Primera columna -->
+                <div class="col-lg-4 col-md-4 col-sm-12 " *ngIf="modoSoloTabla">
+                    <!-- Fila 1 -->
+                    <div class="row">
+                        <!-- Campo NIT con ícono de búsqueda -->
+                        <div class=" col-lg-12 col-12-md col-sm-12">
+
+                            <div class="d-flex gap-1">
+                                <p-inputGroup>
+                                    <button type="button" [style]="{'height':'2rem', 'width':'5rem'}" pButton
+                                        label="Nit"></button>
+                                    <input type="text" formControlName="Nit" [style]="{'height':'2rem'}" pInputText />
+                                </p-inputGroup>
+
+                                <input pInputText formControlName="NombreCliente" [style]="{'height':'2rem'}"
+                                    class="w-100" name="recibepedido" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Fila 2 -->
+                    <div class="row mt-2">
+                        <!-- Campo Contacto con ícono de búsqueda -->
+                        <div class="col-lg-12 col-12-md col-sm-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '5.2rem'}">Contacto
+                                </span>
+                                <input type="text" formControlName="ContactoCliente" [style]="{'height':'2rem'}"
+                                    pInputText />
+                            </p-inputGroup>
+                        </div>
+
+                    </div>
+
+                    <!-- Fila 3 -->
+                    <div class="row mt-2">
+                        <!-- Campo Direccion con ícono de búsqueda -->
+                        <div class=" col-lg-12 col-12-md col-sm-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon"
+                                    [style]="{'height': '2rem','width': '5.2rem'}">Direccion
+                                </span>
+                                <input type="text" formControlName="DireccionCliente" [style]="{'height':'2rem'}"
+                                    pInputText />
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 4 -->
+                    <div class="row mt-2 ">
+                        <!-- Campo Municipio con ícono de búsqueda -->
+                        <div class=" col-lg-6 col-6-md col-sm-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon"
+                                    [style]="{'height': '2rem','width': '5.2rem'}">Municipio
+                                </span>
+                                <input type="text" formControlName="Municipio" [style]="{'height':'2rem'}" pInputText />
+                            </p-inputGroup>
+                        </div>
+                        <!-- Campo telefono con ícono de búsqueda -->
+                        <div class=" col-lg-6 col-6-md col-sm-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '5.2rem'}">Telefono
+                                </span>
+                                <input type="text" formControlName="TelefonoCliente" [style]="{'height':'2rem'}"
+                                    pInputText />
+                            </p-inputGroup>
+                        </div>
+
+                    </div>
+
+                    <!-- Fila 5 -->
+                    <div class="row mt-2 ">
+                        <!-- Campo Obs. Contable con ícono de búsqueda -->
+                        <div class=" col-lg-8 col-8-md col-sm-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '4rem','width': '5.2rem'}">Obs.
+                                    Contable
+                                </span>
+                                <textarea id="infoOT" rows="1" formControlName="ObsContable" pInputTextarea
+                                    [style]="{'height':'4rem'}" class="form-control"></textarea>
+                            </p-inputGroup>
+                        </div>
+
+                        <!-- Campo Zona con ícono de búsqueda -->
+                        <div class=" col-lg-3 col-3-md col-sm-12 pt-4">
+                            <p-floatLabel>
+                                <p-dropdown formControlName="Zona" [options]="Zonas" optionLabel="name"
+                                    optionValue="value" placeholder="zona" [style]="{'width': '100%'}" />
+                                <label for="Zona">Zona</label>
+                            </p-floatLabel>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <!-- Segunda columna -->
+                <div [ngClass]="{'col-12': !modoSoloTabla, 'col-lg-4 col-md-4 col-sm-12': modoSoloTabla}"
+                    class="p-2 pt-0">
+
+                    <!-- Forma pago  -->
+                    <div class="row" *ngIf="modoSoloTabla">
+                        <div class="col-lg-12">
+                            <p-inputGroup>
+                                <p-inputGroupAddon>
+                                    <span class="text-dark text-muted">Forma de Pago</span>
+                                </p-inputGroupAddon>
+                                <textarea id="infoOT" rows="1" formControlName="FormaPago" pInputTextarea
+                                    class="form-control"></textarea>
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2" *ngIf="modoSoloTabla">
+                        <!-- Campo asesor  con ícono de búsqueda -->
+                        <div class="col-8">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '5.2rem'}">Asesor
+                                </span>
+                                <p-dropdown [options]="Asesores" optionLabel="label" optionValue="value"
+                                    [style]="{'width':'100%'}" formControlName="asesor"></p-dropdown>
+                            </p-inputGroup>
+                        </div>
+
+                        <div class="col-4">
+                            <input pInputText placeholder="" formControlName="CedulaAsesor" class="w-100" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <div class="table-responsive border rounded "
+                                [ngStyle]="{'max-height': !modoSoloTabla ? '18rem' : '7.9rem', 'height': !modoSoloTabla ? '18rem' : '7.9rem', 'overflow-y': 'hidden'}">
+                              
+                                <div class="position-relative  pb-0 rounded" style="min-height: 2rem;">
+                                    <!-- Título centrado -->
+                                    <h6 class="text-center tituloTabla m-0" style="height: 1.7rem">Contable</h6>
+                                  
+                                    <!-- Botones mini superpuestos a la derecha -->
+                                    <div class="position-absolute top-0 end-0 me-2 mt-1 d-flex gap-1">
+                                      <button pButton icon="bi bi-currency-dollar" class="p-button p-button-text p-button-sm" style="width: 1.5rem; height: 1.5rem; padding: 0;" title="Ver Valores"></button>
+                                      <button pButton icon="pi pi-truck" class="p-button p-button-text p-button-sm" style="width: 1.5rem; height: 1.5rem; padding: 0;"  title="Ver Transporte"></button>
+                                    </div>
+                                </div>
+
+                                <p-table [value]="reporteContable"
+                                    [tableStyle]="{ 'min-width': '50rem', 'padding': '0rem' }" [scrollable]="true"
+                                    scrollHeight="15rem" selectionMode="single" dataKey="descripcionProceso">
+
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Ped</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Tipo de
+                                                Pedido</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Valor
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">%</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Sub Total
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">OK</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">F.Factura
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Valor
+                                                Bolsa</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">V.Pedido
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Ref</th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Total Ref
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Saldo
+                                            </th>
+                                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">
+                                                Tte.Cotizado</th>
+                                        </tr>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="body" let-reporteContable>
+                                        <tr [pSelectableRow]="reporteContable" (click)="activarModoTabla()"
+                                            (dblclick)="desactivarModoTabla()">
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.consecutivoPedido}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.descripcionTipoPedido }}
+                                            </td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.precioVenta}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.descuento}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.subtotal}}</td>
+                                            <td [ngStyle]="{
+                                              'white-space': 'nowrap',
+                                              'padding': '0.2rem',
+                                              'background-color': reporteContable.terminadaFacturacion ? '#d4edda' : '#f8d7da',
+                                              'color': reporteContable.terminadaFacturacion ? '#155724' : '#721c24'
+                                            }">
+                                                {{ reporteContable.terminadaFacturacion ? 'Sí' : 'No' }}
+                                            </td>
+
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.fechaFactura |
+                                                date:'yyyy-MM-dd'}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                                reporteContable.valorBolsa}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                                reporteContable.valorPedido}}
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.pedidoBase }}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                                {{reporteContable.valorPedido}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                                reporteContable.valorPedido}}</td>
+                                            <td style="white-space: nowrap; padding: 0.2rem;">{{
+                                                reporteContable.valorTteVia}}</td>
+                                        </tr>
+                                    </ng-template>
+
+                                </p-table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tercera columna -->
+                <div class="col-lg-4 col-md-4 col-sm-12   p-1" *ngIf="modoSoloTabla">
+
+                    <!-- Fila 1 -->
+                    <div class="row">
+
+                        <div class="col-6">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon"
+                                    [style]="{'height': '2rem','width': '6rem',}">Ver.Cotización
+                                </span>
+                                <input type="text" formControlName="Cotizacion"
+                                    [style]="{'height':'2rem','font-size': '1rem','text-align':'center'}" pInputText />
+                            </p-inputGroup>
+                        </div>
+
+                        <div class="col-6">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '4.5rem'}">% Comp
+                                </span>
+                                <input type="text" formControlName="Comision"
+                                    [style]="{'height':'2rem','font-size': '1.1rem'}" pInputText />
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2 -->
+                    <div class="row pt-2">
+
+                        <div class="col-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '6rem'}">Venta
+                                </span>
+                                <p-inputNumber mode="decimal" formControlName="Venta"
+                                    [style]="{'height':'2rem', 'width':'1rem', 'text-align':'right','font-size': '1.1rem'}" />
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 3 -->
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '6rem'}">Dcto.
+                                </span>
+                                <input type="text" formControlName="PorcentajeDescuento"
+                                    [style]="{'height':'2rem', 'width':'1rem', 'text-align':'right','font-size': '1.1rem'}"
+                                    pInputText />
+                                <p-inputNumber mode="decimal" formControlName="Descuento"
+                                    [style]="{'height':'2rem', 'width':'10rem','text-align':'right','font-size': '1.1rem'}" />
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 4 -->
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '6rem'}">V. Tte.
+                                </span>
+                                <p-inputNumber mode="decimal" formControlName="Vtte"
+                                    [style]="{'height':'2rem', 'width':'1rem', 'text-align':'right','font-size': '1.1rem'}" />
+
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 5 -->
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '6rem'}">V. Viat
+                                </span>
+                                <p-inputNumber mode="decimal" formControlName="Viatico"
+                                    [style]="{'height':'2rem', 'width':'1rem', 'text-align':'right','font-size': '1.1rem'}" />
+
+                            </p-inputGroup>
+                        </div>
+                    </div>
+
+                    <!-- Fila 6 -->
+                    <div class="row pt-2">
+
+                        <div class="col-12">
+                            <p-inputGroup>
+                                <span class="p-inputgroup-addon" [style]="{'height': '2rem','width': '6rem'}">G. Total.
+                                </span>
+                                <p-inputNumber mode="decimal" formControlName="Total"
+                                    [style]="{'height':'2rem', 'width':'1rem', 'text-align':'right','font-size': '1.1rem'}" />
+
+                            </p-inputGroup>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <div *ngIf="ordenCerrada" class="alerta-ot-cerrada"
+        [ngClass]="{ 'arriba': posicionArriba, 'abajo': !posicionArriba }" (mouseenter)="alternarPosicionOT()">
+        🛑 Esta Orden de Trabajo está <strong>cerrada</strong>
+    </div>
+
 </div>
-
-
-
-  
-  
-  
-</div>
-
-<app-dialog-observaciones
-  [visible]="modalVisible" 
-  (onClose)="hideDialog()">
-</app-dialog-observaciones>

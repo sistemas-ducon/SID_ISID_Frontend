@@ -1,168 +1,246 @@
-<div class="container-fluid">
+<p-toast></p-toast>
+<div class="container-fluid form-control-sm bg-light" [attr.translate]="'no'">
 
-    <nav class="container-fluid p-2 d-flex flex-wrap justify-content-center gap-2">
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-file-earmark-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" enabled>
-            <i class="bi bi-wrench-adjustable disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-x-circle-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-trash3-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-binoculars-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true" (click)="abrirDashboard()">
-            <i class="bi bi-signal disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-printer disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-x-circle-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-sunglasses disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-square-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-disabled" [rounded]="true" [text]="true" [raised]="true" disabled>
-            <i class="bi bi-person-fill disabled"></i>
-        </p-button>
-    
-        <p-button class="custom-btn btn-enabled" [rounded]="true" [text]="true" [raised]="true">
-            <i class="bi bi-heptagon-fill disabled"></i>
-        </p-button>
-    
-    </nav>
 
-    <div class="container-fluid form-control-sm">
-        <fieldset class="border rounded p-2" style="overflow: hidden;">
-            <legend class="float-none w-auto px-2 fw-bold" style="font-size: 15px;">Información Plano</legend>
+    <p-toolbar [style]="{'background':'#F8F9FA'}">
+        <div class="flex gap-2  container-fluid p-2 d-flex flex-wrap justify-content-center gap-2 bg-light ">
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="ib bi-pc" size="small"
+                title="Adicionar Objeto al Plano" [disabled]="botones.adicionar"
+                [ngClass]="{'btn-disabled': !botones.adicionar}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-wrench-adjustable" size="small"
+                title="Modificar Objeto con el Plano" [disabled]="botones.modificarObjeto"
+                [ngClass]="{'btn-disabled': !botones.modificarObjeto}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-dash-circle" size="small"
+                title="Quitar Objeto del Plano" [disabled]="botones.quitarObjeto"
+                [ngClass]="{'btn-disabled': !botones.quitarObjeto}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-trash3-fill" size="small"
+                title="Eliminar todos los objetos del Plano" [disabled]="botones.eliminarTodos"
+                [ngClass]="{'btn-disabled': !botones.eliminarTodos}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-folder-symlink-fill"
+                size="small" title="Leer Despiece Acad " [disabled]="botones.leerAcad"
+                [ngClass]="{'btn-disabled': !botones.leerAcad}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-boxes" size="small"
+                title="Despiece " [disabled]="botones.despiece" [ngClass]="{'btn-disabled': !botones.despiece}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-filetype-txt" size="small"
+                title="Generar TXT " [disabled]="botones.generarTxt" [ngClass]="{'btn-disabled': !botones.generarTxt}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-floppy-fill" size="small"
+                title="Guardar Txt" [disabled]="botones.guardarTxt" [ngClass]="{'btn-disabled': !botones.guardarTxt}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-arrow-up-right-circle"
+                size="small" title="Exportar Plano u Orden de Trabajo" [disabled]="botones.exportarPlano"
+                [ngClass]="{'btn-disabled': !botones.exportarPlano}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-bag-plus-fill" size="small"
+                title="Visualizar Cotización" [disabled]="botones.verCotizacion"
+                [ngClass]="{'btn-disabled': !botones.verCotizacion}">
+            </button>
+
+            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-bag-plus-fill" size="small"
+                title="Registrar los elementos del plano en el Sag" [disabled]="botones.registrarSag"
+                [ngClass]="{'btn-disabled': !botones.registrarSag}">
+            </button>
+
+
+
+
+
+
+
+
+        </div>
+    </p-toolbar>
+
+
+    <div class="container-fluid pb-2 pt-2" style="padding-left:0rem; padding-right:0rem;">
+        <div style="padding-left: 0.6rem;" >
+            <label for="ObsOT" style="opacity: 0.7"  >Información Plano</label>
+        </div>
+         <!-- campos -->
+         <div class="card mb-3" *ngIf="modoSoloTabla">
+
+            <div class="card-body" style="padding-top: 0.5rem;">
+              
+                <form [formGroup]="formPlano">
+                    <div class="row  pb-2 g-4 g-md-2 mt-1">
+                       
+                        <div class="col-md-6" >
+
+                            <div class="row  pb-2 g-4 g-md-2 mt-1">
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="plano" type="text" class="w-100" pInputText formControlName="plano" />
+                                        <label for="plano">Plano</label>
+                                    </p-floatLabel>
+                                </div>
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="dibuja" type="text" class="w-100" pInputText formControlName="dibuja" />
+                                        <label for="dibuja">Dibuja</label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+
+                            <div class="row  pb-2 g-4 g-md-2 mt-3">
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="cliente" type="text" class="w-100" pInputText formControlName="cliente" />
+                                        <label for="cliente">Cliente</label>
+                                    </p-floatLabel>
+                                </div>
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="contacto" type="text" class="w-100" pInputText formControlName="contacto" />
+                                        <label for="contacto">Contacto</label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+
+                            <div class="row  pb-2 g-4 g-md-2 mt-3">
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="area" type="text" class="w-100" pInputText formControlName="area" />
+                                        <label for="area">Área</label>
+                                    </p-floatLabel>
+                                </div>
+                                <div class="col md-6">
+                                    <p-floatLabel>
+                                        <input id="asesor" type="text" class="w-100" pInputText formControlName="asesor" />
+                                        <label for="asesor">Asesor</label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div [ngClass]="{'col-md-6':!obserControl, 'col-12': obserControl, 'margin-top':'0rem'}">
+                            
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="card p-2 mt-1 pt-0">
+                                        <div class="d-flex justify-content-between align-items-center pt-0 ">
+                                            <label for="ObsOT" style="opacity: 0.7;">Resumen de Plano</label>
+                                            <button pButton [icon]="obserControl ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"
+                                                class="p-button-text p-button-sm" style="opacity: 0.7;" (click)="onExpandirResumen()"
+                                                type="button" [title]="!obserControl ? 'Ampliar vista': 'Restaurar vista'"></button>
+                    
+                                        </div>
+                    
+                                        <textarea id="resumenPlano" [rows]="!obserControl ? 3 : 8" cols="8" formControlName="resumenPlano" pInputTextarea
+                                            class="form-control form-control-sm" style="white-space: pre-wrap;">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- validar el departamento de momento se oculta para produccion  -->
+                            <div class="row pt-2 mt-2" *ngIf="esCartera">
+                                <div class="col-md-12">
+                                  <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <span class="fw-bold">Total Pedido por Despiece</span>
+                                    <input
+                                      id="valorDespiece"
+                                      [value]="formPlano.get('valorDespiece')?.value | number:'1.0-0'"
+                                      type="text"
+                                      class="form-control ms-3 text-end"
+                                      style="width: 60%"
+                                      pInputText
+                                      formControlName="valorDespiece"
+                                    />
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
     
-           
-       
-                <div class="row gx-3 gy-3">
-                    <!-- Primera columna (mitad izquierda) -->
-                    <div class="col-12 col-md-6">
-                        <!-- Primera fila dentro de la primera mitad -->
-                        <div class="row gx-2">
-                            <div class="col-6 mt-3">
-                                <p-floatLabel>
-                                    <input pInputText id="input1" class="form-control w-100" [(ngModel)]="formData.plano" name="plano" [disabled]="isDisabled"/>
-                                    <label for="input1">Plano</label>
-                                </p-floatLabel>
-                            </div>
-                            <div class="col-6 mt-3">
-                                <p-floatLabel>
-                                    <input pInputText id="input2" class="form-control w-100" [(ngModel)]="formData.dibuja" name="dibuja" [disabled]="isDisabled"/>
-                                    <label for="input2">Dibuja</label>
-                                </p-floatLabel>
-                            </div>
-                        </div>
-            
-                        <!-- Segunda fila dentro de la primera mitad -->
-                        <div class="row gx-2 mt-4">
-                            <div class="col-6">
-                                <p-floatLabel>
-                                    <input pInputText id="input3" class="form-control w-100" [disabled]="isDisabled"/>
-                                    <label for="input3">Cliente</label>
-                                </p-floatLabel>
-                            </div>
-                            <div class="col-6">
-                                <p-floatLabel>
-                                    <input pInputText id="input4" class="form-control w-100" [disabled]="isDisabled"/>
-                                    <label for="input4">Contacto</label>
-                                </p-floatLabel>
-                            </div>
-                        </div>
-            
-                        <!-- Tercera fila dentro de la primera mitad -->
-                        <div class="row gx-2 mt-4">
-                            <div class="col-6">
-                                <p-floatLabel>
-                                    <input pInputText id="input5" class="form-control w-100" [disabled]="isDisabled"/>
-                                    <label for="input5">Área</label>
-                                </p-floatLabel>
-                            </div>
-                            <div class="col-6">
-                                <p-floatLabel>
-                                    <input pInputText id="input6" class="form-control w-100" [disabled]="isDisabled"/>
-                                    <label for="input6">Asesor</label>
-                                </p-floatLabel>
-                            </div>
-                        </div>
                     </div>
-            
-                    <!-- Segunda columna (mitad derecha) -->
-                    <div class="col-12 col-md-6">
-                        <div class="d-flex flex-column h-100">
-                            <label for="infoOT" class="form-label fw-bold">Resumen del Plano</label>
-                            <textarea id="infoOT" rows="6" pInputTextarea class="form-control" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-           
-            
-            
-        </fieldset>
-    </div>
-
-    <div class="container-fluid form-control-sm">
-        <fieldset class="border rounded p-2" style="overflow: hidden;">
-            <legend class="float-none w-auto px-2 fw-bold" style="font-size: 15px;">Despiece Plano</legend>
-    
-            <div class="row gx-0 gy-0">
-                <div class="table-responsive table-sm rounded" style="height: 10vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
-                    <p-table 
-                  
-                    styleClass="p-datatable-gridlines" 
-                    [tableStyle]="{ 'min-width': '50rem','height':'4.5rem', 'padding':'0rem', 'width':'100%' }"
-                    [scrollable]="true"
-                    selectionMode="single"
-                    dataKey="descripcionProceso">
-                    
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">descripcion</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Ancho</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Valor</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Altura</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Cant</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">V.Unitario</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">SubTotal</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Prof</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Grupo</th>
-                          <th pResizableColumn  style="white-space: nowrap; padding: 0.3rem;">Línea</th>
-                        </tr>
-                      </ng-template>
-                    
-                      <ng-template pTemplate="body" let-modulo>
-                        <tr [pSelectableRow]="modulo">
-                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.despachoCoordinado ? 'Sí' : 'No' }}</td>
-                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.receptor }}</td>
-                          <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.celularReceptor }}</td>
-                        </tr>
-                      </ng-template>
-                    
-                    </p-table>
-                      </div>
+                </form>
+             
             </div>
-        </fieldset>
+
+        </div>
+       
+       
+        <!-- Tabla Despiece -->
+        <div class="card mb-4"  [style]="{'height':modoSoloTabla ? '20rem' : '33rem'}">
+            <div class="card-body p-0">
+
+                <div class="table-responsive border rounded "
+                [ngStyle]="{'max-height': modoSoloTabla ? '20rem' : '33rem', 'height': modoSoloTabla ? '20rem' : '33rem', 'overflow-y': 'hidden'}">
+                    
+                    
+                    <div class="position-relative  pb-0 rounded" style="min-height: 2rem;">
+                        <!-- Título centrado -->
+                        <h6 class="text-center  m-0 tituloTabla" [style]="{'height':'2rem'}">Despiece Plano</h6>
+                      
+                        <!-- Botones mini superpuestos a la derecha -->
+                        <div class="position-absolute top-0 end-0 me-2 mt-1 d-flex gap-1">
+                          <button pButton 
+                           [icon]="modoSoloTabla ? 'pi pi-window-maximize ' : 'pi pi-window-minimize'"
+                           class="p-button p-button-text p-button-sm" 
+                           style="width: 1.5rem; height: 1.5rem; padding: 0;" 
+                           [title]="modoSoloTabla ? 'Ampliar vista': 'Restaurar vista'" (click)="ampliarTabla()"></button>
+                         
+                        </div>
+                    </div>
+
+
+
+                    <p-table [scrollable]="true" [scrollHeight]="modoSoloTabla ? '17rem' : '29rem'"
+                    [value]="despiece" 
+                        [tableStyle]="{ 'min-width': '50rem', 'padding': '0rem' }" 
+                         [resizableColumns]="true" selectionMode="single">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Id Objeto</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Descripción</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Ancho</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Altura</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Cantidad</th>                              
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Prof</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Grupo</th>
+                                <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Línea</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-Despiece>
+                            <tr pSelectableRow>
+                                <td style="white-space: nowrap; padding: 0.2rem;"> {{ Despiece.idObjeto  }}</td>
+                                <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.descripcionObjeto  }} </td>
+                                <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.ancho  }}</td>
+                                <td style="white-space: nowrap; padding: 0.2rem;"> {{ Despiece.altura  }}</td>
+                                <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.cant  }} </td>
+                                <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.profundidad }}</td>
+                                <td style="white-space: nowrap; padding: 0.2rem;"> {{ Despiece.grupo  }}</td>
+                                <td style="white-space: nowrap; padding: 0.2rem;">{{Despiece.linea  }} </td>
+                               
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+                </div>
+
+            </div>
+        </div>
+
+      
+
     </div>
+
 </div>
