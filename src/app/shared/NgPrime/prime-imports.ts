@@ -11,6 +11,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
 
 
 export const PRIME_NG_IMPORTS = [
@@ -27,6 +28,6 @@ export const PRIME_NG_IMPORTS = [
     ProgressBarModule,
     ToastModule,
     CheckboxModule,
-
+    CalendarModule,
   ];
   

@@ -14,28 +14,30 @@
     <!-- Checkboxes -->
     <div class="col-md-2 col-sm-6 d-flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Ver Pendientes por Terminar" 
-            name="pizza" 
-            value="Cheese">
-        </p-checkbox>
+        [(ngModel)]="verPendientes"
+        label="Ver Pendientes por Terminar" 
+        name="verPendientes"
+        binary="true"
+        [disabled]="todasProgramadas">
+    </p-checkbox>
     </div>
 
     <div class="col-md-2 col-sm-6 d-flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Todas las Programadas"
-            name="pizza" 
-            value="Mushroom">
-        </p-checkbox>
+        [(ngModel)]="todasProgramadas"
+        label="Todas las Programadas"
+        name="todasProgramadas"
+        binary="true">
+    </p-checkbox>
+    
     </div>
 
     <!-- Input 1 -->
     <div class="col-md-4 col-sm-6">
         <div class="flex justify-content-center">
             <p-floatLabel>
-                <input id="username1" type="text" class="full-width" pInputText />
-                <label for="username1">Buscardor 1</label>
+                <input id="buscadorOT" class="w-100" type="text"  [disabled]="!todasProgramadas" pInputText [(ngModel)]="otBuscar" name="buscadorOT" placeholder="Buscar OT..." />
+                <label for="username1">Buscar OT</label>
             </p-floatLabel>
         </div>
     </div>
@@ -44,8 +46,8 @@
     <div class="col-md-4 col-sm-6">
         <div class="flex justify-content-center">
             <p-floatLabel>
-                <input id="username2" type="text" class="full-width" pInputText />
-                <label for="username2">Buscador 2</label>
+                <input id="nombreObra" class="w-100" type="text"  [disabled]="!todasProgramadas" pInputText [(ngModel)]="nombreObraBuscar" name="nombreObra" placeholder="Buscar Nombre de la Obra..." />
+                <label for="username2">Buscar nombre de obra</label>
             </p-floatLabel>
         </div>
     </div>
@@ -82,12 +84,12 @@
     </div>
 
     <div class="col-md-1 col-sm-6 d-flex align-items-center">
-        <p-button label="Consultar" [rounded]="true" [text]="true" [raised]="true" (click)="consultar()"></p-button>
+        <p-button label="Consultar" class="custom-btn btn-danger" [rounded]="true" [text]="true" [raised]="true" (click)="consultar()"></p-button>
                           
     </div>
     <div class="col-md-1 col-sm-6 d-flex align-items-center">
        
-                            <p-button [rounded]="true" [text]="true" [raised]="true">
+                            <p-button [rounded]="true" class="custom-btn btn-danger" [text]="true" [raised]="true">
                                 <i class="bi bi-printer-fill text-dark"></i>
                             </p-button>
     </div>

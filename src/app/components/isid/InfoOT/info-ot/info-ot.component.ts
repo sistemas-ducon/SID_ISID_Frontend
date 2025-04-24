@@ -7,8 +7,9 @@ import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orde
 import { Pedido } from '../../../../models/isid/OrdenTrabajo/pedido.dto';
 import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-ot-state.service';
 import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
-import { InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
+import { FechaDespacho, InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 interface Consecutivo {
   name: string | null;
@@ -18,7 +19,7 @@ interface Consecutivo {
   selector: 'app-info-ot',
   standalone: true,
   imports: [
-    ...PRIME_NG_IMPORTS, CommonModule, RouterModule, DialogObservacionesComponent, ModalProgramacionOTComponent
+    ...PRIME_NG_IMPORTS, CommonModule, RouterModule, DialogObservacionesComponent, ModalProgramacionOTComponent, ReactiveFormsModule
   ],
   templateUrl: './info-ot.component.html',
   styleUrl: './info-ot.component.css'
@@ -29,119 +30,167 @@ export class InfoOTComponent implements OnInit {
   selectedPedido: Pedido | undefined;
   selectedCountry: Consecutivo | undefined = undefined;
   countries: Consecutivo[] = [];
-
   programacionObra: any[] = [];
-  fechaDespacho: any[] = [];
-
-  formData: any = {}; // Se mantiene como objeto
-  isDisabled: boolean = true; 
-
+  formData: any = {};
+  isDisabled: boolean = true;
   modalVisible = false;
   modalVisibleProgramacion = false;
+  formOT: FormGroup;
+
+  fechaDespacho: FechaDespacho[] = []; // Declaración de la variable
 
   constructor(
     private ordenTrabajoService: OrdenTrabajoService, 
     private infoOtStateService: InfoOtStateService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.formOT = new FormGroup({
+      OT: new FormControl({ value: '', disabled: false }),
+      selectedPedido: new FormControl({ value: null, disabled: false }),
+      t_ped: new FormControl({ value: '', disabled: true }),
+      asesor: new FormControl({ value: '', disabled: true }),
+      cliente: new FormControl({ value: '', disabled: true }),
+      obra: new FormControl({ value: '', disabled: true }),
+      direccion: new FormControl({ value: '', disabled: true }),
+      departamento: new FormControl({ value: '', disabled: true }),
+      pais: new FormControl({ value: '', disabled: true }),
+      ciudad: new FormControl({ value: '', disabled: true }),
+      telefono: new FormControl({ value: '', disabled: true }),
+      contacto: new FormControl({ value: '', disabled: true }),
+      mail: new FormControl({ value: '', disabled: true }),
+      plano: new FormControl({ value: '', disabled: true }),
+      dibujo: new FormControl({ value: '', disabled: true }),
+      venta: new FormControl({ value: '', disabled: true }),
+      okventa: new FormControl({ value: '', disabled: true }),
+      okdibujo: new FormControl({ value: '', disabled: true }),
+      observacion_Pedido: new FormControl({ value: '', disabled: true }),
+      okempaquevta: new FormControl({ value: '', disabled: true }),
+      okdespacho: new FormControl({ value: '', disabled: true }),
+      empaqueprod: new FormControl({ value: '', disabled: true }),
+      okinstala: new FormControl({ value: '', disabled: true }),
+      okempaque: new FormControl({ value: '', disabled: true }),
+      okfacturacion2: new FormControl({ value: '', disabled: true }),
+      okcotizacion: new FormControl({ value: '', disabled: true })
+    
+    });
+  }
 
   ngOnInit() {
-    this.infoOtStateService.id_OT$.subscribe(id => this.id_OT = id);
-    this.infoOtStateService.pedidos$.subscribe(pedidos => this.pedidos = pedidos);
-    
-    this.infoOtStateService.selectedPedido$.subscribe(pedido => {
-      if (!pedido || (this.selectedPedido && this.selectedPedido.consecutivoPedido === pedido.consecutivoPedido)) {
-        return; // 🔹 Evita re-cargar datos si no hay cambio real
+    this.infoOtStateService.id_OT$.subscribe(id => {
+      this.id_OT = id;
+  
+      // Cuando llegue la OT, consultamos los pedidos
+      if (this.id_OT) {
+        this.ordenTrabajoService.obtenerPedidos(this.id_OT).subscribe({
+          next: (pedidos) => {
+            this.infoOtStateService.setPedidos(pedidos); // Esto alimenta el observable pedidos$
+          },
+          error: (err) => {
+            console.error('❌ Error al obtener pedidos:', err);
+          }
+        });
       }
-      this.selectedPedido = pedido;
-      this.actualizarCampos();
     });
   
-    this.infoOtStateService.formData$.subscribe(data => this.formData = { ...data });
-    this.infoOtStateService.programacionObra$.subscribe(data => this.programacionObra = [...data]);
-    this.infoOtStateService.fechaDespacho$.subscribe(data => this.fechaDespacho = [...data]);
+    this.infoOtStateService.pedidos$.subscribe(pedidos => {
+      this.pedidos = pedidos;
+    });
+  
+    this.infoOtStateService.selectedPedido$.subscribe(pedido => {
+      this.selectedPedido = pedido;
+  
+      if (pedido) {
+        if (this.formOT.get('selectedPedido')?.value !== pedido) {
+          this.formOT.get('selectedPedido')?.setValue(pedido, { emitEvent: false });
+        }
+        this.actualizarCampos();
+      }
+    });
+  
+    this.formOT.get('selectedPedido')?.valueChanges.subscribe((pedidoSeleccionado: Pedido) => {
+      this.selectedPedido = pedidoSeleccionado;
+      this.infoOtStateService.setSelectedPedido(this.selectedPedido);
+      this.actualizarCampos();
+    });
   }
   
-  buscarPedidos() {
-    if (this.id_OT.trim()) {
-      this.ordenTrabajoService.obtenerPedidos(this.id_OT).subscribe({
-        next: (data) => {
-          this.pedidos = data.map(p => ({
-            ...p,
-            idOT: this.id_OT  // 🔹 Agregar idOT aquí
-          })).sort((a, b) => b.consecutivoPedido - a.consecutivoPedido);
   
-          if (this.pedidos.length > 0) {
-            this.selectedPedido = this.pedidos[0];
+  
+
+  buscarPedidos() {
+    this.id_OT = this.formOT.get('OT')?.value || '';
+   
+  
+    this.infoOtStateService.setIdOT(this.id_OT);
+  
+    this.ordenTrabajoService.obtenerPedidos(this.id_OT).subscribe({
+      next: (data) => {
+       
+        this.pedidos = data;
+        this.infoOtStateService.setPedidos(this.pedidos); 
+  
+        if (this.pedidos.length > 0) {
+          const maxConsecutivo = Math.max(...this.pedidos.map(p => p.consecutivoPedido));
+          const pedidoMayor = this.pedidos.find(p => p.consecutivoPedido === maxConsecutivo);
+  
+        
+  
+          if (pedidoMayor) {
+            this.selectedPedido = pedidoMayor;
+            this.formOT.get('selectedPedido')?.setValue(pedidoMayor);
+            this.infoOtStateService.setSelectedPedido(this.selectedPedido); 
             this.actualizarCampos();
           }
-  
-          // Guardar en el servicio
-          this.infoOtStateService.setIdOT(this.id_OT);
-          this.infoOtStateService.setPedidos(this.pedidos);
-          this.infoOtStateService.setSelectedPedido(this.selectedPedido);
-        },
-        error: (err) => console.error('Error al obtener pedidos', err),
-      });
-    }
+        }
+      },
+      error: (err) => console.error('Error al obtener pedidos:', err),
+    });
   }
-  
 
   actualizarCampos() {
     if (!this.selectedPedido) return;
   
+  
     this.ordenTrabajoService.obtenerInfoPedido(this.id_OT, this.selectedPedido.consecutivoPedido.toString())
       .subscribe({
-        next: (infoPedido: InfoPedido) => { // 👈 Ahora InfoPedido usa las interfaces correctas
-          this.formData = { 
-            t_ped: infoPedido.ot.descripcionTipoPedido,
-            asesor: infoPedido.ot.asesor,
-            cliente: infoPedido.ot.cliente,
-            obra: infoPedido.ot.nombreObra,
-            direccion: infoPedido.ot.dirección,
-            departamento: infoPedido.ot.región,
-            pais: infoPedido.ot.país,
-            ciudad: infoPedido.ot.ciudad,
-            telefono: infoPedido.ot.telDomicilio,
-            Contacto: infoPedido.ot.personaReceptora,
-            Mail: infoPedido.ot.mailContacto,
-            Plano: infoPedido.infoPlano.plano,  // ✅ Ahora existe infoPlano
-            Dibuja: infoPedido.infoPlano.dibujante,
-            venta: infoPedido.ot.fechaConfirmacionVenta,
-            okventa: infoPedido.ot.fechaEntregaDibujoDespiece,
-            okdibujo: infoPedido.ot.fechaEntregaProduccion,
-            Observacion: infoPedido.ot.observacionPedido,
-            okempaquevta: infoPedido.ot.fechaEmpaqueVenta,
-            okdespacho: infoPedido.ot.fechaTerminadaDespacho,
-            empaqueprod: infoPedido.ot.fechaEmpaque,
-            okinstala: infoPedido.ot.fechaFinalInstalacion,
-            okempaque: infoPedido.ot.fechaTerminadaEmpaque,
+        next: (infoPedido) => {
+        
+          // Aplanar el objeto para el formulario
+          const formValues = {
+            OT: this.id_OT,
+            t_ped: infoPedido.ot?.descripcionTipoPedido || '',
+            asesor: infoPedido.ot?.asesor || '',
+            cliente: infoPedido.ot?.cliente || '',
+            direccion: infoPedido.ot?.dirección || '',
+            departamento: infoPedido.ot?.región || '',
+            pais: infoPedido.ot?.país || '',
+            ciudad: infoPedido.ot?.ciudad || '',
+            telefono: infoPedido.ot?.telDomicilio || '',
+            contacto: infoPedido.ot?.personaReceptora || '',
+            mail: infoPedido.ot?.mailContacto || '',
+            plano: infoPedido.infoPlano?.plano || '',
+            dibujo: infoPedido.infoPlano?.dibujante || '',
+            venta: infoPedido.ot?.fechaConfirmacionVenta || '',
+            okventa: infoPedido.ot?.fechaEntregaDibujoDespiece || '',
+            okdibujo: infoPedido.ot?.fechaEntregaProduccion || '',
+            observacion_Pedido: infoPedido.ot?.observacionPedido || '', 
+            okempaquevta: infoPedido.ot?.fechaEmpaqueVenta || '',
+            okdespacho: infoPedido.ot?.fechaEmpaque || '',
+            empaqueprod: infoPedido.ot?.fechaTerminadaEmpaque || '',
+            okinstala: infoPedido.ot?.fechaFinalInstalacion || '',
+            okempaque: infoPedido.ot?.fechaEmpaque || '',
+            okfacturacion2: infoPedido.ot?.fechaFactura || '',
+            okcotizacion: infoPedido.ot?.fechaFactura || ''
           };
   
-          // Guardar datos en el servicio para persistencia
-          this.infoOtStateService.setFormData(this.formData);
-          
-        // 🔹 Guardar el plano en el servicio para que otros componentes lo usen
-          this.infoOtStateService.setPlano(infoPedido.infoPlano.plano); 
-  
-          // 🔹 Asegurar que el pedido se mantiene en el servicio
-          this.infoOtStateService.setSelectedPedido(this.selectedPedido);
-  
-          this.programacionObra = infoPedido.programacionObra || [];  // ✅ Ahora existe programacionObra
-          this.infoOtStateService.setProgramacionObra(this.programacionObra);
-  
-          this.fechaDespacho = infoPedido.fechaDespacho || [];  // ✅ Ahora existe fechaDespacho
-          this.infoOtStateService.setFechaDespacho(this.fechaDespacho);
+          // Asignar los valores al formulario
+          this.formOT.patchValue(formValues);
+
+            this.fechaDespacho = infoPedido.fechaDespacho;
+          this.programacionObra = infoPedido.programacionObra;
+        
         },
-        error: (err) => {
-          console.error('Error al obtener la información del pedido', err);
-          this.formData = {}; 
-          this.programacionObra = [];
-          this.fechaDespacho = [];
-          this.infoOtStateService.setFormData({});
-          this.infoOtStateService.setProgramacionObra([]);
-          this.infoOtStateService.setFechaDespacho([]);
-        }
+        error: (err) => console.error('Error al obtener la información del pedido:', err)
       });
   }
   
@@ -192,4 +241,3 @@ export class InfoOTComponent implements OnInit {
     this.modalVisibleProgramacion = false;
   }
 }
-

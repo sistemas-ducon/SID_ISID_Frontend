@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InfoOtStateService } from './OrdenTrabajo/info-ot-state.service';
+import { InfoOtStateService } from './info-ot-state.service';
 
 describe('InfoOtStateService', () => {
   let service: InfoOtStateService;

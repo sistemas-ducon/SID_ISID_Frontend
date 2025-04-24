@@ -12,4 +12,34 @@ export interface Compra {
     codigoInventario:   string;
   }
 
-  
+
+export interface ProveedorDto {
+  id_ProveedorAuto: number;
+  id_Proveedor: string;
+  nombreCompania: string;
+  nombreContacto: string;
+  cargoContacto: string | null;
+  dirección: string | null;
+  ciudad: string | null;
+  región: string | null;
+  teléfono: string;
+  correo_Electronico: string;
+}
+
+
+export interface ProveedorInsertarDto {
+  id_Proveedor: string;
+  nombreCompania: string;
+  nombreContacto: string;
+  telefono: string;
+  correo_Electronico?: string;
+}
+
+export interface ProveedorActualizarDto{
+  id_ProveedorAuto: number;
+  id_Proveedor: string;
+  nombreCompania: string;
+  nombreContacto: string;
+  telefono: string;
+  correo_Electronico?: string;
+}

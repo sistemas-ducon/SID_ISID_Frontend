@@ -4,12 +4,12 @@
       <div class="col-md-7 d-flex flex-column p-3">
         <div class="table-responsive table-sm mb-3 shadow-sm border rounded" style="height: 75vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
             <p-table 
-          
-            styleClass="p-datatable-gridlines" 
-            [tableStyle]="{ 'padding':'0rem', 'width':'100%' }"
+            [value]="articulosSimulados"
+            styleClass="p-datatable-gridlines"
+            [tableStyle]="{ 'padding': '0rem', 'width': '100%' }"
             [scrollable]="true"
             selectionMode="single"
-            dataKey="descripcionProceso">
+            dataKey="idInventario">
           
             <ng-template pTemplate="header">
               <tr>
@@ -20,12 +20,12 @@
               </tr>
             </ng-template>
           
-            <ng-template pTemplate="body" let-modulo>
-              <tr [pSelectableRow]="modulo">
-                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.descripcionProceso }}</td>
-                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.procesar }}</td>
-                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.fechaFinalProceso }}</td>
-                <td style="white-space: nowrap; padding: 0.2rem;">{{ modulo.terminada ? 'Sí' : 'No' }}</td>
+            <ng-template pTemplate="body" let-articulo>
+              <tr [pSelectableRow]="articulo">
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ articulo.idInventario }}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ articulo.descripcion }}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ articulo.cantCD}}</td>
+                <td style="white-space: nowrap; padding: 0.2rem;">{{ articulo.und }}</td>
               </tr>
             </ng-template>
           
@@ -33,8 +33,8 @@
             </div>
             <div class="row align-items-center p-2">
                 <div class="col-md-10 d-flex gap-2">
-                    <p-button label="Simular registro" class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"></p-button>
-                    <p-button label="Equivalencia" class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"></p-button>
+                    <p-button label="Simular registro" class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true" (click)="simularRegistro()"></p-button>
+                    <p-button label="Equivalencia" class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true" [disabled]="btnEquivalenciaDisabled"></p-button>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
                     <p-button label="Reg.Pedido" class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"></p-button>
@@ -51,13 +51,16 @@
             </div>
             <div class="car-body">
                 <div class="table-responsive table-sm mb-3 rounded" style="height: 63vh; padding-top:0rem; margin-top:0rem; overflow-y: auto;">
-                    <p-table 
-                    styleClass="p-datatable-gridlines" 
-                    [tableStyle]="{ 'padding':'0rem', 'width':'100%' }"
-                    [scrollable]="true"
-                    selectionMode="single"
-                    dataKey="equivalenciaCodigoOrigen"
-                    [value]="equivalencias">
+                  <p-table 
+                  styleClass="p-datatable-gridlines" 
+                  [tableStyle]="{ 'padding':'0rem', 'width':'100%' }"
+                  [scrollable]="true"
+                  selectionMode="single"
+                  dataKey="equivalenciaCodigoOrigen"
+                  [value]="equivalencias"
+                  [(selection)]="equivalenciaSeleccionada"
+                  (onRowSelect)="llenarCampos(equivalenciaSeleccionada)">
+                
                   
                     <ng-template pTemplate="header">
                       <tr>
@@ -69,7 +72,7 @@
                     </ng-template>
                   
                     <ng-template pTemplate="body" let-equivalencia>
-                      <tr>
+                      <tr [pSelectableRow]="equivalencia">
                         <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaCodigoOrigen }}</td>
                         <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaCodigoDestino }}</td>
                         <td style="white-space: nowrap; padding: 0.2rem;">{{ equivalencia.equivalenciaResponsable }}</td>
@@ -86,12 +89,12 @@
             <!-- Contenedor para los inputs, alineados uno al lado del otro -->
             <div class="col-md-6 d-flex justify-content-center gap-3 mt-5">
                 <p-floatLabel class="w-50">
-                    <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm"/>
+                    <input pInputText id="CodOrigen" name="t_pedName" class="w-100 form-control-sm" [(ngModel)]="codOrigen" [disabled]="camposDeshabilitados" />
                     <label for="CodOrigen">Cod. Origen</label>
                 </p-floatLabel>
         
                 <p-floatLabel class="w-50">
-                    <input pInputText id="CodDestino" name="t_pedName" class="w-100 form-control-sm"/>
+                    <input pInputText id="CodDestino" name="t_pedName" class="w-100 form-control-sm" [(ngModel)]="codDestino" [disabled]="camposDeshabilitados" />
                     <label for="CodDestino">Cod. Destino</label>
                 </p-floatLabel>
             </div>
@@ -99,17 +102,35 @@
         
         <!-- Nueva fila para los botones -->
         <div class="row justify-content-center mt-3">
-            <div class="col-md-7 d-flex justify-content-center gap-3 flex-wrap">
-                <p-button class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
-                <p-button class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
-                <p-button class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
-                <p-button class="custom-btn btn-comun"  [rounded]="true" [text]="true" [raised]="true"><i class="bi bi-exclamation-triangle-fill"></i></p-button>
-            </div>
+          <div class="col-md-7 d-flex justify-content-center gap-3 flex-wrap">
+            <p-button class="custom-btn btn-comun"
+                      [rounded]="true" [text]="true" [raised]="true" [disabled]="btnNuevoDisabled" (onClick)="accionBtnNuevo()">
+              <i class="bi bi-plus text-success"></i>
+            </p-button>
+        
+            <p-button class="custom-btn btn-comun"
+                      [rounded]="true" [text]="true" [raised]="true"
+                      [disabled]="btnGuardarDisabled">
+              <i class="bi bi-floppy-fill"></i>
+            </p-button>
+        
+            <p-button class="custom-btn btn-comun"
+                      [rounded]="true" [text]="true" [raised]="true"
+                      [disabled]="btnCancelarDisabled" >
+              <i class="bi bi-x-circle-fill"></i>
+            </p-button>
+        
+            <p-button class="custom-btn btn-comun"
+                      [rounded]="true" [text]="true" [raised]="true" (onClick)="accionBtnCancelar()">
+              <i class="bi bi-arrow-clockwise"></i>
+            </p-button>
+          </div>
         </div>
+        
         
         
         
       </div>
     </div>
   </div>
-  
+  <p-toast position="top-right"></p-toast>

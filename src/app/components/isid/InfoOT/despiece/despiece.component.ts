@@ -5,6 +5,7 @@ import { OrdenTrabajoService } from '../../../../services/isid/OrdenTrabajo/orde
 import { InfoPedido } from '../../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-ot-state.service';
 import { DespiecePlano } from '../../../../models/isid/OrdenTrabajo/despiece.dto';
+import { Pedido } from '../../../../models/isid/OrdenTrabajo/pedido.dto';
 
 @Component({
   selector: 'app-despiece',
@@ -27,24 +28,38 @@ export class DespieceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.infoOtStateService.selectedPedido$.subscribe(pedido => {
-      if (pedido) {
-        const nuevoIdOT = pedido.idOT;
-        const nuevoConsecutivo = pedido.consecutivoPedido?.toString();
-
-        if (!nuevoIdOT) return;
-
-        if (this.idOT !== nuevoIdOT || this.consecutivoPedido !== nuevoConsecutivo) {
-          this.idOT = nuevoIdOT;
+    // Obtener el ID OT directamente desde el servicio
+    this.infoOtStateService.id_OT$.subscribe((idOT: string) => {
+   
+      this.idOT = idOT;
+    });
+  
+    // Obtener el pedido seleccionado desde el servicio
+    this.infoOtStateService.selectedPedido$.subscribe((pedido: Pedido | null) => {
+ 
+  
+      if (pedido && typeof pedido === 'object') {
+        const nuevoConsecutivo = pedido.consecutivoPedido !== undefined ? pedido.consecutivoPedido.toString() : 'Consecutivo no definido';
+  
+    
+  
+        if (this.idOT === '' || this.idOT === 'ID OT no definido') {
+          console.warn('El nuevo ID OT es indefinido o vacío.');
+          return;
+        }
+  
+        if (this.idOT !== pedido.idOT || this.consecutivoPedido !== nuevoConsecutivo) {
+     
           this.consecutivoPedido = nuevoConsecutivo;
           this.cargarDatos();
         }
       } else {
+        console.warn('Pedido no encontrado o vacío.');
         this.limpiarDatos();
       }
     });
   }
-
+  
   cargarDatos() {
     if (this.idOT && this.consecutivoPedido) {
       this.ordenTrabajoService.ObtenerDespiecePlano(this.idOT, this.consecutivoPedido).subscribe({

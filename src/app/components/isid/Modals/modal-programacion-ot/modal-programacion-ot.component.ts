@@ -31,10 +31,14 @@ export class ModalProgramacionOTComponent {
   selectedCountry: any;
   selectedItem: any;
   reporte: any;
+  otBuscar: string = '';
+  nombreObraBuscar: string = '';
+  todasProgramadas: boolean = false;
+  impresion: boolean = false;
 
 
   obra: string | undefined;
-  pizza: string[] = [];
+  verPendientes: boolean = false;
   value: string | undefined;
 
   procesos: any[] = [];
@@ -65,14 +69,24 @@ export class ModalProgramacionOTComponent {
   }
   
   consultar() {
+  
     if (!this.selectedCountry || !this.selectedCountry.name) {
       console.warn('Debe seleccionar un proceso antes de consultar.');
       return;
     }
   
-    this.ordenTrabajoService.obtenerReporte(this.selectedCountry.name).subscribe(
+    const otBuscarValue = this.otBuscar?.trim() || '';
+    const nombreObraValue = this.nombreObraBuscar?.trim() || '';
+  
+    this.ordenTrabajoService.obtenerReporte(
+      this.selectedCountry.name,
+      otBuscarValue,
+      nombreObraValue,
+      this.impresion,
+      this.todasProgramadas
+    ).subscribe(
       (response) => {
-        this.procesos = response.progamacionProceso.flatMap((pp: { procesos: any[] }) => 
+        this.procesos = response.progamacionProceso.flatMap((pp: { procesos: any[] }) =>
           pp.procesos.map(proceso => ({
             turno: proceso.turno,
             idProgramacion: proceso.idProgramacion,
@@ -97,7 +111,7 @@ export class ModalProgramacionOTComponent {
             fechaRealFinalProceso: proceso.fechaRealFinalProceso,
             iniciado: proceso.iniciado,
             fechaRealInicio: proceso.fechaRealInicio,
-            prioritario: proceso.prioritario // Para el color de fondo
+            prioritario: proceso.prioritario
           }))
         );
       },
@@ -106,6 +120,8 @@ export class ModalProgramacionOTComponent {
       }
     );
   }
+  
+
 
   getBackgroundColor(modulo: any, column: string): string {
     if (!modulo) return 'transparent';

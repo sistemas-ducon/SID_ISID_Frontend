@@ -62,6 +62,7 @@
 .main-container {
   height: calc(100vh - 3rem); /* Restar la altura del navbar */
   overflow: hidden;
+  display: flex;
 }
 
 /* 🔹 Sidebar */

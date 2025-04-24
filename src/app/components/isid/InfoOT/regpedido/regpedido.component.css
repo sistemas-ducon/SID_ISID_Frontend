@@ -1,42 +1,64 @@
 
-  :host ::ng-deep .p-datatable-table th, 
+:host ::ng-deep .p-datatable {
+  font-size: 12px; /* Reduce el tamaño del texto */
+}
+
+:host ::ng-deep .p-datatable-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+:host ::ng-deep .p-datatable-table th,
+:host ::ng-deep .p-datatable-table td {
+  border: 1px solid #d1d5db; /* Color gris */
+  padding: 4px 6px; /* Reduce el padding */
+  white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+:host ::ng-deep .p-datatable-table th {
+  background-color: #f3f4f6; /* Fondo gris claro */
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px; /* Un poco más de padding en la cabecera */
+}
+
+:host ::ng-deep .p-datatable-table td {
+  font-size: 12px; /* Reduce el tamaño del texto en las filas */
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+  overflow-y: auto;
+}
+
+/* 📱 Estilos responsive */
+@media (max-width: 768px) {
+  :host ::ng-deep .p-datatable {
+    font-size: 11px;
+  }
+
+  :host ::ng-deep .p-datatable-table th,
   :host ::ng-deep .p-datatable-table td {
-    border: 1px solid #d1d5db; /* Color gris */
-    padding: 8px;
+    padding: 3px 4px;
+    font-size: 10px;
   }
-  
-  p-table {
-    font-size: 0.9rem;
-  
-  }
-  
-  p-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  p-table th {
-    text-align: left;
-    background-color: #49556a;
-    color: #fafafa;
-    font-weight: 600;
-    padding: 0.5rem;
-    border-bottom: 2px solid #ddd;
-  }
-  
-  
-  p-table td:nth-child(even) {
-    background-color: #f9fafb;
-  }
-  
-  :host ::ng-deep .p-datatable-table td {
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  :host ::ng-deep .p-datatable-table img {
-    max-height: 30px;
-  }
+}
+
+:host ::ng-deep .p-datatable thead tr th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: radial-gradient(circle, #b1b3b4 30%, #a3a6a8 70%);
+  color: dark;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #d1d5db;
+}
+
+/* 🎯 Ajuste para el scroll interno */
+:host ::ng-deep .p-datatable-wrapper {
+  overflow-y: auto;
+}
+
   
   :host ::ng-deep p-button.custom-btn .p-button {
     color: black;
@@ -65,6 +87,15 @@
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
   }
+
+  :host ::ng-deep p-button.btn-comun.p-disabled .p-button {
+    background: #d3d3d3 !important; /* Color gris claro */
+    color: #888 !important;         /* Texto más tenue */
+    box-shadow: none !important;    /* Sin sombra */
+    cursor: not-allowed !important; /* Cursor */
+    transform: none !important;     /* Sin animación de escala */
+  }
+  
   
   /* 🟢 Responsividad */
   @media (max-width: 768px) {
@@ -73,4 +104,16 @@
       max-width: none;
     }
   }
+
+  .p-inputtext:disabled {
+    background-color: #e0e0e0 !important; /* Un gris más notorio */
+    color: #0d0d0d !important; 
+    border-top: 1px solid #ccc !important; /* Borde grueso arriba */
+    border-left: 1px solid #ccc !important; /* Borde grueso izquierda */
+    border-right: 2px solid #a0a0a0 !important; /* Borde derecho tenue */
+    border-bottom: 2px solid #a0a0a0 !important; /* Borde inferior tenue */
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra tenue arriba e izquierda */
+    opacity: 0.6; /* Mayor opacidad para destacar el estado deshabilitado */
+  }
   
+

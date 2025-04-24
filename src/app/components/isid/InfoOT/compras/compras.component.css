@@ -98,3 +98,30 @@ box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 
+  /* =========================
+   📌 Dropdown
+   ========================= */
+   :host ::ng-deep p-dropdown {
+    font-size: 12px;
+
+    height: 30px;
+}
+
+:host ::ng-deep p-dropdown .p-dropdown-label {
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+:host ::ng-deep .p-dropdown-item {
+  padding-left: 2px !important; /* Reduce el espacio de las opciones */
+}
+  
+:host ::ng-deep .p-dropdown {
+    width: 100% !important;
+  }
+
+
+
+
+

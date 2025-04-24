@@ -1,27 +1,28 @@
 <div class="container-fluid mt-3">
+  <form [formGroup]="formSuperior">
     <!-- 🔹 Fila superior (Dividida en 8 partes, una más amplia) -->
     <div class="row align-items-center gx-2 gy-2">
         <div class="col-md-3 col-6">
           <p-floatLabel class="w-100">
-            <input pInputText id="DCompras" class="form-control-sm w-100" />
+            <input pInputText id="DCompras" class="form-control-sm w-100" formControlName="DCompras" />
             <label for="DCompras">D.Compras</label>
           </p-floatLabel>
         </div>
         <div class="col-md-2 col-6">
           <p-floatLabel class="w-100">
-            <input pInputText id="Valor" class="form-control-sm w-100" />
+            <input pInputText id="Valor" class="form-control-sm w-100" formControlName="valorUnidad" />
             <label for="Valor">Valor</label>
           </p-floatLabel>
         </div>
         <div class="col-md-2 col-6">
           <p-floatLabel class="w-100">
-            <input pInputText id="CodInv" class="form-control-sm w-100" />
+            <input pInputText id="CodInv" class="form-control-sm w-100" formControlName="codigoInventario" />
             <label for="CodInv">Cod.Inv</label>
           </p-floatLabel>
         </div>
         <div class="col-md-2 col-6">
           <p-floatLabel class="w-100">
-            <input pInputText id="PulidoBrillado" class="form-control-sm w-100" />
+            <input pInputText id="PulidoBrillado" class="form-control-sm w-100" formControlName="PulidoBrillado" />
             <label for="PulidoBrillado">Pulido y Brillado</label>
           </p-floatLabel>
         </div>
@@ -33,13 +34,15 @@
         </div>
       </div>
       
-
+    </form>
     <!-- 🔹 Sección Central (Bordeada para la tabla futura) -->
     <div class="row my-3">
         <div class="col-12 border rounded 4">
             <div class="table-responsive table-sm mb-3" style="height: 50vh; overflow-y: auto;">
                 <p-table 
                 [value]="compras" 
+                [(selection)]="IdSeleccionado"
+                (onRowSelect)="cargarFormulario($event.data)"
                 styleClass="p-datatable-gridlines"
                 [tableStyle]="{ 'width': '100%' }"
                 [scrollable]="true"
@@ -81,41 +84,54 @@
         </div>
     </div>
 
+    <form [formGroup]="formInferior">
     <!-- 🔹 Fila inferior (Dividida en 7 partes, una más amplia) -->
     <div class="row">
         <div class="col-md-4 col-6 d-flex flex-wrap gap-2">
             <p-floatLabel class="flex-fill">
-                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
-                <label for="DCompras">D.Compras</label>
+                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm" formControlName="Tercero" />
+                <label for="DCompras">Tercero</label>
             </p-floatLabel>
             
             <p-floatLabel class="flex-fill">
-                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
-                <label for="OtroCampo">Otro Campo</label>
+                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm" formControlName="NombreCom"/>
+                <label for="OtroCampo">Nombre Compañia</label>
             </p-floatLabel>
             
             <p-button label="..." class="custom-btn btn-danger" [rounded]="true" [text]="true" [raised]="true" (onClick)="showDialogProveedores()"></p-button>
         </div>
         <div class="col-md-3 col-6 d-flex flex-wrap gap-2">
-            <p-floatLabel class="flex-fill">
-                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
-                <label for="DCompras">D.Compras</label>
-            </p-floatLabel>
-            
-            <p-floatLabel class="flex-fill">
-                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
-                <label for="OtroCampo">Otro Campo</label>
-            </p-floatLabel>
+          <div class="col-12 d-flex align-items-center gap-2">
+            <label for="obra" class="">Bodega</label>
+            <p-dropdown optionLabel="name"
+                [filter]="true" filterBy="name" [showClear]="true" 
+                placeholder=""
+                class="w-100">
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="d-flex align-items-center">
+                        <div>{{ selectedOption.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="d-flex align-items-center">
+                        <span>{{ country.name }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <label for="obra" class="">Entrega</label>
+            <input type="date" id="fecha1" class="form-control form-control-sm w-100" />
         </div>
+      </div>
+      
         <div class="col-md-3 col-6 d-flex flex-wrap gap-2">
             <p-floatLabel class="flex-fill">
-                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm"/>
-                <label for="DCompras">D.Compras</label>
+                <input pInputText id="DCompras" name="t_pedName" class="w-100 form-control-sm" />
+                <label for="DCompras">Documento</label>
             </p-floatLabel>
             
             <p-floatLabel class="flex-fill">
-                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm"/>
-                <label for="OtroCampo">Otro Campo</label>
+                <input pInputText id="OtroCampo" name="otroCampo" class="w-100 form-control-sm" />
+                <label for="OtroCampo">Termino de</label>
             </p-floatLabel>
         </div>
         
@@ -126,5 +142,11 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
 
+<app-compras-proveedor 
+  [visible]="modalVisibleProveedores"
+  (onClose)="modalVisibleProveedores = false"
+  (proveedorSeleccionadoEvent)="cargarFormularioDesdeModal($event)">
+</app-compras-proveedor>

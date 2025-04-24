@@ -1,17 +1,15 @@
 <div class="container-fluid form-control-sm bg-light p-4">
-  <form>
+  <form [formGroup]="formOT">
     <!-- Fila 1: Búsqueda y selección de pedido -->
     <div class="row">
       <div class="col-md-2">
         <p-floatLabel>
           <input
             pInputText
-            id="Id_OT"
-            [(ngModel)]="id_OT"
-            [ngModelOptions]="{standalone: true}"
             type="text"
             name="OT"
             class="w-100"
+            formControlName="OT"
             (keyup.enter)="buscarPedidos()" 
           />
           <label for="Id_OT">OT</label>
@@ -21,8 +19,7 @@
       <div class="col-md-2">
         <p-dropdown
         [options]="pedidos"
-        [(ngModel)]="selectedPedido"
-        [ngModelOptions]="{standalone: true}"
+        formControlName="selectedPedido"
         optionLabel="consecutivoPedido"
         [filter]="true"
         filterBy="consecutivoPedido"
@@ -82,14 +79,14 @@
 
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="t_ped" [(ngModel)]="formData.t_ped" name="t_pedName" class="w-100" [disabled]="isDisabled">
+          <input pInputText id="t_ped" class="w-100" formControlName="t_ped">
           <label for="t_ped">T.Ped</label>
         </p-floatLabel>
       </div>
 
       <div class="col-md-3">
         <p-floatLabel>
-          <input pInputText id="asesor" [(ngModel)]="formData.asesor" name="asesor" class="w-100" [disabled]="isDisabled" />
+          <input pInputText id="asesor"  name="asesor" class="w-100" formControlName="asesor"/>
           <label for="asesor">Asesor</label>
         </p-floatLabel>
       </div>
@@ -108,13 +105,13 @@
     <div class="row mt-4">
       <div class="col-md-6">
         <p-floatLabel>
-          <input pInputText id="cliente" [(ngModel)]="formData.cliente" name="cliente" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="cliente"  name="cliente" class="w-100" formControlName="cliente"/>
           <label for="cliente">Cliente</label>
         </p-floatLabel>
       </div>
       <div class="col-md-6">
         <p-floatLabel>
-          <input pInputText id="obra" [(ngModel)]="formData.obra" name="obra" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="obra"  name="obra" class="w-100"formControlName="obra"/>
           <label for="obra">Obra</label>
         </p-floatLabel>
       </div>
@@ -124,31 +121,31 @@
     <div class="row mt-4">
       <div class="col-md-3">
         <p-floatLabel>
-          <input pInputText id="direccion" [(ngModel)]="formData.direccion" name="Direccion" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="direccion"  name="Direccion" class="w-100" formControlName="direccion"/>
           <label for="direccion">Dirección</label>
         </p-floatLabel>
       </div>
       <div class="col-md-3">
         <p-floatLabel>
-          <input pInputText id="departamento" [(ngModel)]="formData.departamento"  name="departamento" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="departamento"   name="departamento" class="w-100" formControlName="departamento"/>
           <label for="departamento">Departamento</label>
         </p-floatLabel>
       </div>
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="pais" [(ngModel)]="formData.pais" name="pais" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="pais"  name="pais" class="w-100" formControlName="pais"/>
           <label for="pais">País</label>
         </p-floatLabel>
       </div>
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="ciudad" [(ngModel)]="formData.ciudad" name="ciudad" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="ciudad" name="ciudad" class="w-100" formControlName="ciudad"/>
           <label for="ciudad">Ciudad</label>
         </p-floatLabel>
       </div>
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="telefono" [(ngModel)]="formData.telefono" name="telefono" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="telefono"  name="telefono" class="w-100" formControlName="telefono"/>
           <label for="telefono">Teléfono</label>
         </p-floatLabel>
       </div>
@@ -158,19 +155,19 @@
     <div class="row mt-4">
       <div class="col-md-5">
         <p-floatLabel>
-          <input pInputText id="contacto" [(ngModel)]="formData.Contacto" name="contacto" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="contacto"  name="contacto" class="w-100" formControlName="contacto"/>
           <label for="contacto">Contacto</label>
         </p-floatLabel>
       </div>
       <div class="col-md-5">
         <p-floatLabel>
-          <input pInputText id="mail" [(ngModel)]="formData.Mail" name="mail" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="mail"  name="mail" class="w-100" formControlName="mail"/>
           <label for="mail">Correo Electrónico</label>
         </p-floatLabel>
       </div>
       <div class="col-md-2">
         <p-floatLabel>
-          <input pInputText id="plano" [(ngModel)]="formData.Plano" name="plano" class="w-100" [disabled]="isDisabled"/>
+          <input pInputText id="plano"  name="plano" class="w-100" formControlName="plano"/>
           <label for="plano">Plano</label>
         </p-floatLabel>
       </div>
@@ -181,8 +178,8 @@
       <div class="col-md-5">
         <div class="card p-3">
           <p-floatLabel class="exclude-resize">
-            <textarea id="infoOT" rows="22" [(ngModel)]="formData.Observacion" 
-                      name="observacion" pInputTextarea class="form-control form-control-sm" readonly>
+            <textarea id="Observacion" rows="23"  
+                      name="observacion" pInputTextarea class="form-control form-control-sm" formControlName="observacion_Pedido" readonly>
             </textarea>
             <label for="infoOT">Información General OT</label>
           </p-floatLabel>
@@ -190,28 +187,29 @@
         </div>
       </div>
       <div class="col-md-7">
+        <h6 class="text-center">POR</h6>
         <div class="row mt-4">
             <div class="col-md-3">
               <p-floatLabel>
-                <input pInputText id="username1" [(ngModel)]="formData.venta" name="venta" class="full-width" [disabled]="isDisabled"/>
+                <input pInputText id="username1"  name="venta" class="full-width" formControlName="venta"/>
                 <label for="username1">Venta</label>
               </p-floatLabel>      
             </div>
             <div class="col-md-3">
               <p-floatLabel>
-                <input pInputText id="username2" [(ngModel)]="formData.okventa" name="okventa" class="full-width" [disabled]="isDisabled"/>
+                <input pInputText id="username2" name="okventa" class="full-width" formControlName="okventa"/>
                 <label for="username2">Ok.Venta</label>
               </p-floatLabel>
             </div>
             <div class="col-md-3">
                 <p-floatLabel>
-                  <input pInputText id="username2" [(ngModel)]="formData.okdibujo" name="okdibujo" class="full-width" [disabled]="isDisabled"/>
+                  <input pInputText id="username2" name="okdibujo" class="full-width" formControlName="okdibujo"/>
                   <label for="username2">Ok.Dobujo</label>
                 </p-floatLabel>
               </div>
               <div class="col-md-3">
           <p-floatLabel>
-            <input pInputText id="username2" [(ngModel)]="formData.okdespacho" name="okdespacho" class="full-width" [disabled]="isDisabled"/>
+            <input pInputText id="username2"  name="okdespacho" class="full-width" formControlName="okdespacho"/>
             <label for="username2">OK Despacho</label>
           </p-floatLabel>
           
@@ -220,25 +218,25 @@
           <div class="row mt-4">
             <div class="col-md-3">
               <p-floatLabel>
-                <input pInputText id="username1" [(ngModel)]="formData.okempaquevta" name="okempaquevta" class="full-width" [disabled]="isDisabled"/>
+                <input pInputText id="username1"  name="okempaquevta" class="full-width" formControlName="okempaquevta"/>
                 <label for="username1">Empaque Vta</label>
               </p-floatLabel>
             </div>
             <div class="col-md-3">
               <p-floatLabel>
-                <input pInputText id="username2" [(ngModel)]="formData.empaqueprod" name="empaqueprod" class="full-width" [disabled]="isDisabled"/>
+                <input pInputText id="username2"  name="empaqueprod" class="full-width" formControlName="empaqueprod"/>
                 <label for="username2">Empaque Prod</label>
               </p-floatLabel>
             </div>
             <div class="col-md-3">
                 <p-floatLabel>
-                  <input pInputText id="username2" [(ngModel)]="formData.prueba" name="okempaque" class="full-width" [disabled]="isDisabled"/>
+                  <input pInputText id="username2"  name="okempaque" class="full-width" formControlName="okempaque"/>
                   <label for="username2">Ok.Empaque</label>
                 </p-floatLabel>
               </div>
               <div class="col-md-3">
           <p-floatLabel>
-            <input pInputText id="username2" [(ngModel)]="formData.prueba1" name="okinstala" class="full-width" [disabled]="isDisabled"/>
+            <input pInputText id="username2"  name="okinstala" class="full-width" formControlName="okinstala"/>
             <label for="username2">OK Instala</label>
         </p-floatLabel>
         </div>
@@ -296,7 +294,7 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p-floatLabel>
-                            <input pInputText id="username2" [(ngModel)]="formData.prueba2" name="Pedido" class="full-width" [disabled]="isDisabled"/>
+                            <input pInputText id="username2"  name="Pedido" class="full-width" formControlName="okfacturacion2"/>
                             <label for="username2">OK. Fact</label>
                         </p-floatLabel>
                     </div>
@@ -304,7 +302,7 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p-floatLabel>
-                            <input pInputText id="username2" [(ngModel)]="formData.prueba3" name="Pedido" class="full-width" [disabled]="isDisabled"/>
+                            <input pInputText id="username2"  name="Pedido" class="full-width" formControlName="okcotizacion"/>
                             <label for="username2">Ver Cot</label>
                         </p-floatLabel>
                     </div>

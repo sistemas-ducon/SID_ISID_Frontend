@@ -1,0 +1,97 @@
+<p-dialog
+  header="Reprogramar Pedido"
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="true"
+  (onHide)="cerrar()"
+  [style]="{ width: '50vw' }"
+>
+<div class="container-fluid mt-3">
+  <!-- Fila 1 -->
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <div class="d-flex align-items-center justify-content-between gap-4">
+        <label for="obra" class="fw-semibold mb-0">Inicio</label>
+        <input type="date" pInputText id="fecha1" [(ngModel)]="fecha1" class="w-100 form-control-sm" />
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-12">
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <div class="col-12 d-flex align-items-center gap-2">
+          <label for="obra" class="fw-semibold">Operario</label>
+          <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"
+              [filter]="true" filterBy="name" [showClear]="true" 
+              placeholder=""
+              class="w-100">
+              <ng-template pTemplate="selectedItem" let-selectedOption>
+                  <div class="d-flex align-items-center">
+                      <div>{{ selectedOption.name }}</div>
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="d-flex align-items-center">
+                      <span>{{ country.name }}</span>
+                  </div>
+              </ng-template>
+          </p-dropdown>
+      </div>
+    </div>
+    </div>
+  </div>
+ 
+  <!-- Fila 2 -->
+  <div class="row mt-3">
+    <div class="col-md-6 col-12">
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <label for="obra" class="fw-semibold mb-0">Entrega</label>
+        <input type="date" id="fecha1" [(ngModel)]="fecha2" class="form-control form-control-sm w-100" />
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="d-flex justify-content-between align-items-center text-center w-100">
+        <label for="obra" class="fw-semibold w-100">Pedidos</label>
+        <label for="valorPedido" class="fw-semibold w-100" [class.invisible]="!mostrarValores">{{ valorPedido }}</label>
+        <label for="obra" class="fw-semibold w-100">Procesar</label>
+        <label for="valorProcesar" class="fw-semibold w-100" [class.invisible]="!mostrarValores">{{ valorProcesar }}</label>
+        <p-button [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger w-100">
+          <i class="bi bi-check-circle-fill text-success"></i>
+        </p-button>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="table-responsive table-sm mt-3" style="height: 50vh; overflow-y: auto;">
+    <p-table 
+
+    styleClass="p-datatable-gridlines"
+    [tableStyle]="{ 'width': '100%' }"
+    [scrollable]="true"
+    selectionMode="single"
+    dataKey="idCorte">
+    
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Proceso</th>
+        <th>Fecha Inicio</th>
+        <th>F.Entrega</th>
+        <th>Proceso Destino</th>
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-compra>
+      <tr [pSelectableRow]="compra">
+        <td>{{ compra.descripcion }}</td>
+        <td>{{ compra.descripcionCompras }}</td>
+        <td>{{ compra.ancho }}</td> 
+        <td>{{ compra.altura }}</td> 
+      </tr>
+    </ng-template>
+  </p-table>
+  
+    </div>
+
+</div>
+
+</p-dialog>

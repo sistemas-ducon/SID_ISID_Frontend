@@ -3,18 +3,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/enviroments';
 import { Pedido } from '../../../models/isid/OrdenTrabajo/pedido.dto';
-import { Proceso } from '../../../models/isid/OrdenTrabajo/proceso.dto';
 import { InfoPedido } from '../../../models/isid/OrdenTrabajo/info-pedido.dto';
 import { documentacionPedido } from '../../../models/isid/OrdenTrabajo/documentacionpedido';
 import { equivalenciaDeCodigos } from '../../../models/isid/OrdenTrabajo/equivalenciaDeCodigos.dto';
 import { InsumosPlano } from '../../../models/isid/OrdenTrabajo/insumosPlano.dto';
 import { DespiecePlano } from '../../../models/isid/OrdenTrabajo/despiece.dto';
-import { map } from 'rxjs';
-import { Compra } from '../../../models/isid/OrdenTrabajo/compras.dto';
+import { Compra, ProveedorActualizarDto, ProveedorDto, ProveedorInsertarDto } from '../../../models/isid/OrdenTrabajo/compras.dto';
 import { ModulosMedidasFinales, MedidasCorteProduccion } from '../../../models/isid/OrdenTrabajo/produccion.dto';
 import { ApiResponse } from '../../../models/isid/OrdenTrabajo/produccion.dto';
 import { Mo } from '../../../models/isid/OrdenTrabajo/mo.dto';
-
+import { SimulacionRegistroResponse } from '../../../models/isid/OrdenTrabajo/regpedido';
 
 @Injectable({
   providedIn: 'root'
@@ -70,19 +68,20 @@ export class OrdenTrabajoService {
     return this.http.get<any>(`${this.apiUrl}/ObtenerProcesosProduccion/${cedula}`);
   }
 
-  obtenerReporte(proceso: string): Observable<any> {
+  obtenerReporte(proceso: string, otBuscar: string, nombreObraBuscar: string, impresion: boolean,todasProgramadas: boolean): Observable<any> {
     const requestBody = {
-      impresion: false,
-      todasProgramadas: false,
-      otBuscar: "",
-      nombreObraBuscar: "",
-      descripcionProceso: proceso,  // Aquí se asigna el proceso seleccionado
+      impresion: impresion,
+      todasProgramadas: todasProgramadas,
+      otBuscar: otBuscar,
+      nombreObraBuscar: nombreObraBuscar,
+      descripcionProceso: proceso,
       terminadoDiseno: false,
       procesoBase: false
-    };
+    };    
   
     return this.http.post<any>(`${this.apiUrl}/ObtenerReporteProgramacionProcesos`, requestBody);
   }
+  
 
   obtenerDocumentacionOT(idOT: string, consecutivoPedido: string): Observable<documentacionPedido> {
     return this.http.get<documentacionPedido>(`${this.apiUrl}/ObtenerDocumentacionOT/${idOT}/${consecutivoPedido}`);
@@ -108,8 +107,8 @@ export class OrdenTrabajoService {
 
   obtenerCompras(idOT: string, consecutivoPedido: string) {
     const url = `${this.apiUrl}/ObtenerCompras/${idOT}/${consecutivoPedido}`;
-    return this.http.get<{ compras: Compra[] }>(url);
-  }
+    return this.http.get<{ resultado: { compras: Compra[] } }>(url);
+  }  
   
 
 obtenerReporteModulosMedidas(idOT: string, consecutivoPedido: string): Observable<ApiResponse<{ modulosMedidasFinales: ModulosMedidasFinales[], medidasCorteProduccion: MedidasCorteProduccion[] }>> {
@@ -124,5 +123,25 @@ obtenerManoObra(idOT: string, consecutivoPedido: string): Observable<ApiResponse
   );
 }
 
+obtenerInfoProveedores(): Observable<ApiResponse<ProveedorDto[]>> {
+  return this.http.get<ApiResponse<ProveedorDto[]>>(`${this.apiUrl}/ObtenerInfoProveedor`);
+}
+
+
+insertarProveedor(dto: ProveedorInsertarDto) {
+  return this.http.post<any>(`${this.apiUrl}/InsertarProveedor`, dto);
+}
+
+actualizarProveedor(dto: ProveedorActualizarDto) {
+  return this.http.put<any>(`${this.apiUrl}/ActualizarProveedor`, dto);
+}
+
+simularRegistro(plano: string, otId: string): Observable<SimulacionRegistroResponse> {
+  const params = new HttpParams()
+    .set('plano', plano)
+    .set('otId', otId);
+
+  return this.http.get<SimulacionRegistroResponse>(`${this.apiUrl}/simular-registro`, { params });
+}
 
 }
