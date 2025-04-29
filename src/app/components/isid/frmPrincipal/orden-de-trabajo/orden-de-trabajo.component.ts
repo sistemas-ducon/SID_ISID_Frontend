@@ -13,13 +13,14 @@ import { FrmPrincipalService } from '../../../../services/isid/FrmPrincipal/frm-
 import { CompartidoService } from '../../../../services/general/general.service';
 import { ApiResponse, asesores, Pedidos, sede } from '../../../../models/general/general';
 import { fechaDespacho, infoCliente, infoOT, plano, reporteContable } from '../../../../models/isid/frmprincipal/frmPrincipal';
+import { DialogObservacionesComponent } from '../../Modals/observaciones/dialog-observaciones/dialog-observaciones.component';
 
 
 
 @Component({
   selector: 'app-orden-de-trabajo',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PRIME_NG_IMPORTS],
+  imports: [CommonModule, ReactiveFormsModule, PRIME_NG_IMPORTS,DialogObservacionesComponent],
   templateUrl: './orden-de-trabajo.component.html',
   styleUrl: './orden-de-trabajo.component.css'
 })
@@ -96,6 +97,8 @@ export class OrdenDeTrabajoComponent implements OnInit {
 
   // control boton Ok
   botonOkControl: boolean = true;
+
+  modalObsVisible: boolean = false;
 
 
   constructor(private fb: FormBuilder, private principalService: FrmPrincipalService, private servicioCompartido: CompartidoService) {
@@ -450,6 +453,7 @@ export class OrdenDeTrabajoComponent implements OnInit {
   }
   
   VerObservaciones() {
+    this.modalObsVisible = true;
     this.servicioCompartido.mostrarAlerta("Observaciones de la OT", "info");
   }
   
@@ -507,6 +511,10 @@ export class OrdenDeTrabajoComponent implements OnInit {
   
   ActaEntrega() {
     this.servicioCompartido.mostrarAlerta("Acta de entrega generada", "success");
+  }
+
+  hideDialog() {
+    this.modalObsVisible = false;
   }
   
   

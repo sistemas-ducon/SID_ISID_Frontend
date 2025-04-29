@@ -1,80 +1,118 @@
-/* Estilo para el Sidebar */
-.modern-sidebar {
-    background-color: #2c3e50; /* Fondo oscuro para un look moderno */
-    color: white; /* Texto blanco */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    width: 250px; /* Ancho personalizado */
-  }
-  
-  /* Estilo del encabezado */
-  .modern-sidebar .p-sidebar-header {
-    border-bottom: 1px solid #34495e; /* Línea divisoria */
-    padding-bottom: 10px;
-  }
-  
-  
-  /* Estilo para las opciones del sidebar */
-  .option-item button {
-    font-size: 1.1rem;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-  }
-  
-  .option-item button:hover {
-    background-color: #2980b9; /* Efecto hover para las opciones */
-    color: white;
-  }
-  
-  .option-item i {
-    margin-right: 10px; /* Espaciado entre el icono y el texto */
-  }
-  
-
-
-  
-  /* Ajustes para la tipografía */
-  h6, .option-item button {
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  /* Navbar Moderno */
-.modern-navbar {
-  background: #083557;  /* Color azul profesional */
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-}
-
 /* Sidebar Moderno */
 .modern-sidebar {
-  width: 280px !important;
+  width: 13rem !important;
+  /* Reducir el ancho */
   background: #f8f9fa;
-  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  /* Bordes más sutiles */
+}
+
+/* Encabezado del Sidebar */
+.sidebar-header {
+  background: #e9ecef;
+  border-bottom: 1px solid #dee2e6;
+  padding: 4px 6px;
+  /* Espaciado más compacto */
+  font-size: 14px;
+  /* Reducir tamaño de texto */
+}
+
+/* Iconos en las opciones del Sidebar */
+.option-item i {
+  margin-right: 0.5rem; /* Espaciado más compacto */
+  font-size: 0.6rem; /* Ajustar tamaño de icono */
+}
+
+
+/* Navbar Moderno */
+.modern-navbar {
+  background: radial-gradient(circle, #1d5ba1 30%, #1c355e 70%);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  border-radius: 0;
+  font-size: 0.8rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* Mayor prioridad */
+}
+
+/* 🔹 Sidebar */
+.modern-sidebar {
+  width: 220px;
+  background: #f8f9fa;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  height: calc(100vh - 3rem);
+  /* Restar la altura del navbar */
+  position: fixed;
+  top: 3rem;
+  /* Ajustar para que salga debajo del navbar */
+  left: 0;
+  transform: translateX(-300px);
+  /* Inicialmente oculto */
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  /* Asegura que esté por encima del contenido */
 }
 
 .sidebar-header {
   background: #e9ecef;
+  padding: 0.5rem;
   border-bottom: 1px solid #dee2e6;
 }
 
 .option-item button {
   text-decoration: none;
-  padding: 10px;
-  font-size: 16px;
+  padding: 0.5rem;
+  font-size: 1rem;
   color: #333;
   width: 100%;
   transition: background 0.3s ease;
 }
 
 .option-item button:hover {
-  background: #083557;
+  background: #084675;
   color: white;
 }
 
-/* Contenedor del contenido dinámico */
 .content-container {
-  padding: 0.5rem 1rem 0 1rem ;
+  flex-grow: 1;
+  padding: 0.5rem;
+  overflow-y: auto;
+  margin-top: 3rem;
+  /* Ajustar para no sobreponerse al navbar */
+  transition: transform 0.3s ease-in-out;
+}
+
+.content-collapsed {
+  margin-left: 16.5rem;
+  /* Ajustar el contenido al ancho del sidebar */
+}
+
+.content-expanded {
+  margin-left: 0;
+}
+
+/* Ajuste para el p-sidebar */
+.p-sidebar-content {
+  pointer-events: auto;
+  /* Permite la interacción */
+}
+
+ :host ::ng-deep .p-sidebar-left{
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 17rem;
+}
+
+/* 🔹 Cuando el sidebar está abierto */
+.sidebar-visible .modern-sidebar {
+  transform: translateX(0);
+  /* Mostrar el sidebar */
 }

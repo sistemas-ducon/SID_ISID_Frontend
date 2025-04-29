@@ -41,6 +41,9 @@ export class AuthService {
             nombreUsuario: response.resultado.nombreCompleto,
             token: response.resultado.token,
             opcionesDeAcceso: this.mapearOpcionesAcceso(response.resultado),
+            permisosISID : response.resultado.permisosISID,
+            permisosSID: response.resultado.permisosSID,
+
           };
           this.guardarUsuario(usuario);
           return usuario;

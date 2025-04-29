@@ -31,7 +31,7 @@
             </button>
 
             <button pButton class="p-button-rounded p-button-text buttonNav " icon="bi bi-boxes" size="small"
-                title="Despiece " [disabled]="botones.despiece" [ngClass]="{'btn-disabled': !botones.despiece}">
+                title="Despiece " [disabled]="botones.despiece" [ngClass]="{'btn-disabled': !botones.despiece}" (click)="redireccionarInfoOT()">
             </button>
 
             <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-filetype-txt" size="small"
@@ -52,7 +52,7 @@
                 [ngClass]="{'btn-disabled': !botones.verCotizacion}">
             </button>
 
-            <button pButton class="p-button-rounded p-button-text buttonNav" icon="bi bi-bag-plus-fill" size="small"
+            <button pButton class="p-button-rounded p-button-text buttonNav btn-rojo" icon="bi bi-bag-plus-fill" size="small"
                 title="Registrar los elementos del plano en el Sag" [disabled]="botones.registrarSag"
                 [ngClass]="{'btn-disabled': !botones.registrarSag}">
             </button>
