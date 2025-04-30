@@ -112,8 +112,8 @@
                             <p-button [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger" [disabled]="botonesDeshabilitados" (click)="abrirModalObservacion()">
                                 <i class="bi bi-binoculars-fill"></i>
                             </p-button>
-                            <p-button label="OK" [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger" [disabled]="botonesDeshabilitados"></p-button>
-                            <p-button label="Reprogramar Procesos" [rounded]="true" [text]="true" class="custom-btn btn-danger" (click)="abrirModalReprogramar()"
+                            <p-button label="OK" [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger" [disabled]="botonesDeshabilitados" (onClick)="onTerminarProceso()"></p-button>
+                            <p-button label="Reprogramar Procesos" [rounded]="true" [text]="true" class="custom-btn btn-danger"  [disabled]="botonesDeshabilitados" (click)="abrirModalReprogramar()"
                                 [raised]="true"></p-button>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             selectionMode="single"
                             [(selection)]="selectedItem"
                             (onRowSelect)="onRowSelect()"
-                            dataKey="ot">
+                            dataKey="idProgramacion">
                             
                             <ng-template pTemplate="header">
                               <tr>
@@ -201,7 +201,6 @@
 
 
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <p>Contenido aquí...</p>
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <div class="container-fluid p-3 form-control-sm">
@@ -210,7 +209,7 @@
                 <div class="col-md-4 col-12">
                     <div class="col-12 d-flex align-items-center gap-2">
                         <label for="obra" class="fw-semibold">T.Modulo</label>
-                        <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"
+                        <p-dropdown [options]="countries2" [(ngModel)]="selectedCountry2" optionLabel="name"
                             [filter]="true" filterBy="name" [showClear]="true" 
                             placeholder="Tipo de modulo"
                             class="w-100">
@@ -231,15 +230,15 @@
                <!-- Segunda y tercera columna (mismo tamaño, juntas igual que la primera) -->
 <div class="col-md-4 col-8 d-flex align-items-center gap-2">
     <label for="obra" class="text-nowrap">Pdo Entre</label>
-    <input type="date" id="fecha1" [(ngModel)]="fecha2" class="form-control form-control-sm w-100" />
+    <input type="date" id="fecha1" [(ngModel)]="fechaInicio" class="form-control form-control-sm w-100" />
 </div>
 
                 <div class="col-md-2 col-6">
-                    <input type="date" id="fecha1" [(ngModel)]="fecha2" class="form-control form-control-sm w-100" />
+                    <input type="date" id="fecha1" [(ngModel)]="fechaFin" class="form-control form-control-sm w-100" />
                 </div>
                 <!-- Quinta columna (más pequeña, botón con icono) -->
                 <div class="col-md-2 col-6 d-flex justify-content-center gap-2">
-                    <p-button label="Consultar" [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger"></p-button>
+                    <p-button label="Consultar" [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger" (click)="consultarEstadisticas()"></p-button>
                             <p-button [rounded]="true" [text]="true" [raised]="true" class="custom-btn btn-danger">
                                 <i class="bi bi-printer-fill text-dark"></i>
                             </p-button>
@@ -255,31 +254,38 @@
                         <div class="col-md-6 border" style="height: 29rem;">
                             <div class="table-responsive table-sm" style="height: 29rem; overflow-y: auto;">
                                 <p-table 
-                            
                                 styleClass="p-datatable-gridlines"
                                 [tableStyle]="{ 'width': '100%' }"
                                 [scrollable]="true"
-                                selectionMode="single"
-                                dataKey="idCorte">
-                                
+                                [value]="estadisticaPorModulo">
+                              
                                 <ng-template pTemplate="header">
                                   <tr>
-                                    <th>Item</th>
-                                    <th>Familia Modulo</th>
+                                    <th>#</th>
+                                    <th>Familia Módulo</th>
                                     <th>Cant</th>
                                     <th>%</th>
                                   </tr>
                                 </ng-template>
                               
-                                <ng-template pTemplate="body" let-compra>
-                                  <tr [pSelectableRow]="compra">
-                                    <td>{{ compra.descripcion }}</td>
-                                    <td>{{ compra.descripcionCompras }}</td>
-                                    <td>{{ compra.ancho }}</td> 
-                                    <td>{{ compra.altura }}</td> 
+                                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                                  <tr>
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.familiaModulo }}</td>
+                                    <td>{{ item.sumaDeCant }}</td>
+                                    <td>{{ item.porcentaje | number: '1.2-2' }}%</td>
                                   </tr>
                                 </ng-template>
+                                <ng-template pTemplate="footer">
+                                    <tr>
+                                      <td></td>
+                                      <td><strong>TOTALES</strong></td>
+                                      <td><strong>{{ totalCantPorModulo }}</strong></td>
+                                      <td></td>
+                                    </tr>
+                                  </ng-template>
                               </p-table>
+                              
                               
                                 </div>
                         </div>
@@ -290,17 +296,17 @@
                             <div class="col-md-12 border" style="height: 14rem;">
                                 <div class="table-responsive table-sm" style="height: 14rem; overflow-y: auto;">
                                     <p-table 
-                                
+                                    [value]="estadisticaDetalle"
                                     styleClass="p-datatable-gridlines"
                                     [tableStyle]="{ 'width': '100%' }"
                                     [scrollable]="true"
                                     selectionMode="single"
                                     dataKey="idCorte">
-                                    
+                                  
                                     <ng-template pTemplate="header">
                                       <tr>
                                         <th>Item</th>
-                                        <th>Familia Modulo</th>
+                                        <th>Familia Módulo</th>
                                         <th>A</th>
                                         <th>H</th>
                                         <th>Cant</th>
@@ -308,17 +314,29 @@
                                       </tr>
                                     </ng-template>
                                   
-                                    <ng-template pTemplate="body" let-compra>
-                                      <tr [pSelectableRow]="compra">
-                                        <td>{{ compra.descripcion }}</td>
-                                        <td>{{ compra.descripcionCompras }}</td>
-                                        <td>{{ compra.ancho }}</td> 
-                                        <td>{{ compra.altura }}</td> 
-                                        <td>{{ compra.altura }}</td>
-                                        <td>{{ compra.altura }}</td>
+                                    <ng-template pTemplate="body" let-item let-i="rowIndex">
+                                      <tr [pSelectableRow]="item">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ item.familiaModulo }}</td>
+                                        <td>{{ item.ancho }}</td>
+                                        <td>{{ item.altura }}</td>
+                                        <td>{{ item.sumaDeCant }}</td>
+                                        <td>{{ item.porcentaje | number:'1.2-2' }}%</td>
                                       </tr>
                                     </ng-template>
+                                    <ng-template pTemplate="footer">
+                                        <tr>
+                                          <td></td>
+                                          <td><strong>TOTALES</strong></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td><strong>{{ totalCantPorOT }}</strong></td>
+                                          <td></td>
+                                        </tr>
+                                      </ng-template>
+                                      
                                   </p-table>
+                                  
                                   
                                     </div>
                             </div>
@@ -326,31 +344,41 @@
                                 <h6 class="text-center">Detallado por OT</h6>
                                 <div class="table-responsive table-sm" style="height: 14rem; overflow-y: auto;">
                                     <p-table 
-                                
-                                    styleClass="p-datatable-gridlines"
-                                    [tableStyle]="{ 'width': '100%' }"
-                                    [scrollable]="true"
-                                    selectionMode="single"
-                                    dataKey="idCorte">
-                                    
-                                    <ng-template pTemplate="header">
-                                      <tr>
-                                        <th>Item</th>
-                                        <th>OT</th>
-                                        <th>Cant</th>
-                                        <th>%</th>
-                                      </tr>
-                                    </ng-template>
-                                  
-                                    <ng-template pTemplate="body" let-compra>
-                                      <tr [pSelectableRow]="compra">
-                                        <td>{{ compra.descripcion }}</td>
-                                        <td>{{ compra.descripcionCompras }}</td>
-                                        <td>{{ compra.ancho }}</td> 
-                                        <td>{{ compra.altura }}</td> 
-                                      </tr>
-                                    </ng-template>
-                                  </p-table>
+  [value]="estadisticaPorOT"
+  styleClass="p-datatable-gridlines"
+  [tableStyle]="{ 'width': '100%' }"
+  [scrollable]="true"
+  selectionMode="single"
+  dataKey="ot">
+  
+  <ng-template pTemplate="header">
+    <tr>
+      <th>#</th>
+      <th>OT</th>
+      <th>Cant</th>
+      <th>%</th>
+    </tr>
+  </ng-template>
+  
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <tr [pSelectableRow]="item">
+      <td>{{ i + 1 }}</td>
+      <td>{{ item.ot }}</td>
+      <td>{{ item.sumaDeCant }}</td>
+      <td>{{ item.porcentaje | number: '1.2-2' }}%</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <tr>
+      <td></td>
+      <td><strong>TOTALES</strong></td>
+      <td><strong>{{ totalCantPorOT }}</strong></td>
+      <td></td>
+    </tr>
+  </ng-template>
+  
+</p-table>
+
                                   
                                     </div>
                             </div>
@@ -363,10 +391,10 @@
             
             </div>
 
-            <app-reprogramar-proceso
+            <app-reprogramar-proceso 
             [visible]="modalVisibleReprogramar"
-            (onClose)="modalVisibleReprogramar = false"
-          ></app-reprogramar-proceso>
+            (onClose)="modalVisibleReprogramar = false"> 
+          </app-reprogramar-proceso>
 
           <app-dialog-observaciones
           [visible]="modalVisibleObservaciones"

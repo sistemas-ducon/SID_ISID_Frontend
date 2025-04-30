@@ -188,6 +188,9 @@ export class InfoOTComponent implements OnInit {
 
             this.fechaDespacho = infoPedido.fechaDespacho;
           this.programacionObra = infoPedido.programacionObra;
+
+          this.infoOtStateService.setPlano(infoPedido.infoPlano?.plano || '');
+
         
         },
         error: (err) => console.error('Error al obtener la información del pedido:', err)

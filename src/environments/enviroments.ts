@@ -5,11 +5,11 @@ export const environment = {
   };
   
   
-  // export const environment = {
-  //   production: true,
-  //   apiUrl: 'http://181.143.1.10:9085/api', // URL de producción
-  //   assetUrl: 'http://181.143.1.10:9086/FrontEndISID/assets/'
-  // };
+  // // export const environment = {
+  // //   production: true,
+  // //   apiUrl: 'http://181.143.1.10:9085/api', // URL de producción
+  // //   assetUrl: 'http://181.143.1.10:9086/FrontEndISID/assets/'
+  // // };
   
   
 

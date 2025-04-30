@@ -13,6 +13,8 @@ import { ModulosMedidasFinales, MedidasCorteProduccion } from '../../../models/i
 import { ApiResponse } from '../../../models/isid/OrdenTrabajo/produccion.dto';
 import { Mo } from '../../../models/isid/OrdenTrabajo/mo.dto';
 import { SimulacionRegistroResponse } from '../../../models/isid/OrdenTrabajo/regpedido';
+import { EstadisticasResponse, FamiliaModulo, OperarioProduccion, Programacion } from '../../../models/isid/OrdenTrabajo/consultas.dto';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -142,6 +144,35 @@ simularRegistro(plano: string, otId: string): Observable<SimulacionRegistroRespo
     .set('otId', otId);
 
   return this.http.get<SimulacionRegistroResponse>(`${this.apiUrl}/simular-registro`, { params });
+}
+
+obtenerOperariosProduccion(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/obtener-operarios-produccion`);
+}
+
+consultarReprogramaciones(ot: string, pedido: number): Observable<Programacion[]> {
+  const body = { ot, pedido };
+  return this.http.post<Programacion[]>(`${this.apiUrl}/consultar-reprogramaciones`, body);
+}
+
+obtenerEstadisticas(fechaInicio: string, fechaFin: string, familiaModulo: string): Observable<EstadisticasResponse> {
+  const params = {
+    fechaInicio: fechaInicio,
+    fechaFin: fechaFin,
+    familiaModulo: familiaModulo
+  };
+
+  return this.http.get<EstadisticasResponse>(`${this.apiUrl}/obtener-estadisticas`, { params });
+}
+
+obtenerFamilias(): Observable<ApiResponse<FamiliaModulo[]>> {
+  const url = `${this.apiUrl}/obtener-familias`;
+  return this.http.get<ApiResponse<FamiliaModulo[]>>(url);
+}
+
+terminarProceso(idProgramacion: number) {
+  const body = { idProgramacion };
+  return this.http.put(`${this.apiUrl}/terminar-proceso`, body);
 }
 
 }

@@ -20,21 +20,27 @@
       <div class="d-flex align-items-center justify-content-between gap-2">
         <div class="col-12 d-flex align-items-center gap-2">
           <label for="obra" class="fw-semibold">Operario</label>
-          <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"
-              [filter]="true" filterBy="name" [showClear]="true" 
-              placeholder=""
-              class="w-100">
-              <ng-template pTemplate="selectedItem" let-selectedOption>
-                  <div class="d-flex align-items-center">
-                      <div>{{ selectedOption.name }}</div>
-                  </div>
-              </ng-template>
-              <ng-template let-country pTemplate="item">
-                  <div class="d-flex align-items-center">
-                      <span>{{ country.name }}</span>
-                  </div>
-              </ng-template>
-          </p-dropdown>
+          <p-dropdown 
+          [options]="countries" 
+          [(ngModel)]="selectedCountry" 
+          optionLabel="operario"
+          [filter]="true" 
+          filterBy="operario" 
+          [showClear]="true" 
+          placeholder="Selecciona un operario"
+          class="w-100">
+          <ng-template pTemplate="selectedItem" let-selectedOption>
+            <div class="d-flex align-items-center">
+              <div>{{ selectedOption.operario }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-country pTemplate="item">
+            <div class="d-flex align-items-center">
+              <span>{{ country.operario }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        
       </div>
     </div>
     </div>
@@ -64,31 +70,33 @@
 
   <div class="table-responsive table-sm mt-3" style="height: 50vh; overflow-y: auto;">
     <p-table 
-
     styleClass="p-datatable-gridlines"
     [tableStyle]="{ 'width': '100%' }"
     [scrollable]="true"
     selectionMode="single"
-    dataKey="idCorte">
-    
+    dataKey="idProgramacion"
+    [value]="reprogramaciones">
+  
     <ng-template pTemplate="header">
       <tr>
         <th>Proceso</th>
         <th>Fecha Inicio</th>
-        <th>F.Entrega</th>
+        <th>F. Entrega</th>
         <th>Proceso Destino</th>
       </tr>
     </ng-template>
   
-    <ng-template pTemplate="body" let-compra>
-      <tr [pSelectableRow]="compra">
-        <td>{{ compra.descripcion }}</td>
-        <td>{{ compra.descripcionCompras }}</td>
-        <td>{{ compra.ancho }}</td> 
-        <td>{{ compra.altura }}</td> 
+    <ng-template pTemplate="body" let-programacion>
+      <tr [pSelectableRow]="programacion">
+        <td>{{ programacion.descripcionProceso }}</td>
+        <td>{{ programacion.fechaInicioProceso | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ programacion.fechaFinalProceso | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ programacion.procesoDestino || 'N/A' }}</td>
       </tr>
     </ng-template>
   </p-table>
+  
+  
   
     </div>
 

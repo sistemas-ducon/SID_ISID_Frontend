@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel"
@@ -15,12 +15,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { InfoOtStateService } from '../../../../services/isid/OrdenTrabajo/info-ot-state.service';
 import { ReprogramarProcesoComponent } from '../../Modals/reprogramar-proceso/reprogramar-proceso.component';
 import { DialogObservacionesComponent } from '../../Modals/observaciones/dialog-observaciones/dialog-observaciones.component';
+import { EstadisticaDetalle, EstadisticaPorModulo, EstadisticaPorOT } from '../../../../models/isid/OrdenTrabajo/consultas.dto';
+import { MessageService } from 'primeng/api'; // si usas mensajes de éxito/error
 
-
-interface City {
-  name: string;
-  code: string;
-}
 
 @Component({
   selector: 'app-consultas',
@@ -33,6 +30,9 @@ interface City {
 export class ConsultasComponent{
   countries: any[] | undefined;
   value: string | undefined;
+
+  countries2: any[] | undefined;
+  selectedCountry2: any;
 
   selectedCountry: any;
   procesos: any[] = [];
@@ -51,11 +51,33 @@ export class ConsultasComponent{
   textAreaDeshabilitados: boolean = true; 
   botonesDeshabilitados: boolean = true; 
 
+  otSeleccionada: string = ''; // La OT seleccionada
+  pedidoSeleccionado: number = 0; // El pedido seleccionado
+
+  fechaInicio!: string;
+fechaFin!: string;
+estadisticaPorModulo: EstadisticaPorModulo[] = [];
+estadisticaPorOT: EstadisticaPorOT[] = [];
+estadisticaDetalle: EstadisticaDetalle[] = [];
+
+totalCantPorModulo: number = 0;
+totalCantPorOT: number = 0;
+totalCantDetalle: number = 0;
 
    constructor(private ordenTrabajoService: OrdenTrabajoService, private authService: AuthService, private SessionServiceService: SessionServiceService,   private router: Router,  private route: ActivatedRoute,
-    private infoOtStateService: InfoOtStateService) {}
+    private infoOtStateService: InfoOtStateService, private messageService: MessageService) {}
 
   ngOnInit() {
+
+    this.ordenTrabajoService.obtenerFamilias().subscribe((response) => {
+      if (response.isExitoso && response.resultado) {
+        this.countries2 = response.resultado.map((f) => ({
+          name: f.descripcion_Familia,
+          code: f.id_Familia,
+        }));
+      }
+    });
+
     const usuario = this.SessionServiceService.obtenerSesion();
     if (usuario && usuario.cedula) {
       this.obtenerProcesos(usuario.cedula);
@@ -71,6 +93,9 @@ export class ConsultasComponent{
     this.fecha2 = mas7SinHora;
     
 }
+
+@ViewChild(ReprogramarProcesoComponent) modalHijo!: ReprogramarProcesoComponent;
+
 
   obtenerProcesos(cedula: string): void {
     this.ordenTrabajoService.obtenerProcesosProduccion(cedula).subscribe(response => {
@@ -221,6 +246,9 @@ export class ConsultasComponent{
   }
   
   onRowSelect(): void {
+    this.otSeleccionada = this.selectedItem.ot;
+    this.pedidoSeleccionado = this.selectedItem.pedido;
+
     this.botonesDeshabilitados = false;
   }
 
@@ -229,6 +257,15 @@ export class ConsultasComponent{
   }
 
   abrirModalReprogramar(): void {
+    console.log('Se ejecuta abrirModalReprogramar()');
+    console.log('OT seleccionada:', this.otSeleccionada, 'Pedido seleccionado:', this.pedidoSeleccionado);
+
+    // Llamamos al método del hijo para pasar los datos
+    if (this.modalHijo) {
+      this.modalHijo.recibirDatos(this.otSeleccionada, this.pedidoSeleccionado);
+    }
+
+    // Abrimos el modal
     this.modalVisibleReprogramar = true;
   }
 
@@ -239,4 +276,56 @@ export class ConsultasComponent{
   hideDialog() {
     this.modalVisibleReprogramar = false;
   }
+
+  consultarEstadisticas(): void {
+    const familiaModulo = this.selectedCountry2?.name || '';
+  
+    this.ordenTrabajoService.obtenerEstadisticas(this.fechaInicio, this.fechaFin, familiaModulo)
+      .subscribe({
+        next: (res) => {
+          this.estadisticaPorModulo = res.resultado.estadisticaPorModulo;
+          this.estadisticaPorOT = res.resultado.estadisticaPorOT;
+          this.estadisticaDetalle = res.resultado.estadisticaDetalle;
+  
+          // Calcular totales
+          this.totalCantPorModulo = this.estadisticaPorModulo.reduce((acc, item) => acc + item.sumaDeCant, 0);
+          this.totalCantPorOT = this.estadisticaPorOT.reduce((acc, item) => acc + item.sumaDeCant, 0);
+          this.totalCantDetalle = this.estadisticaDetalle.reduce((acc, item) => acc + item.sumaDeCant, 0);
+        },
+        error: (err) => {
+          console.error('Error al obtener estadísticas:', err);
+        }
+      });
+  }
+  
+  onTerminarProceso() {
+    if (!this.selectedItem?.idProgramacion) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Debe seleccionar una fila válida con ID de programación.',
+      });
+      return;
+    }
+
+    this.ordenTrabajoService.terminarProceso(this.selectedItem.idProgramacion).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Proceso terminado',
+          detail: `Se terminó correctamente el proceso con ID ${this.selectedItem.idProgramacion}`,
+        });
+        // Recarga de datos si aplica
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Hubo un error al terminar el proceso.',
+        });
+      },
+    });
+  }
+  
 }
