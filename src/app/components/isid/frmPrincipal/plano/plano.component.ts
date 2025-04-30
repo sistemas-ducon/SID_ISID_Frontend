@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 import { Pedido } from '../../../../models/isid/OrdenTrabajo/pedido.dto';
 import { ApiResponse, Pedidos } from '../../../../models/general/general';
 import { plano } from '../../../../models/isid/frmprincipal/frmPrincipal';
-import { PlanoService } from '../../../../services/isid/FrmPrincipal/Plano/plano.service';
+import { PlanoService } from '../../../../services/isid/FrmPrincipal/plano.service';
+
 
 @Component({
   selector: 'app-plano',
@@ -49,7 +50,12 @@ export class PlanoComponent {
   modoSoloTabla: boolean = true;
   esCartera: boolean = false;
 
-  constructor(private fb: FormBuilder, private compartidoServices: CompartidoService, private router: Router, private planoServicio: PlanoService) {
+  constructor(
+    private fb: FormBuilder,
+     private compartidoServices: CompartidoService,
+      private router: Router,
+       private planoServicio: PlanoService,
+       private infoOtStateService: InfoOtStateService,) {
 
     //Se Inicializa los controles del formualario reactivo
     this.formPlano = this.fb.group({
@@ -110,8 +116,22 @@ export class PlanoComponent {
                   valorDespiece: totalDespiece
                 });
 
-                // control de Botones de plano 
+                // control de Botones de plano de debe validar por departamento 
+                // por ahora solo produccion
 
+                this.botones = {
+                  adicionar: true,
+                  modificarObjeto: true,
+                  quitarObjeto: true,
+                  eliminarTodos: true,
+                  leerAcad: true,
+                  despiece: false,
+                  generarTxt: false,
+                  guardarTxt: false,
+                  exportarPlano: true,
+                  verCotizacion: true,
+                  registrarSag: false
+                }
 
 
               } else {
@@ -132,10 +152,29 @@ export class PlanoComponent {
         this.compartidoServices.mostrarAlerta('Ocurrió un eror, por favor intentelo nuevamente', 'error');
       }
     });
+
+
   }
 
   redireccionarOT() {
     this.router.navigate(['/isid/dashboard-frm-principal/orden-de-trabajo']);
+  }
+
+  redireccionarInfoOT() {
+
+    // Consultamos la OT, y el pedido selecionado 
+    const estado = this.compartidoServices.obtenerEstadoOT();
+    if (estado) {
+       // Guardar en el servicio para cargar info ot 
+    this.infoOtStateService.setIdOT(estado.ot);
+    this.infoOtStateService.setPedidos(estado.pedidos);
+    this.infoOtStateService.setSelectedPedido(estado.pedidoSeleccionado);
+    }
+
+
+   
+
+    this.router.navigate(['/isid/menu-isid/dashboard']);
   }
 
   ampliarTabla() {

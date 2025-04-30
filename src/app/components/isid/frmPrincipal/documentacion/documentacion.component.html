@@ -1,1 +1,191 @@
-<p>documentacion works!</p>
+<p-toast></p-toast>
+<div class="container-fluid form-control-sm bg-light  " [attr.translate]="'no'" [style]="{'margin-left':'0.2rem','padding-bottom':'1rem'}">
+
+    <form [formGroup]="formFiltro">
+        <div class="row pb-2 g-4 g-md-2 mt-2  ">
+            <div class="col-md-7"></div>
+            <div class="col-md-2 justify-content-center">
+                <p-floatLabel>
+                    <p-dropdown 
+                        formControlName="tipoDocFiltro" 
+                        [options]="tipoDocFiltro" 
+                        optionLabel="label" 
+                        optionValue="value" 
+                        [style]="{'width': '100%', 'height':'2rem'}" (onChange)="onTipoDocFiltroChange()">
+                    </p-dropdown>
+                    <label for="tipoDocFiltro">Tipo de Documento</label>
+                </p-floatLabel>
+            </div>
+            
+
+            <div class="col-md-2 d-flex justify-content-end align-items-center gap-2" style="padding-right: 1rem;">
+                <p-checkbox formControlName="chkFiltroPed" binary="true" inputId="chkFiltroPed"
+                    (onChange)="filtrarDocumentacionPorPedido($event)"></p-checkbox>
+                <label for="chkFiltroPed" class="cursor-pointer">Filtrar por pedido</label>
+            </div>
+            <div class="col-md-1"></div>
+
+
+        </div>
+    </form>
+
+    <!-- Tabla Documentacion -->
+    <div class="card mb-2 mt-2" style="height: auto;">
+        <div class="card-body p-2 ">
+
+            <div class="table-responsive border rounded " style="max-height: 17rem; height: 17rem; overflow-y: hidden;">
+
+                <div class="position-relative  pb-0 rounded" style="min-height: 2rem;">
+                
+                    <h6 class="text-start  m-0 tituloTabla" [style]="{'height':'2rem', 'padding-left':'1rem'}"> Documentación</h6>
+                </div>
+
+                <p-table [scrollable]="true" scrollHeight="15rem" [value]="documentacionFiltrada"
+                    [tableStyle]="{ 'min-width': '50rem', 'padding': '0rem', 'margin-bottom':'1rem' }" [resizableColumns]="true"
+                    selectionMode="single">
+                    <ng-template pTemplate="header">
+                        <tr> 
+                            <!-- <th pResizableColumn style="white-space: nowrap; padding: 0.3rem; display: none;">ID Documento </th> -->
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Observacion </th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Archivo</th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Tipo Documento</th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Usuario</th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Fecha</th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Leido Por</th>
+                            <th pResizableColumn style="white-space: nowrap; padding: 0.3rem;">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-Documentacion>
+                        <tr pSelectableRow>
+                           
+                            <!-- <td style="white-space: nowrap; padding: 0.2rem; display: none;"> {{ Documentacion.idDocumento }}</td> -->
+                            <td style="white-space: nowrap; padding: 0.2rem;"> {{ Documentacion.observacion }}</td>
+                            <td style="white-space: nowrap; padding: 0.2rem; max-width: 11rem;">{{Documentacion.archivo }} </td>
+                            <td style="white-space: nowrap; padding: 0.2rem;">{{Documentacion.tipoDocumento }}</td>
+                            <td style="white-space: nowrap; padding: 0.2rem;"> {{ Documentacion.usuario }}</td>
+                            <td style="white-space: nowrap; padding: 0.2rem;">{{Documentacion.fechaRegistro | date:'yyyy-MM-dd' }} </td>
+                            <td style="white-space: nowrap; padding: 0.2rem; max-width: 11rem;" [title]="Documentacion.leidoPor">{{ Documentacion.leidoPor }}</td>
+                            <td style="white-space: nowrap; padding: 0.2rem;">
+                                <button pButton 
+                                        icon="pi pi-download"  
+                                        class="p-button-sm p-button-rounded p-button-text" 
+                                        severity="info" 
+                                        style="padding: 0.2rem 0.3rem; height: 1.5rem !important;" 
+                                        title="Descargar"
+                                        (click)="descargarArchivo(Documentacion.archivo, Documentacion.idDocumento)" >
+                                </button>
+                                
+                                <button pButton 
+                                        icon="pi pi-trash" 
+                                        class="p-button-sm p-button-rounded p-button-text" 
+                                        severity="danger" 
+                                        style="padding: 0.2rem 0.3rem; height: 1.5rem !important;" 
+                                        title="Eliminar" (click)="abrirModalEliminar(Documentacion.archivo, Documentacion.idDocumento)">
+                                </button>
+                              </td>
+                              
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+            </div>
+
+            <form [formGroup]="formCargaDocumento" onsubmit="SubirArchivo()">
+                <div class="row pb-2 g-4 g-md-2 mt-3 ">
+                    
+
+                    <div class="col-md-6">
+                        <div class="card p-2  pt-0">
+
+
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center pt-0 ">
+                                    <label for="doc" style="opacity: 0.7;">Información Documentos</label>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-7">
+                        
+                                        <div class="d-flex justify-content-between align-items-center pt-0 ">
+                                            <label for="ObsOT" style="opacity: 0.7;">Observación</label>
+                                        </div>
+                        
+                                        <textarea id="observacion" rows="4" cols="8" formControlName="observacion" pInputTextarea
+                                            class="form-control form-control-sm" style="white-space: pre-wrap;">
+                                                            </textarea>
+                        
+                                    </div>
+                        
+                                    <div class="col-md-5 justify-content-center pt-2 mt-2">
+                                        <div class="form-group">
+                                          <label for="tipoDocumentoSeleccionado" style="opacity: 0.7;">Tipo Documento</label>
+                                          <p-dropdown 
+                                            id="tipoDocumentoSeleccionado"
+                                            formControlName="tipoDocumentoSeleccionado"
+                                            [options]="tipoDoc"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            [style]="{ 'width': '100%', 'height': '2rem' }">
+                                          </p-dropdown>
+                                        </div>
+                                      </div>
+                                      
+                                </div>
+                            </div>
+
+                        </div>
+                    
+                    </div>
+
+                    <div class="col-md-6">
+                        <p-fileUpload 
+                        #fileUploader
+                        name="archivo"
+                        [style]="{'border-top-radius':'0.1rem','height':'auto'}"
+                        mode="advanced"
+                        accept=".png,.jpg,.jpeg,.gif,.bmp,.svg,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.dwg"
+                        [auto]="false"
+                        [customUpload]="true"
+                        [maxFileSize]="5000000"
+                        (onSelect)="SeleccionArchivo($event)"
+                        (uploadHandler)="subirArchivo($event)">                     
+                        <ng-template pTemplate="empty">
+                          <p>Arrastra y suelta archivos aquí o haz clic para seleccionar.</p>
+                        </ng-template>
+                      
+                      </p-fileUpload>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<p-dialog 
+  [(visible)]="controlModalEliminar" 
+  [modal]="true" 
+  [resizable]="false" 
+  [closable]="false" 
+  header="Confirmar Eliminación"
+  [style]="{ 'width': '500px' }"
+  [baseZIndex]="10000"
+  [contentStyle]="{ 'text-align': 'center' }"
+  [draggable]="false" >
+  
+  <p-divider />
+  <!-- Mensaje dinámico dentro del modal -->
+  <p>¿Estás seguro de  eliminar el documento<br> "<strong>{{ nombreArchivoSeleccionado }}</strong>"?</p>
+
+  <!-- Footer centrado -->
+  <div class="p-dialog-footer" style="display: flex; justify-content: center; gap: 10px;">
+    <button pButton type="button" label="Cancelar" class="p-button-info rounded" rounded="true"  (click)="cancelarEliminacion()"></button>
+    <button pButton type="button" label="Eliminar" class="p-button-danger rounded" (click)="confirmarEliminar()"></button>
+  </div>
+</p-dialog>

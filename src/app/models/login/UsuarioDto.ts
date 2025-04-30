@@ -4,4 +4,11 @@ export interface UsuarioDto {
     nombreUsuario: string;
     token: string;
     opcionesDeAcceso: string[];
+    permisosISID:   PermisosSid[];
+    permisosSID:    PermisosSid[];
   }
+
+  export interface PermisosSid {
+    idPermiso:   number;
+    descripcion: string;
+}

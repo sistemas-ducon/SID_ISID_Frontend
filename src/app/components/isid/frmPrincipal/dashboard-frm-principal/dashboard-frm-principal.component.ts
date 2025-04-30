@@ -36,7 +36,7 @@ export class DashboardFrmPrincipalComponent {
 
   selectOption(option: string): void {
     this.selectedOption = option;
-    this.sidebarVisible1 = false;  
+     this.sidebarVisible1 = false;  // No cambiar si el usuario no quiero dos click 
   
     const routeMap: { [key: string]: string } = {
       'Orden de trabajo': 'orden-de-trabajo',
@@ -61,5 +61,9 @@ export class DashboardFrmPrincipalComponent {
 
   goToMenuIsid(): void {
     this.router.navigate(['/menu-isid']);
+  }
+
+  toggleSidebar(): void {
+    this.sidebarVisible1 = !this.sidebarVisible1;
   }
 }

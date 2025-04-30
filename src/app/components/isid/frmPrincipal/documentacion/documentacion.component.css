@@ -1,0 +1,117 @@
+  /* Anderson */
+
+  :host ::ng-deep .p-toolbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center !important;
+    background-color: #fff;
+    border: none;
+    border-bottom: solid 1px #0d0d0d1c;
+
+}
+
+.tituloTabla {
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    background: radial-gradient(circle, #4a90e2, #1c355e);
+    /* Se puede poner color diferente */
+    color: white;
+    padding: 0.5rem 0;
+  }
+  
+  
+  /* Altura inicial de todos los inputs */
+  .p-inputtext {
+    height: 1.9rem;
+  }
+  
+  
+  /* Input y Float Label deshabilitados  */
+  
+  .p-inputtext:disabled {
+    background-color: #e0e0e0 !important;
+    /* Un gris más notorio */
+    color: #0d0d0d !important;
+    border-top: 2px solid #a0a0a0 !important;
+    /* Borde grueso arriba */
+    border-left: 2px solid #a0a0a0 !important;
+    /* Borde grueso izquierda */
+    border-right: 1px solid #ccc !important;
+    /* Borde derecho tenue */
+    border-bottom: 1px solid #ccc !important;
+    /* Borde inferior tenue */
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra tenue arriba e izquierda */
+    opacity: 0.6;
+    /* Mayor opacidad para destacar el estado deshabilitado */
+  }
+
+  :host ::ng-deep p-dropdown {
+    font-size: 0.4rem;
+    width: 150px;
+    height: 1.8rem;
+}
+
+:host ::ng-deep p-dropdown .p-dropdown-label {
+    height: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+:host ::ng-deep .p-dropdown-item {
+    padding-left: 0.2rem !important;
+    /* Reduce el espacio de las opciones */
+}
+
+/* Checkbox deshabilitado */
+:host ::ng-deep p-checkbox .p-checkbox-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Espaciado entre checkbox y label */
+:host ::ng-deep .p-checkbox {
+    margin-right: 5px;
+}
+
+
+  /* =========================
+    📌 DataTable
+    ========================= */
+    :host ::ng-deep .p-datatable {
+        font-size: 12px;
+    }
+    
+    :host ::ng-deep .p-datatable-table th,
+    :host ::ng-deep .p-datatable-table td {
+        border: 1px solid #d1d5db;
+        padding: 4px 6px;
+        white-space: nowrap;
+    }
+    
+    :host ::ng-deep .p-datatable-table th {
+        background-color: #f3f4f6;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 6px;
+    }
+    
+    :host ::ng-deep .p-datatable-wrapper {
+        overflow-y: auto;
+        max-height: 400px;
+    }
+  
+:host ::ng-deep .p-fileupload-content{
+ height: 7.49rem ;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  height: 2.8rem;
+  margin-top: 0;
+  border-top-right-radius: 0.6rem;
+  border-top-left-radius: 0.6rem;
+  background: radial-gradient(circle, #4a90e2, #1c355e); /* Se puede poner color diferente */
+  color: white;
+}
+    

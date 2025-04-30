@@ -19,7 +19,14 @@ export interface sede {
   descripcionSede:string;
 }
 
+// dto OT y Pedido 
 export interface OtPedidoDto {
   ot: string;
   pedido: number;
+}
+
+//dto OT y Tipo de Docuemnto 
+export interface DocumentacionDto {
+  ot: string;
+  tipoDoc: string;
 }

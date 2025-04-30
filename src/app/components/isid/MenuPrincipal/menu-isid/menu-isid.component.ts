@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/enviroments';
 import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
+
+import { PermisosSid, UsuarioDto } from '../../../../models/login/UsuarioDto';
+import { SessionServiceService } from '../../../../services/login/guardarsesion/session-service.service';
+import { CompartidoService } from '../../../../services/general/general.service';
 
 @Component({
   selector: 'app-menu-isid',
@@ -22,9 +26,10 @@ export class MenuIsidComponent implements OnInit {
   usuario: string | null = null;
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private sesionService:SessionServiceService,private compartidoServices: CompartidoService, ) { }
 
   ngOnInit() {
+
     this.items = [
       {
         label: 'Departamento',
@@ -34,7 +39,8 @@ export class MenuIsidComponent implements OnInit {
             label: 'Administrativo',
             icon: 'pi pi-users',
             items: [
-              { label: 'Gerencia Comercial', icon: 'pi pi-briefcase', items: [
+              {
+                label: 'Gerencia Comercial', icon: 'pi pi-briefcase', items: [
                   { label: 'Actualizar Precios', icon: 'pi pi-dollar' },
                   { label: 'Ventas', icon: 'pi pi-shopping-cart' }
                 ]
@@ -90,7 +96,7 @@ export class MenuIsidComponent implements OnInit {
               { label: 'Cierre de Obra', icon: 'pi pi-check' },
               { label: 'Chequeo Financiero', icon: 'pi pi-check' },
               { label: 'Despacho de Obras', icon: 'pi pi-check' },
-              { label: 'Orden de Trabajo', icon: 'pi pi-file', routerLink: '/isid/menu-isid/dashboard-frm-principal' },
+              { label: 'Orden de Trabajo', icon: 'pi pi-file' },
               { label: 'Programacion Ordenes TS del SID', icon: 'pi pi-check' },
             ]
           },
@@ -137,7 +143,7 @@ export class MenuIsidComponent implements OnInit {
               { label: 'Estadistica Produccion', icon: 'pi pi-check' },
               { label: 'Generar Programacion Ots de SID', icon: 'pi pi-check' },
               { label: 'Mano de Obra', icon: 'pi pi-check' },
-              { label: 'Ordenes de Trabajo', icon: 'pi pi-check' },
+              { label: 'Ordenes de Trabajo', icon: 'pi pi-file', command: () => this.validarPermisoAntesDeNavegar('Facturación y Cartera','/isid/menu-isid/dashboard-frm-principal',) },
             ]
           },
           {
@@ -172,104 +178,126 @@ export class MenuIsidComponent implements OnInit {
         icon: 'pi pi-user',
         items: [
 
-            //Cliente 
-            {
-                label: 'Cliente',
-                icon: 'pi pi-user',
+          //Cliente 
+          {
+            label: 'Cliente',
+            icon: 'pi pi-user',
 
-            },
+          },
 
-            //Empleado
-            {
-                label: 'Empleado',
-                icon: 'pi pi-user',
+          //Empleado
+          {
+            label: 'Empleado',
+            icon: 'pi pi-user',
 
-            }
+          }
         ]
 
-    },
+      },
       //Consultas
       {
         label: 'Consultas',
         icon: 'bi bi-search',
         items: [
 
-            //Despacho de Obra
-            {
-                label: 'Despacho Obra',
-                icon: 'pi pi-truck'
-            },
+          //Despacho de Obra
+          {
+            label: 'Despacho Obra',
+            icon: 'pi pi-truck'
+          },
 
-            //Insumo
-            {
-                label: 'Insumo',
-                icon: 'pi pi-server'
-            },
+          //Insumo
+          {
+            label: 'Insumo',
+            icon: 'pi pi-server'
+          },
 
-            //Módulo
-            {
-                label: 'Módulo',
-                icon: 'pi pi-pencil'
-            },
+          //Módulo
+          {
+            label: 'Módulo',
+            icon: 'pi pi-pencil'
+          },
 
-            //Todas las OT (Manuales/SID)
-            {
-                label: 'Todas las OT (Manuales/SID)',
-                icon: 'pi pi-palette',
+          //Todas las OT (Manuales/SID)
+          {
+            label: 'Todas las OT (Manuales/SID)',
+            icon: 'pi pi-palette',
 
-            },
+          },
 
-            //Estadísticas Sucesos de Obra
-            {
-                label: 'Estadísticas Sucesos de Obra',
-                icon: 'pi pi-palette',
+          //Estadísticas Sucesos de Obra
+          {
+            label: 'Estadísticas Sucesos de Obra',
+            icon: 'pi pi-palette',
 
-            },
+          },
 
-            //Actas de Entrega
-            {
-                label: 'Actas de Entrega',
-                icon: 'pi pi-palette',
+          //Actas de Entrega
+          {
+            label: 'Actas de Entrega',
+            icon: 'pi pi-palette',
 
-            },
+          },
 
-            //Reprocesos
-            {
-                label: 'Reprocesos',
-                icon: 'pi pi-palette',
+          //Reprocesos
+          {
+            label: 'Reprocesos',
+            icon: 'pi pi-palette',
 
-            },
+          },
 
-            //PQRSF
-            {
-                label: 'PQRSF',
-                icon: 'pi pi-palette',
+          //PQRSF
+          {
+            label: 'PQRSF',
+            icon: 'pi pi-palette',
 
-            },
+          },
 
-            //Producto no Conforme
-            {
-                label: 'Producto no Conforme',
-                icon: 'pi pi-palette',
+          //Producto no Conforme
+          {
+            label: 'Producto no Conforme',
+            icon: 'pi pi-palette',
 
-            }
+          }
         ]
-    },
+      },
     ];
 
-    
+
   }
 
   cerrarSesion() {
     console.log('Cerrar sesión');
-  
+
     // 🔹 Limpiar localStorage
     localStorage.removeItem('usuario');
     localStorage.removeItem('token');
     localStorage.removeItem('opcionesDeAcceso');
-  
+
     // 🔹 Redirigir al login
     this.router.navigate(['/login']);
   }
-  
+
+ /** Obtiene la sesión del localStorage */
+ obtenerSesion(): UsuarioDto | null {
+    const sesionString = localStorage.getItem('usuario');
+    return sesionString ? JSON.parse(sesionString) : null;
+}
+
+/** Función que valida si el usuario tiene el permiso antes de navegar */
+validarPermisoAntesDeNavegar(permissionDescription: string, routerLink: string) {
+  const usuario = this.obtenerSesion(); // Obtener la sesión desde localStorage
+  if (usuario) {
+    // Verificamos si el usuario tiene un permiso con la descripción indicada en permisosISID
+    const tienePermiso = usuario.permisosISID.some((permiso: PermisosSid) => permiso.descripcion === permissionDescription);
+
+    if (tienePermiso) {
+      // Si tiene el permiso, navegamos a la ruta
+      this.router.navigate([routerLink]);
+    } else {
+      this.compartidoServices.mostrarAlerta("No cuenta con el permiso para este módulo")
+    }
+  }
+}
+
 }

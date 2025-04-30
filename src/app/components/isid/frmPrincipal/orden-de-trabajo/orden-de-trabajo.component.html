@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<div class="container-fluid form-control-sm bg-light mb-3" [attr.translate]="'no'">
+<div class="container-fluid form-control form-control-sm bg-light mb-2" [attr.translate]="'no'" [style]="{'margin-left':'0.2rem','padding-bottom':'1rem'}">
 
     <p-toolbar [style]="{'background':'#F8F9FA'}">
         <div class="flex gap-2  container-fluid p-2 d-flex flex-wrap justify-content-center gap-2 bg-light ">
@@ -633,7 +633,7 @@
                                 <span class="p-inputgroup-addon" [style]="{'height': '4rem','width': '5.2rem'}">Obs.
                                     Contable
                                 </span>
-                                <textarea id="infoOT" rows="1" formControlName="ObsContable" pInputTextarea
+                                <textarea id="ObsContable" rows="1" formControlName="ObsContable" pInputTextarea
                                     [style]="{'height':'4rem'}" class="form-control"></textarea>
                             </p-inputGroup>
                         </div>
@@ -890,5 +890,7 @@
         [ngClass]="{ 'arriba': posicionArriba, 'abajo': !posicionArriba }" (mouseenter)="alternarPosicionOT()">
         🛑 Esta Orden de Trabajo está <strong>cerrada</strong>
     </div>
+
+    <app-dialog-observaciones *ngIf="modalObsVisible" [visible]="modalObsVisible"  (onClose)="hideDialog()"></app-dialog-observaciones>
 
 </div>
