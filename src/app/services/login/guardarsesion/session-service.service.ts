@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { UsuarioDto } from '../../../models/login/UsuarioDto';
-
+import { jwtDecode } from 'jwt-decode'; 
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +44,25 @@ export class SessionServiceService {
       localStorage.setItem('usuario', JSON.stringify(usuario));
     }
   }
+
+  obtenerPermisosDesdeToken(tipo: 'SID' | 'ISID'): string[] {
+      const usuario = this.obtenerSesion(); // Tu método que lee del localStorage
+      if (!usuario?.token) return [];
+  
+      try {
+        const decoded: any = jwtDecode(usuario.token);
+        const claimKey = tipo === 'SID' ? 'permisoSID' : 'permisoISID';
+  
+        const permisos = decoded[claimKey];
+  
+        // Si solo hay un permiso, puede venir como string, no como array
+        if (typeof permisos === 'string') return [permisos];
+        return Array.isArray(permisos) ? permisos : [];
+      } catch (error) {
+        console.error('Error al decodificar token:', error);
+        return [];
+      }
+    }
 
   /** Elimina la sesión del usuario */
   eliminarSesion(): void {

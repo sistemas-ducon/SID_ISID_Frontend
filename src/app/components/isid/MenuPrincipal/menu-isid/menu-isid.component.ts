@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/enviroments';
 import { PRIME_NG_IMPORTS } from '../../../../shared/NgPrime/prime-imports';
 
-import { PermisosSid, UsuarioDto } from '../../../../models/login/UsuarioDto';
+import { UsuarioDto } from '../../../../models/login/UsuarioDto';
 import { SessionServiceService } from '../../../../services/login/guardarsesion/session-service.service';
 import { CompartidoService } from '../../../../services/general/general.service';
 
@@ -143,7 +143,7 @@ export class MenuIsidComponent implements OnInit {
               { label: 'Estadistica Produccion', icon: 'pi pi-check' },
               { label: 'Generar Programacion Ots de SID', icon: 'pi pi-check' },
               { label: 'Mano de Obra', icon: 'pi pi-check' },
-              { label: 'Ordenes de Trabajo', icon: 'pi pi-file', command: () => this.validarPermisoAntesDeNavegar('Facturación y Cartera','/isid/menu-isid/dashboard-frm-principal',) },
+              { label: 'Ordenes de Trabajo', icon: 'pi pi-file', command: () => this.validarPermisoAntesDeNavegar('Producción', '/isid/menu-isid/dashboard-frm-principal',) },
             ]
           },
           {
@@ -278,26 +278,24 @@ export class MenuIsidComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
- /** Obtiene la sesión del localStorage */
- obtenerSesion(): UsuarioDto | null {
+  /** Obtiene la sesión del localStorage */
+  obtenerSesion(): UsuarioDto | null {
     const sesionString = localStorage.getItem('usuario');
     return sesionString ? JSON.parse(sesionString) : null;
-}
+  }
 
-/** Función que valida si el usuario tiene el permiso antes de navegar */
-validarPermisoAntesDeNavegar(permissionDescription: string, routerLink: string) {
-  const usuario = this.obtenerSesion(); // Obtener la sesión desde localStorage
-  if (usuario) {
-    // Verificamos si el usuario tiene un permiso con la descripción indicada en permisosISID
-    const tienePermiso = usuario.permisosISID.some((permiso: PermisosSid) => permiso.descripcion === permissionDescription);
-
-    if (tienePermiso) {
-      // Si tiene el permiso, navegamos a la ruta
+  /** Función que valida si el usuario tiene el permiso antes de navegar */
+  validarPermisoAntesDeNavegar(permission: string, routerLink: string) {
+    const permisosISID = this.sesionService.obtenerPermisosDesdeToken('ISID');
+    if (permisosISID.includes(permission)) {
       this.router.navigate([routerLink]);
     } else {
-      this.compartidoServices.mostrarAlerta("No cuenta con el permiso para este módulo")
+      this.compartidoServices.mostrarAlerta("No cuenta con el permiso para este módulo");
     }
   }
-}
+
+
+ 
+
 
 }
